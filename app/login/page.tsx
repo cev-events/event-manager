@@ -118,14 +118,14 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen bg-[#08090d] flex items-center justify-center pt-28 md:pt-32 pb-12 px-4 relative text-[#f8fafc]">
-      <div className="w-full max-w-md bg-[#0f121d] border-2 border-[#1e2436] shadow-[6px_6px_0px_0px_#161a29] rounded-xl p-8 relative z-10 space-y-6">
+    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center pt-28 md:pt-32 pb-12 px-4 relative text-white">
+      <div className="w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-2xl p-8 relative z-10 space-y-6 shadow-xl">
         <div className="text-center space-y-2">
           <div className="flex justify-center mb-2">
             <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-10 w-auto object-contain" />
           </div>
           <h1 className="text-2xl font-bold font-display tracking-tight text-white">Manager Portal Login</h1>
-          <p className="text-xs text-[#94a3b8]">
+          <p className="text-xs text-neutral-400">
             Sign in with your password or 6-digit email OTP verification code.
           </p>
         </div>

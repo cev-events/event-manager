@@ -372,12 +372,12 @@ export default function GoogleCalendarView({
   };
 
   return (
-    <div className="brutalist-card rounded-2xl overflow-hidden flex flex-col font-sans border-2 border-[#1e2436] bg-[#0f121d]">
-      <div className="p-3 sm:p-4 border-b border-[#1e2436] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#161a29]">
+    <div className="rounded-2xl overflow-hidden flex flex-col font-sans border border-neutral-800 bg-[#0a0a0a] shadow-xl">
+      <div className="p-3 sm:p-4 border-b border-neutral-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#111113]">
         <div className="flex items-center justify-between sm:justify-start space-x-2 sm:space-x-3">
           <button
             onClick={handleToday}
-            className="px-3 py-1.5 rounded-xl bg-[#0f121d] border border-[#1e2436] text-xs font-bold text-white hover:border-[#6366f1] transition-colors shrink-0"
+            className="px-3 py-1.5 rounded-full bg-neutral-900 border border-neutral-700 text-xs font-bold text-white hover:bg-neutral-800 transition-colors shrink-0"
           >
             Today
           </button>

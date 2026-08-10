@@ -28,13 +28,13 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
 
   return (
     <>
-      <aside className="hidden md:flex w-64 h-screen sticky top-0 bg-[#0f121d] border-r border-[#1e2436] p-6 flex-col justify-between shrink-0 overflow-y-auto z-40 select-none">
+      <aside className="hidden md:flex w-64 h-screen sticky top-0 bg-[#0a0a0a] border-r border-neutral-800 p-6 flex-col justify-between shrink-0 overflow-y-auto z-40 select-none">
         <div className="space-y-6">
           <div className="flex items-center space-x-3">
             <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-8 w-auto object-contain" />
             <div>
-              <h2 className="font-bold text-base text-white font-display">CEV EVENTS</h2>
-              <span className="text-[10px] uppercase font-bold text-white bg-[#6366f1] px-2 py-0.5 rounded border border-[#4f46e5] font-mono">
+              <h2 className="font-extrabold text-base text-white font-display tracking-tight">CEV EVENTS</h2>
+              <span className="text-[10px] uppercase font-bold text-white bg-neutral-800 px-2.5 py-0.5 rounded-full border border-neutral-700 font-mono">
                 {currentRole} Access
               </span>
             </div>
@@ -49,10 +49,10 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-xs font-semibold transition-all border ${
+                  className={`flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all ${
                     isActive
-                      ? 'bg-[#6366f1] text-white border-[#4f46e5] shadow-[3px_3px_0px_0px_#312e81]'
-                      : 'text-[#94a3b8] hover:text-white hover:bg-[#161a29] border-transparent'
+                      ? 'bg-neutral-800 text-white font-bold'
+                      : 'text-neutral-400 hover:text-white hover:bg-neutral-900'
                   }`}
                 >
                   <Icon className="w-4 h-4" />

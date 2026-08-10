@@ -19,23 +19,22 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-[#1e2436] bg-[#0a0c14] text-[#94a3b8] pt-12 pb-8 px-4 sm:px-6 relative overflow-hidden">
+    <footer className="border-t border-neutral-800 bg-[#0a0a0a] text-neutral-400 pt-12 pb-8 px-4 sm:px-6 relative overflow-hidden">
       <div className="max-w-7xl mx-auto space-y-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-2.5">
               <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-8 w-auto object-contain" />
-              <span className="text-xl font-bold font-display tracking-tight text-white">
-                CEV <span className="text-[#6366f1]">EVENTS</span>
+              <span className="text-xl font-extrabold font-display tracking-tight text-white">
+                CEV <span className="text-neutral-400 font-light">EVENTS</span>
               </span>
             </div>
-            <p className="text-xs text-[#94a3b8] leading-relaxed max-w-sm">
+            <p className="text-xs text-neutral-400 leading-relaxed max-w-sm">
               The official multi-community event management, publishing, slot booking, and public discovery platform for College of Engineering Vadakara (CE Vadakara).
             </p>
-
           </div>
 
-          <div className="md:col-span-7 brutalist-card p-6 rounded-2xl bg-[#0f121d] border border-[#1e2436] space-y-5 relative">
+          <div className="md:col-span-7 p-6 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-5 relative">
             <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-[#1e2436]">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">

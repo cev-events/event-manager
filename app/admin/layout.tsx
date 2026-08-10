@@ -43,7 +43,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   };
 
   return (
-    <div className="min-h-screen bg-[#08090d] text-[#f8fafc] flex flex-col md:flex-row font-sans">
+    <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col md:flex-row font-sans">
       <AdminSidebar currentRole={currentRole} onSignOut={handleSignOut} />
       <main className="flex-1 min-w-0 p-4 sm:p-6 md:p-8 pb-28 md:pb-8 overflow-y-auto">
         {children}

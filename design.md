@@ -5,18 +5,16 @@ The design language of **CEV EVENTS** is governed by the **Nixtio-Inspired Edito
 
 ---
 
-## 2. Color System & Palette
+## 2. Color System & Palette (Nixtio Dual Theme)
 
-### Base Dark Obsidian Palette
-* **Background Primary:** `#08090d` (Deep Navy Charcoal)
-* **Surface Background:** `#0f121d` (Elevated Panel Dark)
-* **Elevated Container:** `#161a29` (Card Surface)
-* **Border Colors:** `#1e2436` (Subtle 1px/2px Border) / `#2a334c` (Strong Border)
-* **Primary Accent:** `#6366f1` (Electric Indigo) with `#4f46e5` border & `#312e81` shadow
-* **Secondary Accent:** `#10b981` (Vibrant Emerald)
-* **Warning Accent:** `#f59e0b` (Amber Orange) for closed draft slots
-* **Text Primary:** `#f8fafc` (High-contrast Slate White)
-* **Text Muted:** `#94a3b8` (Slate Neutral Muted)
+### Base Palette Tokens
+* **Public Body Background:** `#f5f5f5` (Off-white Minimal Canvas)
+* **Dark Hero & Admin Background:** `#0a0a0a` (Deep Charcoal Black)
+* **Elevated Light Panel:** `#ffffff` (Clean White Card Surface)
+* **Elevated Dark Panel:** `#111113` / `#171717` (Dark Elevated Panel)
+* **Border Colors:** `#e5e5e5` (Light Border) / `#262626` (Dark Border)
+* **Primary Text:** `#0a0a0a` (Light Canvas) / `#ffffff` (Dark Canvas)
+* **Muted Text:** `#737373` / `#a3a3a3` (Neutral Muted)
 
 ### Community Signature Color Palette (Preset Swatches)
 * **IEEE Indigo:** `#6366f1` (Default)

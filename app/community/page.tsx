@@ -17,29 +17,29 @@ export default function CommunityPage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#08090d] text-[#f8fafc] flex flex-col pt-28 md:pt-32 pb-20 md:pb-12">
+    <div className="min-h-screen bg-[#f5f5f5] text-[#0a0a0a] flex flex-col pt-28 md:pt-32 pb-20 md:pb-12 font-sans">
       <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-[#1e2436] pb-6">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-neutral-300 pb-6">
           <div className="flex-1 space-y-2">
-            <span className="text-xs font-mono text-[#6366f1] uppercase font-bold tracking-widest">
-              002 / Technical Organizations
+            <span className="text-xs font-mono text-neutral-500 uppercase font-bold tracking-widest">
+              001 / Technical Organizations
             </span>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white font-display leading-[0.95]">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-[#0a0a0a] font-display leading-[0.95]">
               STUDENT COMMUNITIES
             </h1>
-            <p className="text-[#94a3b8] text-xs sm:text-sm max-w-xl leading-relaxed font-sans">
+            <p className="text-neutral-600 text-xs sm:text-sm max-w-xl leading-relaxed font-sans">
               Explore student branches and technical organizations at CE Vadakara. Connect, learn, and collaborate across campus initiatives.
             </p>
           </div>
 
           <div className="relative w-full md:w-80">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-neutral-400">
               <Search className="w-4 h-4" />
             </div>
             <input
               type="text"
               placeholder="Search communities..."
-              className="w-full bg-[#0f121d] border border-[#1e2436] text-white pl-9 pr-4 py-2.5 rounded-xl text-xs focus:outline-none focus:border-[#6366f1] placeholder-slate-500"
+              className="w-full bg-white border border-neutral-200 text-[#0a0a0a] pl-9 pr-4 py-2.5 rounded-xl text-xs focus:outline-none focus:border-neutral-400 placeholder-neutral-400 shadow-sm"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -47,7 +47,7 @@ export default function CommunityPage() {
         </div>
 
         {loading ? (
-          <div className="p-12 text-center text-[#94a3b8] text-xs bg-[#0f121d] border border-[#1e2436] rounded-2xl italic">
+          <div className="p-12 text-center text-neutral-500 text-xs bg-white border border-neutral-200 rounded-2xl italic">
             Loading campus communities...
           </div>
         ) : (
@@ -56,7 +56,7 @@ export default function CommunityPage() {
               <Link
                 key={comm.id}
                 href={`/community/${comm.slug || comm.id}`}
-                className="brutalist-card p-6 rounded-2xl space-y-4 flex flex-col justify-between hover:border-[#6366f1] transition-all cursor-pointer group bg-[#0f121d] border border-[#1e2436]"
+                className="p-6 rounded-2xl space-y-4 flex flex-col justify-between hover:border-neutral-400 transition-all cursor-pointer group bg-white border border-neutral-200 shadow-sm"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">

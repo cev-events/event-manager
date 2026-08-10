@@ -1,5 +1,17 @@
 # Changelogs & Version History
 
+## [0.93.0] - 2026-08-11
+
+### 🎨 Nixtio Dual Light/Dark Theme, Floating Pill Navbar & Google Calendar UI
+- **Nixtio Floating Pill Navbar ([app/components/Navbar.tsx](./app/components/Navbar.tsx)):** Re-architected navbar into a floating pill container matching `nixtio.com` (`max-w-5xl mx-auto rounded-full bg-[#0a0a0a]/90 backdrop-blur-xl border border-neutral-800`), adaptive SVG logo, clean minimal links (`Events`, `Schedules`, `Communities`, `Support`), and rounded pill CTA button.
+- **Removed Unwanted Hero Strips & AI Fluff ([app/page.tsx](./app/page.tsx)):** Removed top hero strip, bottom 4-column stat strip (`05+`, `100%`, `WebP`, `2026`), `Services & Capabilities` section, and all `Sparkles` / AI fluff embellishments.
+- **Renamed Event Showcase to "Schedules" ([app/page.tsx](./app/page.tsx)):** Re-architected event showcase section into **`Schedules`** with clean editorial cards on off-white background.
+- **College Entity Exclusion from Chapters & Clubs ([app/page.tsx](./app/page.tsx), [app/community/page.tsx](./app/community/page.tsx)):** Filtered out "College" from student chapters and clubs listings (`c.slug !== 'college'`).
+- **Google Calendar UI Alignment ([app/components/GoogleCalendarView.tsx](./app/components/GoogleCalendarView.tsx)):** Aligned calendar interface with Google Calendar's clean toolbar, view switcher pills (`Month`, `Week`, `Day`), multi-day connected banners, and slot privacy shield.
+- **Modernized Admin Dashboard ([app/admin/*](./app/admin), [app/components/AdminSidebar.tsx](./app/components/AdminSidebar.tsx)):** Updated admin consoles with clean modern neutral styling (`bg-[#0a0a0a]`, `bg-neutral-900`, `border-neutral-800`, rounded pills, no brutalist offset shadows).
+
+---
+
 ## [0.92.0] - 2026-08-10
 
 ### 🎨 Nixtio Editorial UI Design System, Logo Integration & Global Loading Screen

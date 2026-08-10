@@ -112,24 +112,24 @@ export default function SupportPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#08090d] text-[#f8fafc] pt-24 md:pt-28 pb-20 px-4 sm:px-6 lg:px-8 font-sans relative overflow-hidden">
+    <div className="min-h-screen bg-[#f5f5f5] text-[#0a0a0a] pt-24 md:pt-28 pb-20 px-4 sm:px-6 lg:px-8 font-sans relative overflow-hidden">
       <div className="max-w-3xl mx-auto space-y-8 relative z-10">
         <Link
           href="/"
-          className="inline-flex items-center space-x-2 text-xs font-semibold text-[#94a3b8] hover:text-white transition-colors"
+          className="inline-flex items-center space-x-2 text-xs font-semibold text-neutral-500 hover:text-black transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Home</span>
         </Link>
 
         <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#161a29] border border-[#1e2436] text-[#6366f1] text-xs font-mono font-bold uppercase tracking-wider">
-            <Bug className="w-4 h-4" /> 004 / Bug Reporting & Support
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-neutral-200 text-neutral-800 text-xs font-mono font-bold uppercase tracking-wider shadow-sm">
+            <Bug className="w-4 h-4" /> 001 / Bug Reporting & Support
           </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-white font-display tracking-tight leading-[0.95]">
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-[#0a0a0a] font-display tracking-tight leading-[0.95]">
             SUPPORT & FEEDBACK DISPATCH
           </h1>
-          <p className="text-xs sm:text-sm text-[#94a3b8] max-w-lg mx-auto leading-relaxed font-sans">
+          <p className="text-xs sm:text-sm text-neutral-600 max-w-lg mx-auto leading-relaxed font-sans">
             Found a bug, styling glitch, or missing feature on CEV EVENTS? Report it below and our developer team will address it.
           </p>
         </div>
