@@ -61,19 +61,19 @@ export default function Navbar() {
   ]
 
   return (
-    <header className="fixed top-4 inset-x-0 z-[100] px-4">
-      <div className="max-w-5xl mx-auto bg-[#0a0a0a]/90 backdrop-blur-xl border border-neutral-800 rounded-full px-6 py-3 shadow-2xl flex items-center justify-between">
+    <header className="fixed top-4 inset-x-0 z-[100] px-4 pointer-events-none">
+      <div className="max-w-7xl mx-auto flex items-center justify-between pointer-events-auto">
         
-        {/* Logo */}
-        <Link href="/" className="flex items-center space-x-2.5 group">
-          <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-7 w-auto object-contain transition-transform group-hover:scale-105" />
-          <span className="font-extrabold text-white text-base tracking-tight font-display">
+        {/* Brand Logo */}
+        <Link href="/" className="flex items-center space-x-2.5 group bg-black/95 backdrop-blur-md border border-neutral-800 rounded-full px-4 py-2 shadow-xl">
+          <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-6 w-auto object-contain transition-transform group-hover:scale-105" />
+          <span className="font-extrabold text-white text-sm tracking-tight font-display">
             CEV<span className="text-neutral-400 font-light">EVENTS</span>
           </span>
         </Link>
 
-        {/* Desktop Links */}
-        <nav className="hidden md:flex items-center space-x-1">
+        {/* Center Black Floating Nav Pill */}
+        <nav className="hidden md:flex items-center space-x-1 bg-black/95 backdrop-blur-md border border-neutral-800 rounded-full px-6 py-2 shadow-xl">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -81,7 +81,7 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 className={`px-4 py-1.5 text-xs font-semibold rounded-full transition-colors ${
-                  isActive ? "text-white bg-neutral-800" : "text-neutral-400 hover:text-white hover:bg-neutral-900"
+                  isActive ? "text-white bg-neutral-800" : "text-neutral-300 hover:text-white hover:bg-neutral-900"
                 }`}
               >
                 {link.name}
@@ -95,7 +95,7 @@ export default function Navbar() {
           {!loading && (
             <Link
               href={session ? "/admin" : "/login"}
-              className="px-5 py-2 text-xs font-bold text-[#0a0a0a] bg-white hover:bg-neutral-200 rounded-full transition-all duration-200 flex items-center gap-1.5 shadow-sm"
+              className="px-5 py-2 text-xs font-bold text-[#0a0a0a] bg-white hover:bg-neutral-200 rounded-full transition-all duration-200 flex items-center gap-1.5 shadow-md"
             >
               <span>{session ? "Dashboard" : "Login"}</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -104,7 +104,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1 rounded-full bg-neutral-900 border border-neutral-800 text-white"
+            className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1 rounded-full bg-black border border-neutral-800 text-white shadow-md"
             aria-label="Toggle Menu"
           >
             <div className={`w-4 h-0.5 bg-white transition-all ${isOpen ? "rotate-45 translate-y-1.5" : ""}`} />
@@ -116,7 +116,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 bg-[#0a0a0a] text-white z-[110] transition-all duration-300 flex flex-col justify-between p-8 ${
+        className={`fixed inset-0 bg-[#0a0a0a] text-white z-[110] transition-all duration-300 flex flex-col justify-between p-8 pointer-events-auto ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >

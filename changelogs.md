@@ -1,5 +1,14 @@
 # Changelogs & Version History
 
+## [0.98.0] - 2026-08-11
+
+### 🎨 Nixtio Hero Section, Header GIF Integration & Client Logo Club Grid
+- **Nixtio Hero Header Section ([app/page.tsx](./app/page.tsx)):** Reconstructed hero section with giant **`CEV EVENTS`** headline, animated background GIF (`header.gif`), stats metadata (`50+ Campus Events`, `10+ Tech Communities`, `CE Vadakara`), and clean rounded action buttons (`EXPLORE EVENTS`, `VIEW CALENDAR`).
+- **Black Pill Floating Navbar ([Navbar.tsx](./app/components/Navbar.tsx)):** Updated header to a floating black pill navigation bar (`bg-black/95 text-white border-neutral-800 rounded-full px-6 py-2 shadow-xl`) with white text and `Login` CTA button.
+- **Client-Style Student Club Grid ([app/page.tsx](./app/page.tsx)):** Reorganized student communities into a clean grid of white rounded cards (`bg-white rounded-2xl border border-neutral-200 p-6`) displaying club logos and titles, matching the Nixtio "Our clients" reference UI.
+
+---
+
 ## [0.97.0] - 2026-08-11
 
 ### 🚀 Full-Screen Edge-to-Edge Public Calendar, Login Redesign & Admin UI Alignment
