@@ -21,6 +21,8 @@ import {
   Sparkles,
   List,
   LayoutGrid,
+  Upload,
+  X,
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { EventItem, Community, UserRole } from '@/types/database.types';
@@ -947,6 +949,78 @@ export default function MyCommunityEventsPage() {
                   placeholder={eventType === 'online' ? 'Google Meet / Zoom link' : 'Main Auditorium / Lab 2'}
                   className="w-full bg-[#161a29] border border-[#1e2436] text-white rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-[#6366f1]"
                 />
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider">
+                    Event Poster Image
+                  </label>
+                  {posterUrl && posterUrl.trim() !== '' && (
+                    <button
+                      type="button"
+                      onClick={() => setPosterUrl('')}
+                      className="text-[10px] font-bold text-rose-400 hover:text-rose-300 flex items-center gap-1 transition-colors"
+                    >
+                      <X className="w-3 h-3" /> Remove Poster
+                    </button>
+                  )}
+                </div>
+
+                <div className="w-full">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePosterFileUpload}
+                    disabled={uploadingPoster}
+                    id="my-comm-poster-file-upload"
+                    className="hidden"
+                  />
+                  <label
+                    htmlFor="my-comm-poster-file-upload"
+                    className="w-full bg-[#161a29] hover:bg-[#1e2436] text-slate-300 hover:text-white rounded-xl px-4 py-2.5 text-xs border border-[#1e2436] flex flex-col justify-center space-y-1.5 cursor-pointer transition-colors"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2 min-w-0">
+                        <Upload className="w-4 h-4 text-[#6366f1] shrink-0" />
+                        <span className="truncate font-bold">
+                          {uploadingPoster ? `Uploading Poster...` : posterUrl ? 'Change Poster Image' : 'Upload Poster Image'}
+                        </span>
+                      </div>
+                      {uploadingPoster && (
+                        <span className="text-[10px] font-mono font-bold text-[#6366f1]">{uploadProgress}%</span>
+                      )}
+                    </div>
+                    {uploadingPoster && (
+                      <div className="w-full h-1.5 bg-[#0f121d] rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-[#6366f1] transition-all duration-150 rounded-full"
+                          style={{ width: `${uploadProgress}%` }}
+                        />
+                      </div>
+                    )}
+                  </label>
+                </div>
+
+                {posterUrl && posterUrl.trim() !== '' && (
+                  <div className="mt-2.5 relative w-full h-32 rounded-xl overflow-hidden border border-[#1e2436] bg-[#161a29] group">
+                    <img
+                      src={posterUrl}
+                      alt="Poster Preview"
+                      className="w-full h-full object-cover"
+                      onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
+                    />
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <button
+                        type="button"
+                        onClick={() => setPosterUrl('')}
+                        className="px-3 py-1.5 rounded-lg bg-rose-600/90 hover:bg-rose-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg transition-colors"
+                      >
+                        <X className="w-3.5 h-3.5" /> Remove Poster Image
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div>

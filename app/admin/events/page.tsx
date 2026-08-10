@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Calendar as CalendarIcon, Plus, Lock, CheckCircle2, Trash2, Edit3, AlertCircle, Clock, Upload, Link as LinkIcon, Globe, MapPin, Zap } from 'lucide-react';
+import { Calendar as CalendarIcon, Plus, Lock, CheckCircle2, Trash2, Edit3, AlertCircle, Clock, Upload, Link as LinkIcon, Globe, MapPin, Zap, X } from 'lucide-react';
 import { UserRole } from '@/types/database.types';
 import { useRealtimeEvents } from '@/lib/hooks/useRealtimeEvents';
 import { useCommunities } from '@/lib/hooks/useCommunities';
@@ -650,11 +650,10 @@ export default function EventBookingEnginePage() {
                     <button
                       type="button"
                       onClick={() => setEventType('offline')}
-                      className={`py-2 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                        eventType === 'offline'
-                          ? 'bg-indigo-950/80 border-indigo-500 text-indigo-300 shadow-[0_0_10px_rgba(99,102,241,0.3)]'
-                          : 'bg-[#161a29] border-[#1e2436] text-slate-400 hover:text-white'
-                      }`}
+                      className={`py-2 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${eventType === 'offline'
+                        ? 'bg-indigo-950/80 border-indigo-500 text-indigo-300 shadow-[0_0_10px_rgba(99,102,241,0.3)]'
+                        : 'bg-[#161a29] border-[#1e2436] text-slate-400 hover:text-white'
+                        }`}
                     >
                       <MapPin className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
                       <span>Offline</span>
@@ -663,11 +662,10 @@ export default function EventBookingEnginePage() {
                     <button
                       type="button"
                       onClick={() => setEventType('online')}
-                      className={`py-2 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-                        eventType === 'online'
-                          ? 'bg-cyan-950/80 border-cyan-500 text-cyan-300 shadow-[0_0_10px_rgba(6,182,212,0.3)]'
-                          : 'bg-[#161a29] border-[#1e2436] text-slate-400 hover:text-white'
-                      }`}
+                      className={`py-2 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${eventType === 'online'
+                        ? 'bg-cyan-950/80 border-cyan-500 text-cyan-300 shadow-[0_0_10px_rgba(6,182,212,0.3)]'
+                        : 'bg-[#161a29] border-[#1e2436] text-slate-400 hover:text-white'
+                        }`}
                     >
                       <Globe className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
                       <span>Online</span>
@@ -739,12 +737,12 @@ export default function EventBookingEnginePage() {
                       className="w-full bg-[#161a29] border border-[#1e2436] text-white rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#6366f1] transition-colors"
                     >
                       <option value="">-- Select Organizing Entity --</option>
-                      <optgroup label="Institutional Entity (Admin Restricted)">
+                      <optgroup label="Institution">
                         {(() => {
                           const collegeComm = communities.find((c) => c.slug === 'college' || c.name.toLowerCase() === 'college');
                           const val = collegeComm ? collegeComm.id : 'college';
                           return (
-                            <option value={val}>College (Academic Schedules & Exams)</option>
+                            <option value={val}>College</option>
                           );
                         })()}
                       </optgroup>
@@ -851,60 +849,73 @@ export default function EventBookingEnginePage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                    Event Poster Image (WebP Vercel Blob)
-                  </label>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handlePosterFileUpload}
-                        disabled={uploadingPoster}
-                        id="poster-file-upload"
-                        className="hidden"
-                      />
-                      <label
-                        htmlFor="poster-file-upload"
-                        className="w-full bg-[#161a29] hover:bg-[#1e2436] text-slate-300 hover:text-white rounded-xl px-3 py-2 text-xs border border-[#1e2436] flex flex-col justify-center space-y-1 cursor-pointer transition-colors"
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider">
+                      Event Poster Image
+                    </label>
+                    {posterUrl && posterUrl.trim() !== '' && (
+                      <button
+                        type="button"
+                        onClick={() => setPosterUrl('')}
+                        className="text-[10px] font-bold text-rose-400 hover:text-rose-300 flex items-center gap-1 transition-colors"
                       >
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-1.5 min-w-0">
-                            <Upload className="w-3.5 h-3.5 text-[#6366f1] shrink-0" />
-                            <span className="truncate">{uploadingPoster ? `Uploading...` : 'Upload File'}</span>
-                          </div>
-                          {uploadingPoster && (
-                            <span className="text-[10px] font-mono font-bold text-[#6366f1]">{uploadProgress}%</span>
-                          )}
+                        <X className="w-3 h-3" /> Remove Poster
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="w-full">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handlePosterFileUpload}
+                      disabled={uploadingPoster}
+                      id="poster-file-upload"
+                      className="hidden"
+                    />
+                    <label
+                      htmlFor="poster-file-upload"
+                      className="w-full bg-[#161a29] hover:bg-[#1e2436] text-slate-300 hover:text-white rounded-xl px-4 py-2.5 text-xs border border-[#1e2436] flex flex-col justify-center space-y-1.5 cursor-pointer transition-colors"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2 min-w-0">
+                          <Upload className="w-4 h-4 text-[#6366f1] shrink-0" />
+                          <span className="truncate font-bold">
+                            {uploadingPoster ? `Uploading Poster...` : posterUrl ? 'Change Poster Image' : 'Upload Poster Image'}
+                          </span>
                         </div>
                         {uploadingPoster && (
-                          <div className="w-full h-1 bg-[#0f121d] rounded-full overflow-hidden">
-                            <div
-                              className="h-full bg-[#6366f1] transition-all duration-150"
-                              style={{ width: `${uploadProgress}%` }}
-                            />
-                          </div>
+                          <span className="text-[10px] font-mono font-bold text-[#6366f1]">{uploadProgress}%</span>
                         )}
-                      </label>
-                    </div>
-
-                    <input
-                      type="url"
-                      value={posterUrl}
-                      onChange={(e) => setPosterUrl(e.target.value)}
-                      placeholder="Or paste URL"
-                      className="w-full bg-[#161a29] border border-[#1e2436] text-white placeholder-slate-500 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-[#6366f1] transition-colors"
-                    />
+                      </div>
+                      {uploadingPoster && (
+                        <div className="w-full h-1.5 bg-[#0f121d] rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-[#6366f1] transition-all duration-150 rounded-full"
+                            style={{ width: `${uploadProgress}%` }}
+                          />
+                        </div>
+                      )}
+                    </label>
                   </div>
 
                   {posterUrl && posterUrl.trim() !== '' && (
-                    <div className="mt-2 relative w-full h-24 rounded-xl overflow-hidden border border-[#1e2436] bg-[#161a29]">
+                    <div className="mt-2.5 relative w-full h-32 rounded-xl overflow-hidden border border-[#1e2436] bg-[#161a29] group">
                       <img
                         src={posterUrl}
                         alt="Poster Preview"
                         className="w-full h-full object-cover"
                         onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
                       />
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <button
+                          type="button"
+                          onClick={() => setPosterUrl('')}
+                          className="px-3 py-1.5 rounded-lg bg-rose-600/90 hover:bg-rose-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg transition-colors"
+                        >
+                          <X className="w-3.5 h-3.5" /> Remove Poster Image
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>
