@@ -159,19 +159,18 @@ export default function EventAiDrawer({
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 250 }}
-            className="fixed right-0 top-0 bottom-0 w-full sm:w-[480px] bg-[#08090d] border-l-2 border-[#1e2436] z-[200] flex flex-col shadow-2xl text-[#f8fafc] font-sans"
+            className="fixed right-0 top-0 bottom-0 w-full sm:w-[480px] bg-[#0a0a0a] border-l border-neutral-800 z-[200] flex flex-col shadow-2xl text-white font-sans"
           >
-            <div className="p-4 sm:p-6 border-b border-[#1e2436] flex items-center justify-between bg-[#0f121d]">
+            <div className="p-4 sm:p-6 border-b border-neutral-800 flex items-center justify-between bg-[#111113]">
               <div className="flex items-center space-x-3">
-                <div className="p-2.5 bg-[#6366f1] border border-[#4f46e5] rounded-xl text-white shadow-[2px_2px_0px_0px_#312e81]">
+                <div className="p-2.5 bg-neutral-800 border border-neutral-700 rounded-xl text-white">
                   <MessageSquare className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white flex items-center gap-1.5 font-display">
+                  <h3 className="text-base font-extrabold text-white flex items-center gap-1.5 font-display">
                     Event Assistant
-                    <Sparkles className="w-4 h-4 text-[#6366f1]" />
                   </h3>
-                  <p className="text-xs text-[#94a3b8] truncate max-w-[220px]">
+                  <p className="text-xs text-neutral-400 truncate max-w-[220px]">
                     {cleanTitle}
                   </p>
                 </div>
@@ -179,7 +178,7 @@ export default function EventAiDrawer({
 
               <button
                 onClick={onClose}
-                className="p-2 text-[#94a3b8] hover:text-white rounded-lg hover:bg-[#161a29] transition-colors"
+                className="p-2 text-neutral-400 hover:text-white rounded-full hover:bg-neutral-800 transition-colors"
                 aria-label="Close Assistant"
               >
                 <X className="w-5 h-5" />
@@ -199,8 +198,8 @@ export default function EventAiDrawer({
                   <div
                     className={`max-w-[85%] rounded-2xl p-4 text-xs sm:text-sm leading-relaxed ${
                       msg.sender === 'user'
-                        ? 'bg-[#6366f1] text-white border border-[#4f46e5] rounded-br-none shadow-[3px_3px_0px_0px_#312e81]'
-                        : 'bg-[#0f121d] text-slate-200 border border-[#1e2436] rounded-bl-none shadow-md'
+                        ? 'bg-white text-[#0a0a0a] font-medium rounded-br-none shadow-sm'
+                        : 'bg-neutral-900 text-neutral-200 border border-neutral-800 rounded-bl-none shadow-sm'
                     }`}
                   >
                     <div className="whitespace-pre-wrap leading-relaxed">

@@ -178,7 +178,7 @@ export default function MyCommunityPage() {
       )}
 
       {/* Settings Form */}
-      <div className="brutalist-card p-6 rounded-xl space-y-6">
+      <div className="p-6 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-6">
         <div className="flex items-center space-x-4 border-b border-[#1e2436] pb-4">
           {logoUrl ? (
             /* eslint-disable-next-line @next/next/no-img-element */

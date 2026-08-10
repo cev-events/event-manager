@@ -159,17 +159,17 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
     : ((eventData.image && eventData.image.trim() !== '') ? eventData.image : '/images/poster.webp');
 
   return (
-    <div className="min-h-screen bg-[#08090d] text-[#f8fafc] pt-28 md:pt-32 pb-20 px-4 sm:px-6 lg:px-8 font-sans relative">
+    <div className="min-h-screen bg-[#f5f5f5] text-[#0a0a0a] pt-28 md:pt-32 pb-20 px-4 sm:px-6 lg:px-8 font-sans relative">
       <div className="max-w-6xl mx-auto space-y-6">
         <button
           onClick={handleBackClick}
-          className="inline-flex items-center space-x-2 text-xs font-semibold text-[#94a3b8] hover:text-white transition-colors cursor-pointer bg-transparent border-0 p-0"
+          className="inline-flex items-center space-x-2 text-xs font-semibold text-neutral-500 hover:text-black transition-colors cursor-pointer bg-transparent border-0 p-0"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back</span>
         </button>
 
-        <div className="brutalist-card p-6 sm:p-10 rounded-2xl space-y-8 relative overflow-hidden">
+        <div className="p-6 sm:p-10 rounded-2xl space-y-8 relative overflow-hidden bg-white border border-neutral-200 shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             <div className="lg:col-span-7 space-y-6">
               <div className="flex flex-wrap items-center gap-2">

@@ -1,5 +1,14 @@
 # Changelogs & Version History
 
+## [0.94.0] - 2026-08-11
+
+### 🎨 System-Wide Component Modernization & Centered Loading Logo
+- **Centered Brand Loading Screen ([app/components/LoadingScreen.tsx](./app/components/LoadingScreen.tsx)):** Removed top header strip and bottom footer text from loading screen. Placed official `cev_logo.svg` prominently in the center with smooth pulsing animation, clean progress percentage (`0% -> 100%`), and minimalist progress bar.
+- **Component Modernization Across MasterCalendar & EventAiDrawer ([MasterCalendar.tsx](./app/components/MasterCalendar.tsx), [EventAiDrawer.tsx](./app/components/EventAiDrawer.tsx)):** Re-architected MasterCalendar cards into clean off-white containers (`bg-white border border-neutral-200 shadow-sm rounded-2xl`). Updated EventAiDrawer to dark neutral styling (`bg-[#0a0a0a] border-neutral-800`) and removed Sparkles icons.
+- **Full Page Detail & Dashboard Card Polish ([app/events/[id]/page.tsx](./app/events/[id]/page.tsx), [app/community/[id]/page.tsx](./app/community/[id]/page.tsx), [app/admin/page.tsx](./app/admin/page.tsx), [app/admin/my-community/page.tsx](./app/admin/my-community/page.tsx)):** Eliminated legacy brutalist card shadows and outdated background tokens. Applied unified Nixtio dual theme (`#f5f5f5` off-white public body, `#0a0a0a` dark hero/admin).
+
+---
+
 ## [0.93.0] - 2026-08-11
 
 ### 🎨 Nixtio Dual Light/Dark Theme, Floating Pill Navbar & Google Calendar UI

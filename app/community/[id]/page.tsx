@@ -93,18 +93,18 @@ export default function SingleCommunityPage({ params }: { params: Promise<PagePa
   }
 
   return (
-    <div className="min-h-screen bg-[#08090d] text-[#f8fafc] pt-28 md:pt-32 pb-20 px-4 sm:px-6 lg:px-8 font-sans relative">
+    <div className="min-h-screen bg-[#f5f5f5] text-[#0a0a0a] pt-28 md:pt-32 pb-20 px-4 sm:px-6 lg:px-8 font-sans relative">
       <div className="max-w-6xl mx-auto space-y-6">
         <button
           onClick={handleBackClick}
-          className="inline-flex items-center space-x-2 text-xs font-semibold text-[#94a3b8] hover:text-white transition-colors cursor-pointer bg-transparent border-0 p-0"
+          className="inline-flex items-center space-x-2 text-xs font-semibold text-neutral-500 hover:text-black transition-colors cursor-pointer bg-transparent border-0 p-0"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back</span>
         </button>
 
         {/* Header Card */}
-        <div className="brutalist-card p-6 sm:p-10 rounded-2xl space-y-6 relative overflow-hidden text-center">
+        <div className="p-6 sm:p-10 rounded-2xl space-y-6 relative overflow-hidden text-center bg-white border border-neutral-200 shadow-sm">
           <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-r ${community.color || 'from-blue-600 to-cyan-400'} opacity-15 blur-[100px] -z-10`} />
 
           {community.logo_url ? (

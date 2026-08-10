@@ -112,19 +112,19 @@ export default function AdminDashboardPage() {
 
       {/* Quick Action Navigation Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="brutalist-card p-5 rounded-xl space-y-4 flex flex-col justify-between">
+        <div className="p-5 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-4 flex flex-col justify-between">
           <div className="space-y-2">
-            <h3 className="text-base font-bold text-white flex items-center gap-2 font-display">
-              <Calendar className="w-4 h-4 text-[#6366f1]" />
+            <h3 className="text-base font-extrabold text-white flex items-center gap-2 font-display">
+              <Calendar className="w-4 h-4 text-white" />
               Slot Booking
             </h3>
-            <p className="text-xs text-[#94a3b8] leading-relaxed">
+            <p className="text-xs text-neutral-400 leading-relaxed">
               Reserve dates and time slots for community events to prevent scheduling overlaps.
             </p>
           </div>
           <Link
             href="/admin/events"
-            className="brutalist-btn-primary px-3.5 py-2 rounded-full text-xs inline-flex items-center space-x-1.5 w-fit"
+            className="px-4 py-2 bg-white text-[#0a0a0a] hover:bg-neutral-200 rounded-full text-xs font-bold inline-flex items-center space-x-1.5 w-fit shadow-sm"
           >
             <span>Manage Events</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
@@ -132,19 +132,19 @@ export default function AdminDashboardPage() {
         </div>
 
         {role !== 'editor' && (
-          <div className="brutalist-card p-5 rounded-xl space-y-4 flex flex-col justify-between">
+          <div className="p-5 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-4 flex flex-col justify-between">
             <div className="space-y-2">
-              <h3 className="text-base font-bold text-white flex items-center gap-2 font-display">
+              <h3 className="text-base font-extrabold text-white flex items-center gap-2 font-display">
                 <Building className="w-4 h-4 text-emerald-400" />
                 My Community
               </h3>
-              <p className="text-xs text-[#94a3b8] leading-relaxed">
+              <p className="text-xs text-neutral-400 leading-relaxed">
                 Update community profile bio, logo image, initials badge, and theme details.
               </p>
             </div>
             <Link
               href="/admin/my-community"
-              className="brutalist-btn-secondary px-3.5 py-2 rounded-full text-xs inline-flex items-center space-x-1.5 w-fit"
+              className="px-4 py-2 bg-neutral-800 text-white hover:bg-neutral-700 border border-neutral-700 rounded-full text-xs font-bold inline-flex items-center space-x-1.5 w-fit"
             >
               <span>Community Details</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -152,19 +152,19 @@ export default function AdminDashboardPage() {
           </div>
         )}
 
-        <div className="brutalist-card p-5 rounded-xl space-y-4 flex flex-col justify-between">
+        <div className="p-5 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-4 flex flex-col justify-between">
           <div className="space-y-2">
-            <h3 className="text-base font-bold text-white flex items-center gap-2 font-display">
-              <User className="w-4 h-4 text-[#6366f1]" />
+            <h3 className="text-base font-extrabold text-white flex items-center gap-2 font-display">
+              <User className="w-4 h-4 text-white" />
               Profile
             </h3>
-            <p className="text-xs text-[#94a3b8] leading-relaxed">
+            <p className="text-xs text-neutral-400 leading-relaxed">
               Update profile info.
             </p>
           </div>
           <Link
             href="/admin/profile"
-            className="brutalist-btn-secondary px-3.5 py-2 rounded-full text-xs inline-flex items-center space-x-1.5 w-fit"
+            className="px-4 py-2 bg-neutral-800 text-white hover:bg-neutral-700 border border-neutral-700 rounded-full text-xs font-bold inline-flex items-center space-x-1.5 w-fit"
           >
             <span>Edit Profile</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
