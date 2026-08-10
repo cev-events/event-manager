@@ -12,6 +12,7 @@ export interface EventItemData {
   category: string;
   community: string;
   date: string;
+  event_date?: string;
   time_slot?: string;
   image?: string;
   poster_url?: string;

@@ -65,6 +65,7 @@ export function useRealtimeEvents() {
             community_slug: item.community?.slug || item.community_id || item.community?.id || null,
             community_color: item.community?.color || null,
             date: dateStr,
+            event_date: item.event_date || null,
             time_slot: formatTimeSlotTo12Hr(item.time_slot),
             description: item.description || '',
             status: item.status as 'closed' | 'live',

@@ -26,6 +26,23 @@ import { createClient } from '@/lib/supabase/client';
 import { EventItem, Community, UserRole } from '@/types/database.types';
 import { uploadImageFile } from '@/lib/upload';
 
+function toIsoDateString(str?: string | null): string {
+  if (!str) return new Date().toISOString().split('T')[0];
+  const s = String(str).trim();
+  const isoMatch = s.match(/\d{4}-\d{2}-\d{2}/);
+  if (isoMatch) {
+    return isoMatch[0];
+  }
+  const d = new Date(s);
+  if (!isNaN(d.getTime())) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+  return new Date().toISOString().split('T')[0];
+}
+
 export default function MyCommunityEventsPage() {
   const [loading, setLoading] = useState(true);
   const [community, setCommunity] = useState<Community | null>(null);
@@ -185,14 +202,28 @@ export default function MyCommunityEventsPage() {
     setEditingEvent(evt);
     setTitle(evt.title || '');
 
-    if (evt.event_date && evt.event_date.includes(' to ')) {
-      const parts = evt.event_date.split(' to ');
-      setStartDate(parts[0]);
-      setEndDate(parts[1]);
-    } else {
-      setStartDate(evt.event_date || '');
-      setEndDate(evt.event_date || '');
+    const rawDateStr = evt.event_date || (evt as any).date || '';
+    let startStr = rawDateStr;
+    let endStr = rawDateStr;
+
+    if (typeof rawDateStr === 'string') {
+      if (rawDateStr.toLowerCase().includes(' to ')) {
+        const parts = rawDateStr.split(/ to /i);
+        startStr = parts[0].trim();
+        endStr = parts[1].trim();
+      } else if (rawDateStr.includes(' - ')) {
+        const parts = rawDateStr.split(/\s+-\s+/);
+        startStr = parts[0].trim();
+        endStr = parts[1].trim();
+      } else if (rawDateStr.includes(' / ')) {
+        const parts = rawDateStr.split(/\s+\/\s+/);
+        startStr = parts[0].trim();
+        endStr = parts[1].trim();
+      }
     }
+
+    setStartDate(toIsoDateString(startStr));
+    setEndDate(toIsoDateString(endStr));
 
     if (evt.time_slot && evt.time_slot.includes(' - ')) {
       const times = evt.time_slot.split(' - ');

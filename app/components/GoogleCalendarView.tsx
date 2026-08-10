@@ -28,6 +28,7 @@ export interface CalendarEvent {
   category: string;
   community: string;
   date: string;
+  event_date?: string | null;
   time_slot?: string | null;
   description?: string | null;
   status?: 'closed' | 'live' | null;

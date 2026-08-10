@@ -68,6 +68,23 @@ function parseTimeTo24Hr(timeStr?: string): string {
   return '10:00';
 }
 
+function toIsoDateString(str?: string | null): string {
+  if (!str) return new Date().toISOString().split('T')[0];
+  const s = String(str).trim();
+  const isoMatch = s.match(/\d{4}-\d{2}-\d{2}/);
+  if (isoMatch) {
+    return isoMatch[0];
+  }
+  const d = new Date(s);
+  if (!isNaN(d.getTime())) {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+  return new Date().toISOString().split('T')[0];
+}
+
 export default function EventBookingEnginePage() {
   const [mounted, setMounted] = useState(false);
   const { eventsList, setEventsList, loading: eventsLoading } = useRealtimeEvents();
@@ -212,8 +229,29 @@ export default function EventBookingEnginePage() {
 
     setEditingEvent(evt);
     setTitle(evt.title || '');
-    setStartDate(evt.event_date || evt.date?.split('T')[0] || new Date().toISOString().split('T')[0]);
-    setEndDate(evt.event_date || evt.date?.split('T')[0] || new Date().toISOString().split('T')[0]);
+
+    const rawDateStr = evt.event_date || evt.date || '';
+    let startStr = rawDateStr;
+    let endStr = rawDateStr;
+
+    if (typeof rawDateStr === 'string') {
+      if (rawDateStr.toLowerCase().includes(' to ')) {
+        const parts = rawDateStr.split(/ to /i);
+        startStr = parts[0].trim();
+        endStr = parts[1].trim();
+      } else if (rawDateStr.includes(' - ')) {
+        const parts = rawDateStr.split(/\s+-\s+/);
+        startStr = parts[0].trim();
+        endStr = parts[1].trim();
+      } else if (rawDateStr.includes(' / ')) {
+        const parts = rawDateStr.split(/\s+\/\s+/);
+        startStr = parts[0].trim();
+        endStr = parts[1].trim();
+      }
+    }
+
+    setStartDate(toIsoDateString(startStr));
+    setEndDate(toIsoDateString(endStr));
 
     if (evt.time_slot && evt.time_slot.includes('-')) {
       const parts = evt.time_slot.split('-');
