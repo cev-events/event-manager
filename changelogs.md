@@ -1,5 +1,17 @@
 # Changelogs & Version History
 
+## [0.95.0] - 2026-08-11
+
+### 📅 Authentic Google Calendar Dark UI & Navbar Calendar Integration
+- **Navbar Links Alignment ([app/components/Navbar.tsx](./app/components/Navbar.tsx)):** Replaced `Schedules` with `Calendar` in top floating pill navigation bar (`Events`, `Calendar`, `Communities`, `Support`).
+- **Google Calendar Dark Mode UI Adaptation ([GoogleCalendarView.tsx](./app/components/GoogleCalendarView.tsx)):**
+  - **Top Navigation Bar:** Built authentic Google Calendar header with hamburger menu icon, blue day badge `11`, `Calendar` header, `Today` rounded pill button, `< >` navigation chevrons, Month/Year header (`August 2026`), View selector pill (`Month ▾`, `Week`, `Day`, `Grid`), and `+ Book Slot` button.
+  - **Left Sidebar Panel:** Added top `+ Create Slot` pill button, interactive Mini Month Calendar datepicker widget (`S M T W T F S` with today highlighted in a blue circle badge `11`), "Search for people / communities" input, and "My calendars" community filter list with brand swatches.
+  - **Dark Obsidian Canvas & Grid:** Applied `#131314` deep dark grid background with `#28292c` borders and filled event chips matching Google Calendar's exact visual style.
+  - **Public & Admin Calendar Parity ([app/calendar/page.tsx](./app/calendar/page.tsx), [app/admin/events/page.tsx](./app/admin/events/page.tsx)):** Applied full Google Calendar UI adaptation to both public `/calendar` and admin `/admin/events` pages while preserving 100% of RBAC, slot confidentiality shield, multi-day calculations, and backend database operations.
+
+---
+
 ## [0.94.0] - 2026-08-11
 
 ### 🎨 System-Wide Component Modernization & Centered Loading Logo

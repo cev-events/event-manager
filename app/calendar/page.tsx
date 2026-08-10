@@ -21,7 +21,7 @@ export default function PublicCalendarPage() {
               001 / Master Timeline
             </span>
             <h1 className="text-3xl sm:text-5xl font-extrabold text-[#0a0a0a] font-display tracking-tight leading-none mt-1">
-              CAMPUS SCHEDULES
+              CAMPUS CALENDAR
             </h1>
             <p className="text-sm text-neutral-600 mt-1">
               Unified master schedule for workshops, hackathons, and community events across CE Vadakara.
