@@ -23,10 +23,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto space-y-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           <div className="md:col-span-5 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#6366f1] to-[#4f46e5] flex items-center justify-center text-white font-bold font-display shadow-lg shadow-[#6366f1]/20">
-                C
-              </div>
+            <div className="flex items-center gap-2.5">
+              <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-8 w-auto object-contain" />
               <span className="text-xl font-bold font-display tracking-tight text-white">
                 CEV <span className="text-[#6366f1]">EVENTS</span>
               </span>

@@ -545,23 +545,25 @@ export default function EventBookingEnginePage() {
   return (
     <div className="space-y-8 pb-20 md:pb-12">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight text-white flex items-center gap-3">
-            <CalendarIcon className="w-8 h-8 text-blue-500" />
-            Event Slot Booking
+        <div className="space-y-1">
+          <span className="text-xs font-mono text-[#6366f1] uppercase font-bold tracking-widest">
+            002 / Slot Booking Engine
+          </span>
+          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-display leading-none">
+            SLOT RESERVATION & MANAGEMENT
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
-            Reserve dates in <span className="text-amber-400 font-semibold">closed</span> draft state to avoid conflicts across communities, then toggle to <span className="text-emerald-400 font-semibold">live</span> for public release.
+          <p className="text-xs text-[#94a3b8]">
+            Reserve dates in <span className="text-amber-400 font-bold">closed</span> draft state to avoid conflicts across communities, then toggle to <span className="text-emerald-400 font-bold">live</span> for public release.
           </p>
         </div>
 
         <div className="flex items-center space-x-3">
           <button
             onClick={() => openAddModal()}
-            className="flex items-center space-x-2 px-4 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm transition-colors shadow-lg shadow-blue-500/25"
+            className="brutalist-btn-primary px-5 py-2.5 rounded-xl font-extrabold text-xs tracking-wider uppercase flex items-center space-x-2"
           >
             <Plus className="w-4 h-4" />
-            <span>Book Slot</span>
+            <span>Book Event Slot</span>
           </button>
         </div>
       </div>

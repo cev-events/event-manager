@@ -279,12 +279,14 @@ export default function UserManagementPage() {
     <div className="space-y-8 pb-20 md:pb-12">
       {/* Top Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-extrabold text-white flex items-center gap-3">
-            <Users className="w-8 h-8 text-blue-400" />
-            {currentUserRole === 'manager' ? 'Community Leads & Team Management' : 'Admin & User Management'}
+        <div className="space-y-1">
+          <span className="text-xs font-mono text-[#6366f1] uppercase font-bold tracking-widest">
+            005 / Access Control & RBAC Matrix
+          </span>
+          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-display leading-none">
+            {currentUserRole === 'manager' ? 'TEAM & COMMUNITY LEADS' : 'USER ROLES & ACCESS MANAGEMENT'}
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-xs text-[#94a3b8]">
             {currentUserRole === 'manager'
               ? 'Add and modify community leads and editors.'
               : 'Create, modify, and assign position roles.'}

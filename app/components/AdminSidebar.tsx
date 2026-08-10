@@ -31,9 +31,7 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
       <aside className="hidden md:flex w-64 h-screen sticky top-0 bg-[#0f121d] border-r border-[#1e2436] p-6 flex-col justify-between shrink-0 overflow-y-auto z-40 select-none">
         <div className="space-y-6">
           <div className="flex items-center space-x-3">
-            <div className="p-2 bg-[#6366f1] border border-[#4f46e5] rounded-lg text-white shadow-[2px_2px_0px_0px_#312e81]">
-              <Shield className="w-5 h-5" />
-            </div>
+            <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-8 w-auto object-contain" />
             <div>
               <h2 className="font-bold text-base text-white font-display">CEV EVENTS</h2>
               <span className="text-[10px] uppercase font-bold text-white bg-[#6366f1] px-2 py-0.5 rounded border border-[#4f46e5] font-mono">
@@ -91,9 +89,7 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
 
       <div className="flex md:hidden items-center justify-between px-4 py-3 border-b border-[#1e2436]/80 bg-[#0f121d]/80 backdrop-blur-xl shrink-0 sticky top-0 z-40">
         <div className="flex items-center space-x-2.5">
-          <div className="p-1.5 bg-[#6366f1] border border-[#4f46e5] rounded-lg text-white shadow-[2px_2px_0px_0px_#312e81]">
-            <Shield className="w-4 h-4" />
-          </div>
+          <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-6 w-auto object-contain" />
           <div>
             <h2 className="font-bold text-sm text-white font-display">CEV EVENTS</h2>
             <span className="text-[9px] uppercase font-bold text-white bg-[#6366f1] px-1.5 py-0.2 rounded border border-[#4f46e5] font-mono">

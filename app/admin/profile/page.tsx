@@ -107,13 +107,15 @@ export default function MyProfilePage() {
 
   return (
     <div className="max-w-3xl space-y-6">
-      <div className="border-b border-[#1e2436] pb-4">
-        <h1 className="text-2xl font-bold text-white flex items-center gap-3 font-display">
-          <User className="w-6 h-6 text-[#6366f1]" />
-          Profile & Account Settings
+      <div className="border-b border-[#1e2436] pb-4 space-y-1">
+        <span className="text-xs font-mono text-[#6366f1] uppercase font-bold tracking-widest">
+          007 / Profile & Account Configuration
+        </span>
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-white font-display leading-none">
+          MY PROFILE & ACCOUNT SETTINGS
         </h1>
-        <p className="text-xs text-[#94a3b8] mt-0.5">
-          Manage profile settings.
+        <p className="text-xs text-[#94a3b8]">
+          Manage full name, WebP avatar uploads, and password security settings.
         </p>
       </div>
 

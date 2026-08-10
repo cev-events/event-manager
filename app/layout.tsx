@@ -6,6 +6,8 @@ import SmoothScroll from "./components/SmoothScroll";
 import ConditionalNavbar from "./components/ConNav";
 import ConditionalFooter from "./components/ConFooter";
 
+import LoadingScreen from "./components/LoadingScreen";
+
 const quera = localFont({
   src: "../fonts/quera.otf",
   variable: "--font-quera",
@@ -27,6 +29,10 @@ const roundered = localFont({
 export const metadata: Metadata = {
   title: "CEV EVENTS | Multi-Community Event Manager",
   description: "Unified campus event discovery, slot booking, and community management.",
+  icons: {
+    icon: "/cev_logo.svg",
+    apple: "/cev_logo.svg",
+  },
 };
 
 export default function RootLayout({
@@ -37,6 +43,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${quera.variable} ${gued.variable}`}>
       <body className="bg-[#08090d] text-[#f8fafc] antialiased overflow-y-auto overflow-x-hidden selection:bg-[#6366f1] selection:text-white font-sans">
+        <LoadingScreen />
         <SmoothScroll />
         <ConditionalNavbar />
         {children}

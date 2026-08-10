@@ -58,11 +58,14 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="border-b border-[#1e2436] pb-4">
-        <h1 className="text-2xl font-bold tracking-tight text-white font-display">
-          {isScoped ? `${communityName} Overview` : 'Campus Dashboard Overview'}
+      <div className="border-b border-[#1e2436] pb-5 space-y-1">
+        <span className="text-xs font-mono text-[#6366f1] uppercase font-bold tracking-widest">
+          001 / Operations Console
+        </span>
+        <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-display leading-none">
+          {isScoped ? `${communityName.toUpperCase()} OVERVIEW` : 'CAMPUS DASHBOARD OVERVIEW'}
         </h1>
-        <p className="text-xs text-[#94a3b8] mt-0.5">
+        <p className="text-xs text-[#94a3b8]">
           {isScoped
             ? `Overview metrics, slot reservations, and event status for ${communityName}.`
             : 'Overview of All Campus Events and Communities.'}

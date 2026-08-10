@@ -149,14 +149,14 @@ export default function AdminSupportPage() {
   return (
     <div className="space-y-8 pb-12">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1e2436] pb-6">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-[#6366f1] uppercase tracking-wider">
-            <Bug className="w-4 h-4" /> Superadmin Portal
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white font-display mt-1">
-            Support & Bug Inbox
+        <div className="space-y-1">
+          <span className="text-xs font-mono text-[#6366f1] uppercase font-bold tracking-widest flex items-center gap-1.5">
+            <Bug className="w-3.5 h-3.5" /> 006 / Support & Bug Receiver
+          </span>
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-white font-display leading-none">
+            SUPPORT & BUG INBOX
           </h1>
-          <p className="text-xs text-[#94a3b8] mt-1">
+          <p className="text-xs text-[#94a3b8]">
             Review, track, and resolve user-submitted bug reports and feedback.
           </p>
         </div>

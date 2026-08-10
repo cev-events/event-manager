@@ -1,7 +1,7 @@
 # Design System & Motion Specification
 
-## 1. Overview & Aesthetics
-The design language of **CEV EVENTS** is crafted as a high-contrast dark design system combining **restrained glassmorphism** with **light brutalism** (sharp 2px borders, offset block shadows, clear visual hierarchy). All legacy monochrome slate themes and AI-feeling fonts (Inter) have been completely removed.
+## 1. Overview & Aesthetics (Nixtio Editorial UI)
+The design language of **CEV EVENTS** is governed by the **Nixtio-Inspired Editorial Digital Agency UI** (.agents/skills/ui-ux-design-system/SKILL.md). It combines **Swiss editorial minimalism**, **oversized display typography** (`Quera` display font with 0.85–1.05 tight line-height), **numbered section architecture** (`001`, `002`, `003`), **restrained monochrome visual canvas** (`#08090d`, `#0f121d`, `#161a29`), official logo asset ([public/cev_logo.svg](./public/cev_logo.svg)), and a global **Loading Screen** (`app/components/LoadingScreen.tsx`).
 
 ---
 

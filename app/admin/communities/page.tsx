@@ -208,13 +208,15 @@ export default function CommunitiesManagementPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#1e2436] pb-4">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-3 font-display">
-            <Building className="w-6 h-6 text-[#6366f1]" />
-            Community Management
+        <div className="space-y-0.5">
+          <span className="text-xs font-mono text-[#6366f1] uppercase font-bold tracking-widest">
+            004 / Community Entity Registry
+          </span>
+          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-display leading-none">
+            COMMUNITY MANAGEMENT
           </h1>
-          <p className="text-xs text-[#94a3b8] mt-0.5">
-            Create or Modify the community data
+          <p className="text-xs text-[#94a3b8]">
+            Create or Modify campus community entities and brand signatures.
           </p>
         </div>
 

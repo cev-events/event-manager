@@ -104,11 +104,9 @@ export default function Navbar() {
           }`}
       >
         <div className="flex justify-between items-center h-16">
-          <Link href="/" className="nav-logo flex items-center group space-x-3 shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#6366f1] to-[#4f46e5] border border-[#4f46e5] flex items-center justify-center text-white shadow-[2px_2px_0px_0px_#312e81] transition-transform group-hover:scale-105">
-              <Shield className="w-4 h-4 text-white" />
-            </div>
-            <span className="font-bold text-white tracking-tight text-lg font-display group-hover:text-[#6366f1] transition-colors">
+          <Link href="/" className="nav-logo flex items-center group space-x-2.5 shrink-0">
+            <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-7 sm:h-8 w-auto object-contain transition-transform group-hover:scale-105" />
+            <span className="font-bold text-white tracking-tight text-base sm:text-lg font-display group-hover:text-[#6366f1] transition-colors">
               CEV <span className="text-[#6366f1]">EVENTS</span>
             </span>
           </Link>

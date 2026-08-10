@@ -123,14 +123,14 @@ export default function SupportPage() {
         </Link>
 
         <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#6366f1]/10 border border-[#6366f1]/30 text-[#6366f1] text-xs font-bold uppercase tracking-wider">
-            <Bug className="w-4 h-4" /> Bug Reporting & Support
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#161a29] border border-[#1e2436] text-[#6366f1] text-xs font-mono font-bold uppercase tracking-wider">
+            <Bug className="w-4 h-4" /> 004 / Bug Reporting & Support
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white font-display tracking-tight">
-            How can we help you?
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-white font-display tracking-tight leading-[0.95]">
+            SUPPORT & FEEDBACK DISPATCH
           </h1>
-          <p className="text-xs sm:text-sm text-[#94a3b8] max-w-lg mx-auto leading-relaxed">
-            Found a bug, styling glitch, or missing feature on CEV EVENTS? Report it below and our developer team will address it promptly.
+          <p className="text-xs sm:text-sm text-[#94a3b8] max-w-lg mx-auto leading-relaxed font-sans">
+            Found a bug, styling glitch, or missing feature on CEV EVENTS? Report it below and our developer team will address it.
           </p>
         </div>
 

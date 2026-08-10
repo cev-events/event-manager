@@ -412,15 +412,20 @@ export default function MyCommunityEventsPage() {
             </div>
           )}
           <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-2xl font-bold text-white font-display">{community.name} Events</h1>
-              <span className="text-[10px] uppercase font-mono font-bold px-2 py-0.5 rounded bg-[#6366f1] text-white border border-[#4f46e5]">
-                {role}
+            <div className="space-y-0.5">
+              <span className="text-xs font-mono text-[#6366f1] uppercase font-bold tracking-widest">
+                003 / Assigned Community Operations
               </span>
+              <div className="flex items-center gap-2">
+                <h1 className="text-xl sm:text-3xl font-extrabold text-white font-display leading-none">{community.name.toUpperCase()} EVENTS</h1>
+                <span className="text-[10px] uppercase font-mono font-bold px-2 py-0.5 rounded bg-[#6366f1] text-white border border-[#4f46e5]">
+                  {role}
+                </span>
+              </div>
+              <p className="text-xs text-[#94a3b8]">
+                Exclusive management hub for {community.name} events & slot bookings.
+              </p>
             </div>
-            <p className="text-xs text-[#94a3b8] mt-0.5">
-              Exclusive management hub for {community.name} events & slot bookings.
-            </p>
           </div>
         </div>
 

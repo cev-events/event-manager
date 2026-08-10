@@ -121,8 +121,8 @@ function LoginForm() {
     <div className="min-h-screen bg-[#08090d] flex items-center justify-center pt-28 md:pt-32 pb-12 px-4 relative text-[#f8fafc]">
       <div className="w-full max-w-md bg-[#0f121d] border-2 border-[#1e2436] shadow-[6px_6px_0px_0px_#161a29] rounded-xl p-8 relative z-10 space-y-6">
         <div className="text-center space-y-2">
-          <div className="inline-flex p-3 rounded-xl bg-[#6366f1] border-2 border-[#4f46e5] shadow-[3px_3px_0px_0px_#312e81] mb-2 text-white">
-            <Shield className="w-7 h-7" />
+          <div className="flex justify-center mb-2">
+            <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-10 w-auto object-contain" />
           </div>
           <h1 className="text-2xl font-bold font-display tracking-tight text-white">Manager Portal Login</h1>
           <p className="text-xs text-[#94a3b8]">
