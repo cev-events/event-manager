@@ -233,7 +233,7 @@ export default function CommunitiesManagementPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {communities.map((c) => (
+          {communities.filter((c) => c.slug !== 'college' && c.name.toLowerCase() !== 'college').map((c) => (
             <div key={c.id} className="brutalist-card p-5 rounded-xl space-y-4 flex flex-col justify-between relative group">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">

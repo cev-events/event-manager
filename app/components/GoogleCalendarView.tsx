@@ -200,6 +200,9 @@ export default function GoogleCalendarView({
   const getFirstDayOfMonth = (year: number, month: number) => new Date(year, month, 1).getDay();
 
   const filteredEvents = events.filter((evt) => {
+    if (!isAdminMode && (evt.status || 'closed') === 'closed') {
+      return false;
+    }
     if (selectedCommunity !== 'all' && (evt.community || '').toLowerCase() !== selectedCommunity.toLowerCase()) {
       return false;
     }
@@ -721,6 +724,13 @@ export default function GoogleCalendarView({
                         const blockHeightPx = durationHours * 52 - 4;
                         const isClosed = evt.status === 'closed';
                         const commColor = getEventCommunityColor(evt, communities);
+                        const isOwnCommunity = isSuperAdmin || (
+                          currentUserCommunityName &&
+                          (evt.community || '').toLowerCase() === currentUserCommunityName.toLowerCase()
+                        );
+
+                        const displayTitle = (isAdminMode && !isOwnCommunity && isClosed) ? 'Slot Reserved' : evt.title;
+                        const displayCategory = (isAdminMode && !isOwnCommunity && isClosed) ? 'Reserved' : evt.category;
 
                         return (
                           <div
@@ -740,7 +750,7 @@ export default function GoogleCalendarView({
                               <div className="flex items-center justify-between">
                                 <span className="text-[8px] font-mono uppercase font-bold flex items-center gap-1" style={{ color: commColor }}>
                                   <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: commColor }} />
-                                  {evt.category}
+                                  {displayCategory}
                                 </span>
                                 {isAdminMode && (
                                   <span className={`text-[7px] uppercase font-bold px-1 rounded ${
@@ -751,7 +761,7 @@ export default function GoogleCalendarView({
                                 )}
                               </div>
                               <h4 className="text-[11px] font-bold text-white line-clamp-1 mt-0.5 font-heading">
-                                {evt.title}
+                                {displayTitle}
                               </h4>
                               <p className="text-[9px] font-bold line-clamp-1 mt-0.5" style={{ color: getReadableTextColor(commColor) }}>
                                 {evt.community}
@@ -1006,136 +1016,195 @@ export default function GoogleCalendarView({
           onClick={() => setActiveModalEvent(null)}
           className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md overflow-y-auto"
         >
-          <div
-            data-lenis-prevent
-            onClick={(e) => e.stopPropagation()}
-            className="brutalist-card p-6 sm:p-8 max-w-lg w-full space-y-5 rounded-2xl relative text-white bg-[#0f121d] border-2 border-[#1e2436] shadow-2xl my-auto"
-          >
-            <button
-              onClick={() => setActiveModalEvent(null)}
-              className="absolute top-4 right-4 text-[#94a3b8] hover:text-white p-1 rounded-lg hover:bg-[#161a29] transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
+          {(() => {
+            const isClosed = activeModalEvent.status === 'closed';
+            const isOwnCommunity = isSuperAdmin || (
+              currentUserCommunityName &&
+              activeModalEvent &&
+              (activeModalEvent.community || '').toLowerCase() === currentUserCommunityName.toLowerCase()
+            );
 
-            <div className="space-y-1.5">
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-lg bg-[#6366f1] text-white border border-[#4f46e5]">
-                  {activeModalEvent.category}
-                </span>
-                {isAdminMode && (
-                  <span className={`text-[10px] uppercase font-extrabold px-2 py-0.5 rounded-lg flex items-center gap-1 border ${
-                    activeModalEvent.status === 'closed'
-                      ? 'bg-amber-950 text-amber-400 border-amber-800'
-                      : 'bg-emerald-950 text-emerald-400 border-emerald-800'
-                  }`}>
-                    {activeModalEvent.status === 'closed' ? <Lock className="w-3 h-3" /> : <CheckCircle2 className="w-3 h-3" />}
-                    {activeModalEvent.status === 'closed' ? 'Closed Draft' : 'Live Published'}
-                  </span>
-                )}
-              </div>
-              <h3 className="text-xl font-bold text-white font-display mt-2">{activeModalEvent.title}</h3>
-              <p className="text-xs text-[#94a3b8] font-semibold">{activeModalEvent.community}</p>
-            </div>
+            if (isClosed && !isOwnCommunity) {
+              const commColor = getEventCommunityColor(activeModalEvent, communities);
+              return (
+                <div
+                  data-lenis-prevent
+                  onClick={(e) => e.stopPropagation()}
+                  className="brutalist-card p-6 sm:p-8 max-w-md w-full space-y-5 rounded-2xl relative text-white bg-[#0f121d] border-2 border-amber-900/60 shadow-2xl my-auto"
+                >
+                  <button
+                    onClick={() => setActiveModalEvent(null)}
+                    className="absolute top-4 right-4 text-[#94a3b8] hover:text-white p-1 rounded-lg hover:bg-[#161a29] transition-colors"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
 
-            {activeModalEvent.description && (
-              <p className="text-xs text-[#94a3b8] leading-relaxed border-t border-b border-[#1e2436] py-3 line-clamp-3">
-                {generate2LineSummary(activeModalEvent.description)}
-              </p>
-            )}
-
-            <div className="space-y-2 text-xs text-[#94a3b8]">
-              <div className="flex items-center space-x-2">
-                <CalendarIcon className="w-4 h-4 text-[#6366f1]" />
-                <span>{activeModalEvent.date}</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Clock className="w-4 h-4 text-[#6366f1]" />
-                <span>{parseTimeSlot(activeModalEvent.time_slot).displayTime}</span>
-              </div>
-              {(() => {
-                const rawVenue = activeModalEvent.venue || 'Campus Setup / CEV';
-                const isOnline = rawVenue.toLowerCase().startsWith('online') || rawVenue.toLowerCase().includes('online');
-                const formatTag = isOnline ? 'Online' : 'Offline';
-                const cleanLoc = rawVenue.replace(/^(offline|online|hybrid)\s*•\s*/i, '').trim() || rawVenue;
-
-                return (
-                  <div className="flex items-center space-x-2 pt-1">
-                    <span className={`text-[10px] px-2 py-0.5 rounded font-extrabold uppercase ${
-                      isOnline
-                        ? 'bg-cyan-950 text-cyan-300 border border-cyan-800'
-                        : 'bg-indigo-950 text-indigo-300 border border-indigo-800'
-                    }`}>
-                      {formatTag}
-                    </span>
-                    <span className="text-white font-semibold">{cleanLoc}</span>
+                  <div className="space-y-3 text-center pt-2">
+                    <div className="w-12 h-12 rounded-2xl bg-amber-950/80 border border-amber-800 flex items-center justify-center mx-auto text-amber-400">
+                      <Lock className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <span className="text-[10px] uppercase font-extrabold tracking-wider px-2.5 py-1 rounded-full bg-amber-950 text-amber-400 border border-amber-800 inline-block">
+                        Slot Reserved
+                      </span>
+                      <h3 className="text-xl font-bold text-white font-display mt-2">Time Slot Reserved</h3>
+                      <p className="text-xs text-slate-400 mt-1">
+                        This time slot is reserved by <span className="font-bold" style={{ color: commColor }}>{activeModalEvent.community}</span> to prevent scheduling conflicts.
+                      </p>
+                    </div>
                   </div>
-                );
-              })()}
-            </div>
 
-            <div className="pt-3 border-t border-[#1e2436] flex flex-wrap items-center justify-between gap-2">
-              {isAdminMode && (isSuperAdmin || (currentUserCommunityName && activeModalEvent && (activeModalEvent.community || '').toLowerCase() === currentUserCommunityName.toLowerCase())) && (
-                <div className="flex items-center gap-2">
-                  {onToggleStatus && (
-                    <button
-                      onClick={() => {
-                        onToggleStatus(activeModalEvent.id, activeModalEvent.status || 'live', activeModalEvent.community);
-                        setActiveModalEvent(null);
-                      }}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold border flex items-center gap-1 transition-all ${
+                  <div className="space-y-2 text-xs text-[#94a3b8] bg-[#161a29]/80 p-4 rounded-xl border border-[#1e2436]">
+                    <div className="flex items-center space-x-2">
+                      <CalendarIcon className="w-4 h-4 text-[#6366f1]" />
+                      <span className="text-white font-medium">{activeModalEvent.date}</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Clock className="w-4 h-4 text-cyan-400" />
+                      <span className="text-white font-mono">{parseTimeSlot(activeModalEvent.time_slot).displayTime}</span>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 text-center text-[11px] text-slate-500 italic border-t border-[#1e2436]/60">
+                    Event details remain private until published by {activeModalEvent.community}.
+                  </div>
+                </div>
+              );
+            }
+
+            return (
+              <div
+                data-lenis-prevent
+                onClick={(e) => e.stopPropagation()}
+                className="brutalist-card p-6 sm:p-8 max-w-lg w-full space-y-5 rounded-2xl relative text-white bg-[#0f121d] border-2 border-[#1e2436] shadow-2xl my-auto"
+              >
+                <button
+                  onClick={() => setActiveModalEvent(null)}
+                  className="absolute top-4 right-4 text-[#94a3b8] hover:text-white p-1 rounded-lg hover:bg-[#161a29] transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+
+                <div className="space-y-1.5">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-lg bg-[#6366f1] text-white border border-[#4f46e5]">
+                      {activeModalEvent.category}
+                    </span>
+                    {isAdminMode && (
+                      <span className={`text-[10px] uppercase font-extrabold px-2 py-0.5 rounded-lg flex items-center gap-1 border ${
                         activeModalEvent.status === 'closed'
-                          ? 'bg-emerald-950 text-emerald-300 border-emerald-800 hover:bg-emerald-900'
-                          : 'bg-amber-950 text-amber-300 border-amber-800 hover:bg-amber-900'
-                      }`}
-                    >
-                      {activeModalEvent.status === 'closed' ? 'Publish Live' : 'Set to Draft'}
-                    </button>
+                          ? 'bg-amber-950 text-amber-400 border-amber-800'
+                          : 'bg-emerald-950 text-emerald-400 border-emerald-800'
+                      }`}>
+                        {activeModalEvent.status === 'closed' ? <Lock className="w-3 h-3" /> : <CheckCircle2 className="w-3 h-3" />}
+                        {activeModalEvent.status === 'closed' ? 'Closed Draft' : 'Live Published'}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-xl font-bold text-white font-display mt-2">{activeModalEvent.title}</h3>
+                  <p className="text-xs text-[#94a3b8] font-semibold">{activeModalEvent.community}</p>
+                </div>
+
+                {activeModalEvent.description && (
+                  <p className="text-xs text-[#94a3b8] leading-relaxed border-t border-b border-[#1e2436] py-3 line-clamp-3">
+                    {generate2LineSummary(activeModalEvent.description)}
+                  </p>
+                )}
+
+                <div className="space-y-2 text-xs text-[#94a3b8]">
+                  <div className="flex items-center space-x-2">
+                    <CalendarIcon className="w-4 h-4 text-[#6366f1]" />
+                    <span>{activeModalEvent.date}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Clock className="w-4 h-4 text-[#6366f1]" />
+                    <span>{parseTimeSlot(activeModalEvent.time_slot).displayTime}</span>
+                  </div>
+                  {(() => {
+                    const rawVenue = activeModalEvent.venue || 'Campus Setup / CEV';
+                    const isOnline = rawVenue.toLowerCase().startsWith('online') || rawVenue.toLowerCase().includes('online');
+                    const formatTag = isOnline ? 'Online' : 'Offline';
+                    const cleanLoc = rawVenue.replace(/^(offline|online|hybrid)\s*•\s*/i, '').trim() || rawVenue;
+
+                    return (
+                      <div className="flex items-center space-x-2 pt-1">
+                        <span className={`text-[10px] px-2 py-0.5 rounded font-extrabold uppercase ${
+                          isOnline
+                            ? 'bg-cyan-950 text-cyan-300 border border-cyan-800'
+                            : 'bg-indigo-950 text-indigo-300 border border-indigo-800'
+                        }`}>
+                          {formatTag}
+                        </span>
+                        <span className="text-white font-semibold">{cleanLoc}</span>
+                      </div>
+                    );
+                  })()}
+                </div>
+
+                <div className="pt-3 border-t border-[#1e2436] flex flex-wrap items-center justify-between gap-2">
+                  {isAdminMode && (isSuperAdmin || (currentUserCommunityName && activeModalEvent && (activeModalEvent.community || '').toLowerCase() === currentUserCommunityName.toLowerCase())) && (
+                    <div className="flex items-center gap-2">
+                      {onToggleStatus && (
+                        <button
+                          onClick={() => {
+                            onToggleStatus(activeModalEvent.id, activeModalEvent.status || 'live', activeModalEvent.community);
+                            setActiveModalEvent(null);
+                          }}
+                          className={`px-3 py-1.5 rounded-xl text-xs font-bold border flex items-center gap-1 transition-all ${
+                            activeModalEvent.status === 'closed'
+                              ? 'bg-emerald-950 text-emerald-300 border-emerald-800 hover:bg-emerald-900'
+                              : 'bg-amber-950 text-amber-300 border-amber-800 hover:bg-amber-900'
+                          }`}
+                        >
+                          {activeModalEvent.status === 'closed' ? 'Publish Live' : 'Set to Draft'}
+                        </button>
+                      )}
+
+                      {onEditEvent && (
+                        <button
+                          onClick={() => {
+                            onEditEvent(activeModalEvent);
+                            setActiveModalEvent(null);
+                          }}
+                          className="p-2 text-slate-300 hover:text-white rounded-xl bg-[#161a29] hover:bg-[#1e2436] border border-[#1e2436]"
+                          title="Edit Slot"
+                        >
+                          <Edit3 className="w-4 h-4" />
+                        </button>
+                      )}
+
+                      {onDeleteEvent && (
+                        <button
+                          onClick={() => {
+                            onDeleteEvent(activeModalEvent.id, activeModalEvent.community);
+                            setActiveModalEvent(null);
+                          }}
+                          className="p-2 text-slate-300 hover:text-red-400 rounded-xl bg-[#161a29] hover:bg-[#1e2436] border border-[#1e2436]"
+                          title="Delete Slot"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
                   )}
 
-                  {onEditEvent && (
-                    <button
-                      onClick={() => {
-                        onEditEvent(activeModalEvent);
-                        setActiveModalEvent(null);
-                      }}
-                      className="p-2 text-slate-300 hover:text-white rounded-xl bg-[#161a29] hover:bg-[#1e2436] border border-[#1e2436]"
-                      title="Edit Slot"
+                  {activeModalEvent.status === 'live' ? (
+                    <Link
+                      href={`/events/${activeModalEvent.slug || activeModalEvent.id}`}
+                      className="brutalist-btn-primary px-4 py-2 text-xs rounded-xl flex items-center space-x-1.5 font-bold ml-auto"
                     >
-                      <Edit3 className="w-4 h-4" />
-                    </button>
-                  )}
-
-                  {onDeleteEvent && (
-                    <button
-                      onClick={() => {
-                        onDeleteEvent(activeModalEvent.id, activeModalEvent.community);
-                        setActiveModalEvent(null);
-                      }}
-                      className="p-2 text-slate-300 hover:text-red-400 rounded-xl bg-[#161a29] hover:bg-[#1e2436] border border-[#1e2436]"
-                      title="Delete Slot"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                      <span>View Page</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </Link>
+                  ) : (
+                    <span className="px-3 py-1.5 text-xs font-semibold text-amber-400 bg-amber-950/60 border border-amber-800 rounded-xl flex items-center gap-1 ml-auto">
+                      <Lock className="w-3 h-3" /> Reserved Draft Slot
+                    </span>
                   )}
                 </div>
-              )}
-
-              {activeModalEvent.status === 'live' ? (
-                <Link
-                  href={`/events/${activeModalEvent.slug || activeModalEvent.id}`}
-                  className="brutalist-btn-primary px-4 py-2 text-xs rounded-xl flex items-center space-x-1.5 font-bold ml-auto"
-                >
-                  <span>View Page</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </Link>
-              ) : (
-                <span className="px-3 py-1.5 text-xs font-semibold text-amber-400 bg-amber-950/60 border border-amber-800 rounded-xl flex items-center gap-1 ml-auto">
-                  <Lock className="w-3 h-3" /> Reserved Draft Slot
-                </span>
-              )}
-            </div>
-          </div>
+              </div>
+            );
+          })()}
         </div>,
         document.body
       )}

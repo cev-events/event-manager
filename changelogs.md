@@ -1,5 +1,15 @@
 # Changelogs & Version History
 
+## [0.90.0] - 2026-08-10
+
+### 🛡️ Reserved Slot Privacy Protection & College Entity Isolation
+- **Reserved Slot Confidentiality Shield ([app/components/GoogleCalendarView.tsx](./app/components/GoogleCalendarView.tsx)):** When non-owner community leads view or click a reserved draft slot (`status === 'closed'`), sensitive details (title, description, venue, perks, links) are masked. Clicking the slot opens a privacy-shielded modal displaying only the `Slot Reserved` status badge, reserving community name, date, and time slot.
+- **Public Calendar Exclusion ([app/components/GoogleCalendarView.tsx](./app/components/GoogleCalendarView.tsx)):** Closed/draft slots (`status === 'closed'`) are strictly excluded from public calendar views (`isAdminMode: false`). Public visitors only see live published events.
+- **College Entity Isolation ([app/community/page.tsx](./app/community/page.tsx), [app/admin/communities/page.tsx](./app/admin/communities/page.tsx)):** Excluded "College" from public community directories and admin community management cards so it is not displayed or managed as a standard student community.
+- **Admin-Restricted College Slot Booking ([app/admin/events/page.tsx](./app/admin/events/page.tsx)):** Restricted selection of "College" as an organizing entity exclusively to Superadmins (`dev` and `admin` roles) under a dedicated `Institutional Entity` dropdown optgroup.
+
+---
+
 ## [0.89.0] - 2026-08-06
 
 ### 🎴 Grid & List Views Layout Engine for "My Events" Page

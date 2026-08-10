@@ -700,15 +700,23 @@ export default function EventBookingEnginePage() {
                       required
                       className="w-full bg-[#161a29] border border-[#1e2436] text-white rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#6366f1] transition-colors"
                     >
-                      <option value="">-- Select Organizing Community --</option>
-                      {!communities.some((c) => c.name.toLowerCase() === 'college' || c.slug === 'college') && (
-                        <option value="college">College</option>
-                      )}
-                      {communities.map((c) => (
-                        <option key={c.id} value={c.id}>
-                          {c.name === 'College' ? 'College' : c.name}
-                        </option>
-                      ))}
+                      <option value="">-- Select Organizing Entity --</option>
+                      <optgroup label="Institutional Entity (Admin Restricted)">
+                        {(() => {
+                          const collegeComm = communities.find((c) => c.slug === 'college' || c.name.toLowerCase() === 'college');
+                          const val = collegeComm ? collegeComm.id : 'college';
+                          return (
+                            <option value={val}>College (Academic Schedules & Exams)</option>
+                          );
+                        })()}
+                      </optgroup>
+                      <optgroup label="Student Communities">
+                        {communities.filter((c) => c.slug !== 'college' && c.name.toLowerCase() !== 'college').map((c) => (
+                          <option key={c.id} value={c.id}>
+                            {c.name}
+                          </option>
+                        ))}
+                      </optgroup>
                     </select>
                   ) : (
                     <div className="p-2.5 rounded-xl bg-[#161a29] border border-[#1e2436] text-xs text-slate-300 flex items-center justify-between h-[42px]">
