@@ -232,6 +232,23 @@ export default function GoogleCalendarView({
     return { displayTime: cleanSlot, startHour: 9, endHour: 17 };
   };
 
+  const getEventStartEndIso = (evt: CalendarEvent): { startIso: string; endIso: string } => {
+    if (evt.start_date && evt.end_date) {
+      return { startIso: evt.start_date, endIso: evt.end_date };
+    }
+
+    const rawDateStr = evt.date || evt.event_date || '';
+    if (rawDateStr.includes(' to ') || rawDateStr.includes(' - ') || rawDateStr.includes(' -> ')) {
+      const parts = rawDateStr.split(/\s*(?:to|-|->)\s*/i);
+      if (parts.length === 2 && /^\d{4}-\d{2}-\d{2}$/.test(parts[0].trim()) && /^\d{4}-\d{2}-\d{2}$/.test(parts[1].trim())) {
+        return { startIso: parts[0].trim(), endIso: parts[1].trim() };
+      }
+    }
+
+    const iso = evt.start_date || evt.event_date || (evt.date && /^\d{4}-\d{2}-\d{2}$/.test(evt.date.trim()) ? evt.date.trim() : '');
+    return { startIso: iso, endIso: evt.end_date || iso };
+  };
+
   const isEventOnDate = (evt: CalendarEvent, dateObj: Date): boolean => {
     const formatYmd = (d: Date) => {
       const y = d.getFullYear();
@@ -241,14 +258,9 @@ export default function GoogleCalendarView({
     };
 
     const targetIso = formatYmd(dateObj);
+    const { startIso, endIso } = getEventStartEndIso(evt);
 
-    if (evt.event_date && !evt.start_date) {
-      return evt.event_date === targetIso;
-    }
-
-    if (evt.start_date) {
-      const startIso = evt.start_date;
-      const endIso = evt.end_date || evt.start_date;
+    if (startIso && endIso) {
       return targetIso >= startIso && targetIso <= endIso;
     }
 
@@ -278,21 +290,20 @@ export default function GoogleCalendarView({
     };
 
     const currentIso = formatYmd(dateObj);
-    const isoStart = evt.start_date || evt.event_date || (evt.date && evt.date.includes('-') ? evt.date : '');
-    const isoEnd = evt.end_date || isoStart;
+    const { startIso, endIso } = getEventStartEndIso(evt);
 
-    if (!isoStart || isoStart === isoEnd) {
+    if (!startIso || startIso === endIso) {
       return { isMultiDay: false, isStart: true, isEnd: true, isActualStart: true, isActualEnd: true };
     }
 
-    const isActualStart = currentIso === isoStart;
-    const isActualEnd = currentIso === isoEnd;
+    const isActualStart = currentIso === startIso;
+    const isActualEnd = currentIso === endIso;
     const dayOfWeek = dateObj.getDay();
     const isWeekStart = dayOfWeek === 0;
     const isWeekEnd = dayOfWeek === 6;
 
-    const isStart = isActualStart || (currentIso > isoStart && currentIso <= isoEnd && isWeekStart);
-    const isEnd = isActualEnd || (currentIso >= isoStart && currentIso < isoEnd && isWeekEnd);
+    const isStart = isActualStart || (currentIso > startIso && currentIso <= endIso && isWeekStart);
+    const isEnd = isActualEnd || (currentIso >= startIso && currentIso < endIso && isWeekEnd);
 
     return { isMultiDay: true, isStart, isEnd, isActualStart, isActualEnd };
   };

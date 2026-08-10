@@ -1,5 +1,17 @@
 # Changelogs & Version History
 
+## [0.97.0] - 2026-08-11
+
+### 🚀 Full-Screen Edge-to-Edge Public Calendar, Login Redesign & Admin UI Alignment
+- **Full-Screen Dark Public Calendar ([app/calendar/page.tsx](./app/calendar/page.tsx)):** Set background to `#0a0a0a` charcoal dark theme, removed side container padding and max-width boundaries for a 100% full-screen edge-to-edge Google Calendar view.
+- **Robust Multi-Day Date Parsing ([GoogleCalendarView.tsx](./app/components/GoogleCalendarView.tsx), [useRealtimeEvents.ts](./lib/hooks/useRealtimeEvents.ts)):** Implemented `getEventStartEndIso` helper to automatically parse date ranges (`start_date`, `end_date`, `2026-08-22 to 2026-08-26`, `2026-08-22 - 2026-08-26`). Events now render continuous horizontal banners across all days.
+- **Navbar CTA Login Button ([Navbar.tsx](./app/components/Navbar.tsx)):** Replaced `Book Slot` button text in header with `Login` pointing directly to `/login`.
+- **Redesigned Admin Login Page ([app/login/page.tsx](./app/login/page.tsx)):** Updated header title to **`Admin Portal Login`**, updated placeholder to `admin@cev.ac.in`, and modernized card container with `#0a0a0a` background, `bg-neutral-900 border border-neutral-800` card, and clean white pill buttons.
+- **System-Wide Admin Page Redesign ([/admin/users](./app/admin/users/page.tsx), [/admin/communities](./app/admin/communities/page.tsx), [/admin/profile](./app/admin/profile/page.tsx)):** Replaced legacy dark blue/indigo borders and glowing card outlines with clean dark neutral containers (`bg-neutral-900 border border-neutral-800 rounded-2xl`) and white pill action triggers (`bg-white text-[#0a0a0a] rounded-full`).
+- **Public Support Page Alignment ([app/support/page.tsx](./app/support/page.tsx)):** Updated support ticket form container to clean off-white card styling (`bg-white border border-neutral-200 shadow-sm rounded-2xl`).
+
+---
+
 ## [0.96.0] - 2026-08-11
 
 ### 📅 Streamlined Public Calendar Page & Full-Width Layout

@@ -74,7 +74,8 @@ export function useRealtimeEvents() {
             venue: item.venue || 'Campus Setup / CEV',
             redirect_url: item.redirect_url || null,
             perks: item.perks || null,
-            system_prompt: item.system_prompt || null,
+            start_date: item.start_date || null,
+            end_date: item.end_date || null,
             slug: item.slug || item.id,
           };
         });

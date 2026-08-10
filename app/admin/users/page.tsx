@@ -280,13 +280,13 @@ export default function UserManagementPage() {
       {/* Top Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <span className="text-xs font-mono text-[#6366f1] uppercase font-bold tracking-widest">
+          <span className="text-xs font-mono text-neutral-400 uppercase font-bold tracking-widest">
             005 / Access Control & RBAC Matrix
           </span>
           <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-display leading-none">
             {currentUserRole === 'manager' ? 'TEAM & COMMUNITY LEADS' : 'USER ROLES & ACCESS MANAGEMENT'}
           </h1>
-          <p className="text-xs text-[#94a3b8]">
+          <p className="text-xs text-neutral-400">
             {currentUserRole === 'manager'
               ? 'Add and modify community leads and editors.'
               : 'Create, modify, and assign position roles.'}
@@ -295,7 +295,7 @@ export default function UserManagementPage() {
 
         <button
           onClick={openAddModal}
-          className="py-3 px-5 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:opacity-95 text-white font-bold text-sm shadow-lg shadow-blue-500/25 flex items-center space-x-2 w-fit transition-all"
+          className="py-2.5 px-5 rounded-full bg-white hover:bg-neutral-200 text-[#0a0a0a] font-bold text-xs shadow-md flex items-center space-x-2 w-fit transition-colors"
         >
           <UserPlus className="w-4 h-4" />
           <span>Add New Lead / Editor</span>
@@ -334,12 +334,12 @@ export default function UserManagementPage() {
           {displayedProfiles.map((usr) => (
             <div
               key={usr.id}
-              className="p-6 rounded-3xl bg-slate-900/70 border border-slate-800 flex flex-col justify-between space-y-6 hover:border-slate-700 transition-colors shadow-xl"
+              className="p-6 rounded-2xl bg-neutral-900 border border-neutral-800 flex flex-col justify-between space-y-6 hover:border-neutral-700 transition-colors shadow-sm"
             >
               <div className="space-y-4">
                 {/* Profile Avatar & Info */}
                 <div className="flex items-center space-x-4">
-                  <div className="relative w-14 h-14 rounded-2xl overflow-hidden bg-slate-800 border border-slate-700 shrink-0 flex items-center justify-center text-xl font-extrabold text-white">
+                  <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-neutral-800 border border-neutral-700 shrink-0 flex items-center justify-center text-xl font-extrabold text-white">
                     {usr.avatar_url ? (
                       <Image
                         src={usr.avatar_url}
@@ -353,36 +353,36 @@ export default function UserManagementPage() {
                   </div>
 
                   <div className="overflow-hidden">
-                    <h3 className="text-lg font-bold text-white truncate">
+                    <h3 className="text-lg font-bold text-white truncate font-display">
                       {usr.full_name || 'Unnamed User'}
                     </h3>
-                    <p className="text-xs text-cyan-400 font-semibold truncate flex items-center gap-1">
-                      <Briefcase className="w-3 h-3 shrink-0" />
+                    <p className="text-xs text-neutral-300 font-semibold truncate flex items-center gap-1">
+                      <Briefcase className="w-3 h-3 shrink-0 text-neutral-400" />
                       {usr.position || 'Community Lead'}
                     </p>
-                    <p className="text-xs text-slate-400 truncate mt-0.5">{usr.email}</p>
+                    <p className="text-xs text-neutral-400 truncate mt-0.5 font-mono">{usr.email}</p>
                   </div>
                 </div>
 
                 {/* Role & Community Badges */}
-                <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-800/80">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-blue-950 text-blue-400 border border-blue-800 flex items-center gap-1">
-                    <Shield className="w-3 h-3" />
+                <div className="flex flex-wrap gap-2 pt-2 border-t border-neutral-800">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-neutral-800 text-white border border-neutral-700 flex items-center gap-1">
+                    <Shield className="w-3 h-3 text-neutral-400" />
                     {usr.role}
                   </span>
 
-                  <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 flex items-center gap-1">
-                    <Building className="w-3 h-3 text-slate-400" />
+                  <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full bg-neutral-800 text-neutral-300 border border-neutral-700 flex items-center gap-1">
+                    <Building className="w-3 h-3 text-neutral-400" />
                     {usr.community?.name || 'Super Admin (All)'}
                   </span>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center space-x-2 pt-4 border-t border-slate-800">
+              <div className="flex items-center space-x-2 pt-4 border-t border-neutral-800">
                 <button
                   onClick={() => openEditModal(usr)}
-                  className="flex-1 py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors"
+                  className="flex-1 py-2 px-3 rounded-full bg-neutral-800 hover:bg-neutral-700 text-white text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors border border-neutral-700"
                 >
                   <Edit2 className="w-3.5 h-3.5" />
                   <span>Modify User</span>
@@ -390,7 +390,7 @@ export default function UserManagementPage() {
 
                 <button
                   onClick={() => handleDeleteUser(usr.id, usr.full_name || usr.email)}
-                  className="p-2 rounded-xl bg-red-950/60 hover:bg-red-900/80 border border-red-800 text-red-300 hover:text-white text-xs transition-colors"
+                  className="p-2 rounded-full bg-rose-950/60 hover:bg-rose-900/80 border border-rose-800 text-rose-300 hover:text-white text-xs transition-colors"
                   title="Delete User Account"
                 >
                   <Trash2 className="w-4 h-4" />

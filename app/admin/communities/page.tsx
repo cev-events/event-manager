@@ -222,7 +222,7 @@ export default function CommunitiesManagementPage() {
 
         <button
           onClick={() => { resetForm(); setShowAddModal(true); }}
-          className="brutalist-btn-primary px-4 py-2 rounded-lg text-xs flex items-center space-x-2"
+          className="py-2.5 px-5 rounded-full bg-white hover:bg-neutral-200 text-[#0a0a0a] font-bold text-xs shadow-md flex items-center space-x-2 w-fit transition-colors"
         >
           <Plus className="w-4 h-4" />
           <span>Add New Community</span>
@@ -230,13 +230,13 @@ export default function CommunitiesManagementPage() {
       </div>
 
       {loading ? (
-        <div className="p-8 text-center text-[#94a3b8] text-xs bg-[#0f121d] border border-[#1e2436] rounded-xl">
+        <div className="p-8 text-center text-neutral-400 text-sm bg-neutral-900 border border-neutral-800 rounded-2xl">
           Loading community entities...
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {communities.filter((c) => c.slug !== 'college' && c.name.toLowerCase() !== 'college').map((c) => (
-            <div key={c.id} className="brutalist-card p-5 rounded-xl space-y-4 flex flex-col justify-between relative group">
+            <div key={c.id} className="p-6 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-4 flex flex-col justify-between relative group hover:border-neutral-700 transition-colors shadow-sm">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
@@ -245,21 +245,21 @@ export default function CommunitiesManagementPage() {
                       <img
                         src={c.logo_url}
                         alt={c.name}
-                        className="w-10 h-10 rounded-lg object-cover border border-[#1e2436]"
+                        className="w-10 h-10 rounded-xl object-cover border border-neutral-700"
                         onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
                       />
                     ) : (
-                      <div className="w-10 h-10 rounded-lg bg-[#161a29] border border-[#1e2436] flex items-center justify-center text-white font-bold text-sm">
+                      <div className="w-10 h-10 rounded-xl bg-neutral-800 border border-neutral-700 flex items-center justify-center text-white font-bold text-sm">
                         {c.initials || c.name.slice(0, 2).toUpperCase()}
                       </div>
                     )}
-                    <h3 className="text-base font-bold text-white">{c.name}</h3>
+                    <h3 className="text-base font-bold text-white font-display">{c.name}</h3>
                   </div>
 
                   <div className="flex items-center space-x-1">
                     <button
                       onClick={() => handleOpenEdit(c)}
-                      className="p-1.5 text-neutral-400 hover:text-[#6366f1] rounded-md hover:bg-[#161a29] transition-colors"
+                      className="p-1.5 text-neutral-400 hover:text-white rounded-full hover:bg-neutral-800 transition-colors"
                       title="Edit Community Entity"
                     >
                       <Edit2 className="w-4 h-4" />
@@ -267,7 +267,7 @@ export default function CommunitiesManagementPage() {
 
                     <button
                       onClick={() => handleDelete(c.id)}
-                      className="p-1.5 text-neutral-400 hover:text-red-400 rounded-md hover:bg-[#161a29] transition-colors"
+                      className="p-1.5 text-neutral-400 hover:text-rose-400 rounded-full hover:bg-neutral-800 transition-colors"
                       title="Delete Community Entity"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -275,7 +275,7 @@ export default function CommunitiesManagementPage() {
                   </div>
                 </div>
 
-                <p className="text-xs text-[#94a3b8] line-clamp-2">{c.description}</p>
+                <p className="text-xs text-neutral-400 line-clamp-2">{c.description}</p>
               </div>
 
               {/* Slug & Logo Info Footer */}

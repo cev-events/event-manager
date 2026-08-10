@@ -13,10 +13,10 @@ export default function PublicCalendarPage() {
   const loading = eventsLoading || communitiesLoading;
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5] text-[#0a0a0a] flex flex-col pt-24 md:pt-28">
-      <main className="flex-1 max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col pt-20 md:pt-24 pb-0">
+      <main className="flex-1 w-full px-2 sm:px-4 lg:px-6 pb-6">
         {loading ? (
-          <div className="p-12 text-center text-neutral-500 text-sm bg-white border border-neutral-200 rounded-2xl italic shadow-sm">
+          <div className="p-12 text-center text-neutral-400 text-sm bg-neutral-900 border border-neutral-800 rounded-2xl italic shadow-sm">
             Loading calendar events...
           </div>
         ) : (

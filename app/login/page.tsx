@@ -4,11 +4,10 @@
 import React, { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { Shield, KeyRound, Mail, ArrowRight, Lock, CheckCircle2 } from 'lucide-react';
+import { Mail, ArrowRight, Lock, KeyRound, CheckCircle2 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 
 function LoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirectTo') || '/admin';
 
@@ -119,26 +118,27 @@ function LoginForm() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center pt-28 md:pt-32 pb-12 px-4 relative text-white">
-      <div className="w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-2xl p-8 relative z-10 space-y-6 shadow-xl">
+      <div className="w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-2xl p-8 relative z-10 space-y-6 shadow-2xl">
         <div className="text-center space-y-2">
           <div className="flex justify-center mb-2">
             <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-10 w-auto object-contain" />
           </div>
-          <h1 className="text-2xl font-bold font-display tracking-tight text-white">Manager Portal Login</h1>
+          <h1 className="text-2xl font-extrabold font-display tracking-tight text-white">Admin Portal Login</h1>
           <p className="text-xs text-neutral-400">
             Sign in with your password or 6-digit email OTP verification code.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 bg-[#161a29] p-1 rounded-lg border border-[#1e2436]">
+        <div className="grid grid-cols-2 gap-2 bg-neutral-800 p-1 rounded-xl border border-neutral-700">
           <button
             type="button"
             suppressHydrationWarning
             onClick={() => { setAuthMode('password'); setError(''); setSuccessMsg(''); }}
-            className={`py-2 text-xs font-semibold rounded-md transition-all ${authMode === 'password'
-              ? 'bg-[#6366f1] text-white shadow-sm font-bold'
-              : 'text-[#94a3b8] hover:text-white'
-              }`}
+            className={`py-2 text-xs font-bold rounded-lg transition-all ${
+              authMode === 'password'
+                ? 'bg-white text-black shadow-sm font-bold'
+                : 'text-neutral-400 hover:text-white'
+            }`}
           >
             Password Auth
           </button>
@@ -147,23 +147,24 @@ function LoginForm() {
             type="button"
             suppressHydrationWarning
             onClick={() => { setAuthMode('otp'); setError(''); setSuccessMsg(''); }}
-            className={`py-2 text-xs font-semibold rounded-md transition-all ${authMode === 'otp'
-              ? 'bg-[#6366f1] text-white shadow-sm font-bold'
-              : 'text-[#94a3b8] hover:text-white'
-              }`}
+            className={`py-2 text-xs font-bold rounded-lg transition-all ${
+              authMode === 'otp'
+                ? 'bg-white text-black shadow-sm font-bold'
+                : 'text-neutral-400 hover:text-white'
+            }`}
           >
             6-Digit Email OTP
           </button>
         </div>
 
         {error && (
-          <div className="p-3 rounded-lg bg-red-950/80 border border-red-800 text-xs text-red-200">
+          <div className="p-3 rounded-xl bg-rose-950/80 border border-rose-800 text-xs text-rose-300">
             {error}
           </div>
         )}
 
         {successMsg && (
-          <div className="p-3 rounded-lg bg-emerald-950/80 border border-emerald-800 text-xs text-emerald-200 flex items-center gap-2">
+          <div className="p-3 rounded-xl bg-emerald-950/80 border border-emerald-800 text-xs text-emerald-300 flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
             <span>{successMsg}</span>
           </div>
@@ -171,61 +172,61 @@ function LoginForm() {
 
         {authMode === 'password' && (
           <form onSubmit={handlePasswordLogin} suppressHydrationWarning className="space-y-4">
-              <div>
-                <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1.5">
-                  Email Address
-                </label>
-                <div className="relative">
-                  <input
-                    type="email"
-                    suppressHydrationWarning
-                    value={passwordEmail}
-                    onChange={(e) => setPasswordEmail(e.target.value)}
-                    placeholder="manager@cev.ac.in"
-                    required
-                    className="w-full bg-[#161a29] text-white placeholder-slate-500 rounded-lg pl-10 pr-4 py-2.5 text-sm border border-[#1e2436] focus:outline-none focus:border-[#6366f1]"
-                  />
-                  <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
-                </div>
+            <div>
+              <label className="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1.5">
+                Admin Email Address
+              </label>
+              <div className="relative">
+                <input
+                  type="email"
+                  suppressHydrationWarning
+                  value={passwordEmail}
+                  onChange={(e) => setPasswordEmail(e.target.value)}
+                  placeholder="admin@cev.ac.in"
+                  required
+                  className="w-full bg-neutral-800 text-white placeholder-neutral-500 rounded-xl pl-10 pr-4 py-2.5 text-sm border border-neutral-700 focus:outline-none focus:border-white"
+                />
+                <Mail className="w-4 h-4 text-neutral-500 absolute left-3.5 top-3" />
               </div>
+            </div>
 
-              <div>
-                <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1.5">
-                  Auth Password
-                </label>
-                <div className="relative">
-                  <input
-                    type="password"
-                    suppressHydrationWarning
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    required
-                    className="w-full bg-[#161a29] text-white placeholder-slate-500 rounded-lg pl-10 pr-4 py-2.5 text-sm border border-[#1e2436] focus:outline-none focus:border-[#6366f1]"
-                  />
-                  <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
-                </div>
+            <div>
+              <label className="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1.5">
+                Auth Password
+              </label>
+              <div className="relative">
+                <input
+                  type="password"
+                  suppressHydrationWarning
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  required
+                  className="w-full bg-neutral-800 text-white placeholder-neutral-500 rounded-xl pl-10 pr-4 py-2.5 text-sm border border-neutral-700 focus:outline-none focus:border-white"
+                />
+                <Lock className="w-4 h-4 text-neutral-500 absolute left-3.5 top-3" />
               </div>
+            </div>
 
-              <button
-                type="submit"
-                suppressHydrationWarning
-                disabled={loading}
-                className="w-full brutalist-btn-primary py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center space-x-2 disabled:opacity-50"
-              >
-                <span>{loading ? 'Authenticating...' : 'Sign In with Password'}</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </form>
-          )}
+            <button
+              type="submit"
+              suppressHydrationWarning
+              disabled={loading}
+              className="w-full py-3 px-4 rounded-full bg-white text-black hover:bg-neutral-200 font-bold text-xs flex items-center justify-center space-x-2 disabled:opacity-50 transition-colors shadow-md"
+            >
+              <span>{loading ? 'Authenticating...' : 'Sign In with Password'}</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </form>
+        )}
 
         {authMode === 'otp' && (
           <>
             {step === 'email' ? (
               <form onSubmit={handleSendOtp} suppressHydrationWarning className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1.5">
-                    Manager Email Address
+                  <label className="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1.5">
+                    Admin Email Address
                   </label>
                   <div className="relative">
                     <input
@@ -233,11 +234,11 @@ function LoginForm() {
                       suppressHydrationWarning
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="manager@cev.ac.in"
+                      placeholder="admin@cev.ac.in"
                       required
-                      className="w-full bg-[#161a29] text-white placeholder-slate-500 rounded-lg pl-10 pr-4 py-2.5 text-sm border border-[#1e2436] focus:outline-none focus:border-[#6366f1]"
+                      className="w-full bg-neutral-800 text-white placeholder-neutral-500 rounded-xl pl-10 pr-4 py-2.5 text-sm border border-neutral-700 focus:outline-none focus:border-white"
                     />
-                    <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
+                    <Mail className="w-4 h-4 text-neutral-500 absolute left-3.5 top-3" />
                   </div>
                 </div>
 
@@ -245,7 +246,7 @@ function LoginForm() {
                   type="submit"
                   suppressHydrationWarning
                   disabled={loading}
-                  className="w-full brutalist-btn-primary py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center space-x-2 disabled:opacity-50"
+                  className="w-full py-3 px-4 rounded-full bg-white text-black hover:bg-neutral-200 font-bold text-xs flex items-center justify-center space-x-2 disabled:opacity-50 transition-colors shadow-md"
                 >
                   <span>{loading ? 'Sending Code...' : 'Send 6-Digit OTP Code'}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -254,7 +255,7 @@ function LoginForm() {
             ) : (
               <form onSubmit={handleVerifyOtp} suppressHydrationWarning className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1.5">
                     Enter 6-Digit Verification Code
                   </label>
                   <div className="relative">
@@ -266,9 +267,9 @@ function LoginForm() {
                       placeholder="123456"
                       required
                       maxLength={6}
-                      className="w-full bg-[#161a29] text-white placeholder-slate-500 rounded-lg pl-10 pr-4 py-2.5 text-sm border border-[#1e2436] focus:outline-none focus:border-[#6366f1] text-center font-mono text-xl tracking-[0.4em]"
+                      className="w-full bg-neutral-800 text-white placeholder-neutral-500 rounded-xl pl-10 pr-4 py-2.5 text-sm border border-neutral-700 focus:outline-none focus:border-white text-center font-mono text-xl tracking-[0.4em]"
                     />
-                    <KeyRound className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
+                    <KeyRound className="w-4 h-4 text-neutral-500 absolute left-3.5 top-3.5" />
                   </div>
                 </div>
 
@@ -276,7 +277,7 @@ function LoginForm() {
                   type="submit"
                   suppressHydrationWarning
                   disabled={loading || otpToken.length < 6}
-                  className="w-full brutalist-btn-primary py-3 px-4 rounded-lg font-bold text-sm flex items-center justify-center space-x-2 disabled:opacity-50"
+                  className="w-full py-3 px-4 rounded-full bg-white text-black hover:bg-neutral-200 font-bold text-xs flex items-center justify-center space-x-2 disabled:opacity-50 transition-colors shadow-md"
                 >
                   <span>{loading ? 'Verifying...' : 'Verify OTP & Sign In'}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -286,7 +287,7 @@ function LoginForm() {
                   type="button"
                   suppressHydrationWarning
                   onClick={() => setStep('email')}
-                  className="w-full py-1 text-xs text-[#94a3b8] hover:text-white transition-colors"
+                  className="w-full py-1 text-xs text-neutral-400 hover:text-white transition-colors"
                 >
                   Resend OTP or change email
                 </button>
@@ -295,8 +296,8 @@ function LoginForm() {
           </>
         )}
 
-        <div className="text-center pt-4 border-t border-[#1e2436]">
-          <Link href="/" className="text-xs text-[#94a3b8] hover:text-white transition-colors">
+        <div className="text-center pt-4 border-t border-neutral-800">
+          <Link href="/" className="text-xs text-neutral-400 hover:text-white transition-colors">
             &larr; Back to Public Portal
           </Link>
         </div>
@@ -307,7 +308,7 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#08090d] flex items-center justify-center text-white text-sm">Loading authentication...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center text-white text-sm">Loading authentication...</div>}>
       <LoginForm />
     </Suspense>
   );

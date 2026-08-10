@@ -94,10 +94,10 @@ export default function Navbar() {
         <div className="flex items-center space-x-3">
           {!loading && (
             <Link
-              href={session ? "/admin" : "/admin/events"}
+              href={session ? "/admin" : "/login"}
               className="px-5 py-2 text-xs font-bold text-[#0a0a0a] bg-white hover:bg-neutral-200 rounded-full transition-all duration-200 flex items-center gap-1.5 shadow-sm"
             >
-              <span>{session ? "Dashboard" : "Book Slot"}</span>
+              <span>{session ? "Dashboard" : "Login"}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           )}
