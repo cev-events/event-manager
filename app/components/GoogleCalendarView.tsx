@@ -558,7 +558,10 @@ export default function GoogleCalendarView({
                         return (
                           <div
                             key={evt.id}
-                            onClick={() => setActiveModalEvent(evt)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveModalEvent(evt);
+                            }}
                             style={{
                               backgroundColor: hexToRgba(commColor, isMultiDay ? 0.6 : 0.2),
                               borderColor: hexToRgba(commColor, 0.7),
@@ -586,7 +589,10 @@ export default function GoogleCalendarView({
                         return (
                           <button
                             key={evt.id}
-                            onClick={() => setActiveModalEvent(evt)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveModalEvent(evt);
+                            }}
                             style={{
                               backgroundColor: isClosed ? hexToRgba(commColor, 0.55) : hexToRgba(commColor, 0.85),
                               borderColor: commColor,
@@ -622,7 +628,10 @@ export default function GoogleCalendarView({
                       return (
                         <button
                           key={evt.id}
-                          onClick={() => setActiveModalEvent(evt)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveModalEvent(evt);
+                          }}
                           style={{
                             backgroundColor: isClosed ? hexToRgba(commColor, 0.18) : hexToRgba(commColor, 0.28),
                             borderColor: hexToRgba(commColor, 0.7),
@@ -865,7 +874,10 @@ export default function GoogleCalendarView({
                     return (
                       <div
                         key={evt.id}
-                        onClick={() => setActiveModalEvent(evt)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveModalEvent(evt);
+                        }}
                         style={{
                           backgroundColor: '#0f121d',
                           borderColor: hexToRgba(commColor, 0.4),
