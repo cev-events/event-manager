@@ -591,11 +591,11 @@ export default function GoogleCalendarView({
                           let shapeClass = 'w-full rounded-md border z-10';
                           if (isMultiDay) {
                             if (isStart && !isEnd) {
-                              shapeClass = 'w-full rounded-l-md rounded-r-none border-l border-t border-b border-r-0 z-10';
+                              shapeClass = 'w-[calc(100%+12px)] -mr-3 rounded-l-md rounded-r-none border-l border-t border-b border-r-0 z-20';
                             } else if (!isStart && !isEnd) {
-                              shapeClass = 'w-full rounded-none border-x-0 border-t border-b z-10';
+                              shapeClass = 'w-[calc(100%+16px)] -mx-2 rounded-none border-x-0 border-t border-b z-20';
                             } else if (!isStart && isEnd) {
-                              shapeClass = 'w-full rounded-r-md rounded-l-none border-r border-t border-b border-l-0 z-10';
+                              shapeClass = 'w-[calc(100%+12px)] -ml-3 rounded-r-md rounded-l-none border-r border-t border-b border-l-0 z-20';
                             }
                           }
 
@@ -608,16 +608,20 @@ export default function GoogleCalendarView({
                                   setActiveModalEvent(evt);
                                 }}
                                 style={{
-                                  backgroundColor: hexToRgba(commColor, isMultiDay ? 0.6 : 0.25),
+                                  backgroundColor: hexToRgba(commColor, isMultiDay ? 0.8 : 0.35),
                                   borderColor: commColor,
                                 }}
                                 className={`text-left border transition-all block box-border px-2 py-0.5 ${shapeClass}`}
                               >
-                                <div className="text-[10px] font-bold text-amber-300 truncate flex items-center justify-between gap-1">
-                                  <span className="flex items-center gap-1 truncate">
-                                    <Lock className="w-3 h-3 text-amber-400 shrink-0" />
-                                    <span>{isStart ? 'Slot Reserved' : `Reserved (${evt.community})`}</span>
-                                  </span>
+                                <div className="text-[10px] font-bold text-amber-300 truncate flex items-center justify-between gap-1 h-4">
+                                  {isStart ? (
+                                    <span className="flex items-center gap-1 truncate">
+                                      <Lock className="w-3 h-3 text-amber-400 shrink-0" />
+                                      <span>Slot Reserved</span>
+                                    </span>
+                                  ) : (
+                                    <span className="opacity-0">.</span>
+                                  )}
                                 </div>
                               </div>
                             );
@@ -634,11 +638,15 @@ export default function GoogleCalendarView({
                                 backgroundColor: commColor,
                                 borderColor: commColor,
                               }}
-                              className={`w-full text-left transition-all block text-white shadow-sm px-2 py-0.5 rounded-md hover:brightness-110 ${shapeClass}`}
+                              className={`text-left transition-all block text-white shadow-sm px-2 py-0.5 hover:brightness-110 ${shapeClass}`}
                             >
-                              <div className="text-[10px] font-bold truncate flex items-center justify-between gap-1">
-                                <span className="truncate">{evt.title}</span>
-                                {isClosed && (
+                              <div className="text-[10px] font-bold truncate flex items-center justify-between gap-1 h-4">
+                                {isStart ? (
+                                  <span className="truncate">{evt.title}</span>
+                                ) : (
+                                  <span className="opacity-0">.</span>
+                                )}
+                                {isClosed && isStart && (
                                   <Lock className="w-2.5 h-2.5 text-amber-200 shrink-0" />
                                 )}
                               </div>

@@ -1,5 +1,13 @@
 # Changelogs & Version History
 
+## [0.96.0] - 2026-08-11
+
+### 📅 Streamlined Public Calendar Page & Full-Width Layout
+- **Streamlined Public Calendar Page ([app/calendar/page.tsx](./app/calendar/page.tsx)):** Removed top title headers, badges, and description text from `/calendar`. Rendered an expansive full-width Google Calendar view (`max-w-[1400px]`) followed directly by the footer.
+- **Continuous Multi-Day Banner Polish ([GoogleCalendarView.tsx](./app/components/GoogleCalendarView.tsx)):** Refined multi-day event banner boundaries to span continuously across cell walls without gaps, matching Google Calendar dark mode.
+
+---
+
 ## [0.95.0] - 2026-08-11
 
 ### 📅 Authentic Google Calendar Dark UI & Navbar Calendar Integration
