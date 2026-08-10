@@ -12,7 +12,16 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
+  const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -61,26 +70,35 @@ export default function Navbar() {
   ]
 
   return (
-    <header className="fixed top-4 inset-x-0 z-[100] px-4 pointer-events-none">
+    <header className="fixed top-4 inset-x-0 z-[100] px-4 pointer-events-none transition-all duration-300">
       <div className="max-w-7xl mx-auto flex items-center justify-between pointer-events-auto">
         
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center space-x-2.5 group bg-black/95 backdrop-blur-md border border-neutral-800 rounded-full px-4 py-2 shadow-xl">
+        <Link
+          href="/"
+          className={`flex items-center space-x-2.5 group bg-black text-white border border-neutral-800 rounded-full px-4 py-2 shadow-xl transition-all duration-300 ${
+            scrolled ? "scale-95 bg-black/90 backdrop-blur-md" : ""
+          }`}
+        >
           <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-6 w-auto object-contain transition-transform group-hover:scale-105" />
           <span className="font-extrabold text-white text-sm tracking-tight font-display">
             CEV<span className="text-neutral-400 font-light">EVENTS</span>
           </span>
         </Link>
 
-        {/* Center Black Floating Nav Pill */}
-        <nav className="hidden md:flex items-center space-x-1 bg-black/95 backdrop-blur-md border border-neutral-800 rounded-full px-6 py-2 shadow-xl">
+        {/* Center Black Floating Nav Pill with scroll animation */}
+        <nav
+          className={`hidden md:flex items-center space-x-1 bg-black text-white border border-neutral-800 rounded-full px-6 py-2 shadow-xl transition-all duration-300 ${
+            scrolled ? "scale-95 bg-black/90 backdrop-blur-md shadow-2xl" : ""
+          }`}
+        >
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
               <Link
                 key={link.name}
                 href={link.href}
-                className={`px-4 py-1.5 text-xs font-semibold rounded-full transition-colors ${
+                className={`px-4 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 ${
                   isActive ? "text-white bg-neutral-800" : "text-neutral-300 hover:text-white hover:bg-neutral-900"
                 }`}
               >
@@ -90,15 +108,17 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* CTA Button & Mobile Toggle */}
+        {/* CTA Button (Black background, white text) & Mobile Toggle */}
         <div className="flex items-center space-x-3">
           {!loading && (
             <Link
               href={session ? "/admin" : "/login"}
-              className="px-5 py-2 text-xs font-bold text-[#0a0a0a] bg-white hover:bg-neutral-200 rounded-full transition-all duration-200 flex items-center gap-1.5 shadow-md"
+              className={`px-5 py-2 text-xs font-bold text-white bg-black hover:bg-neutral-900 border border-neutral-700 rounded-full transition-all duration-300 flex items-center gap-1.5 shadow-md ${
+                scrolled ? "scale-95" : ""
+              }`}
             >
               <span>{session ? "Dashboard" : "Login"}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 text-neutral-300" />
             </Link>
           )}
 

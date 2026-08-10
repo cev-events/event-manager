@@ -1,5 +1,14 @@
 # Changelogs & Version History
 
+## [0.99.0] - 2026-08-11
+
+### ✨ Full-Screen Hero Viewport, Black CTA Button & Navbar Scroll Animations
+- **Full-Screen Hero Height ([app/page.tsx](./app/page.tsx)):** Expanded dark hero section to full viewport height (`min-h-[88vh] sm:min-h-[92vh]`) with giant display text **`CEV EVENTS`**.
+- **Black CTA Button with White Text ([Navbar.tsx](./app/components/Navbar.tsx)):** Changed `Login` / `Dashboard` CTA button styling to a sleek black pill button with white text (`bg-black text-white border border-neutral-700 hover:bg-neutral-900 rounded-full px-5 py-2`).
+- **Navbar Scroll Animations ([Navbar.tsx](./app/components/Navbar.tsx)):** Added scroll listener and smooth scale transitions (`scale-95`, `backdrop-blur-md`) when scrolling down the page.
+
+---
+
 ## [0.98.0] - 2026-08-11
 
 ### 🎨 Nixtio Hero Section, Header GIF Integration & Client Logo Club Grid

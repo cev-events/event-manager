@@ -17,11 +17,11 @@ export default function LandingHomePage() {
   );
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5] text-[#0a0a0a] flex flex-col pt-24 sm:pt-28 font-sans">
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pb-24 space-y-16">
+    <div className="min-h-screen bg-[#f5f5f5] text-[#0a0a0a] flex flex-col pt-16 sm:pt-20 font-sans">
+      <main className="flex-1 w-full max-w-[1536px] mx-auto px-2 sm:px-4 lg:px-6 pb-24 space-y-16">
         
-        {/* Nixtio-Style Hero Header Section with GIF background */}
-        <section className="relative w-full rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden bg-[#0a0a0a] text-white p-8 sm:p-14 lg:p-16 min-h-[520px] sm:min-h-[600px] flex flex-col justify-between shadow-2xl border border-neutral-800">
+        {/* Full-Screen Nixtio-Style Hero Header Section */}
+        <section className="relative w-full rounded-[2rem] sm:rounded-[3rem] overflow-hidden bg-[#0a0a0a] text-white p-8 sm:p-16 lg:p-20 min-h-[88vh] sm:min-h-[92vh] flex flex-col justify-between shadow-2xl border border-neutral-800">
           {/* Animated Header GIF Background */}
           <img
             src="/header.gif"
@@ -32,18 +32,18 @@ export default function LandingHomePage() {
           {/* Gradient Overlay for Text Legibility */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/30 to-[#0a0a0a]/70 z-[1] pointer-events-none" />
 
-          {/* Top Filler Spacing for Navbar */}
-          <div className="relative z-10 hidden sm:block h-6" />
+          {/* Top Filler Spacing for Floating Navbar */}
+          <div className="relative z-10 hidden sm:block h-12" />
 
           {/* Hero Main Content */}
-          <div className="relative z-10 space-y-8 my-auto pt-6 sm:pt-10">
+          <div className="relative z-10 space-y-10 my-auto pt-6 sm:pt-12">
             {/* Giant Display Headline matching Nixtio reference */}
-            <h1 className="text-6xl sm:text-8xl md:text-9xl font-extrabold font-display leading-[0.9] tracking-tight text-white select-none">
+            <h1 className="text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] xl:text-[13rem] font-extrabold font-display leading-[0.85] tracking-tight text-white select-none">
               CEV EVENTS
             </h1>
 
             {/* Stats Line matching Nixtio reference */}
-            <div className="flex flex-wrap items-center gap-6 text-xs sm:text-sm font-semibold text-neutral-300 border-t border-neutral-800/80 pt-6">
+            <div className="flex flex-wrap items-center gap-6 text-xs sm:text-sm md:text-base font-semibold text-neutral-300 border-t border-neutral-800/80 pt-6">
               <span>50+ Campus Events</span>
               <span className="w-1.5 h-1.5 rounded-full bg-neutral-600" />
               <span>10+ Tech Communities</span>
@@ -51,17 +51,17 @@ export default function LandingHomePage() {
               <span>Founded at CE Vadakara</span>
             </div>
 
-            {/* Subtext Description */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end pt-2">
-              <p className="md:col-span-8 text-sm sm:text-base text-neutral-300 max-w-2xl leading-relaxed font-sans font-normal">
+            {/* Subtext Description & Action CTAs */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end pt-2">
+              <p className="md:col-span-7 lg:col-span-8 text-sm sm:text-base md:text-lg text-neutral-300 max-w-2xl leading-relaxed font-sans font-normal">
                 We create digital event experiences that stand out. Unified multi-community event management, conflict-free slot reservation, WebP poster management, and discovery for College of Engineering Vadakara.
               </p>
 
               {/* Hero Action CTAs */}
-              <div className="md:col-span-4 flex flex-wrap items-center gap-3 md:justify-end">
+              <div className="md:col-span-5 lg:col-span-4 flex flex-wrap items-center gap-3 md:justify-end">
                 <Link
                   href="/events"
-                  className="py-3.5 px-7 rounded-full bg-white hover:bg-neutral-200 text-[#0a0a0a] font-extrabold text-xs tracking-wider uppercase flex items-center gap-2 shadow-md transition-colors"
+                  className="py-4 px-8 rounded-full bg-white hover:bg-neutral-200 text-[#0a0a0a] font-extrabold text-xs tracking-wider uppercase flex items-center gap-2 shadow-lg transition-colors"
                 >
                   <span>Explore Events</span>
                   <ArrowRight className="w-4 h-4" />
@@ -69,7 +69,7 @@ export default function LandingHomePage() {
 
                 <Link
                   href="/calendar"
-                  className="py-3.5 px-7 rounded-full border border-neutral-700 hover:border-white text-white font-extrabold text-xs tracking-wider uppercase hover:bg-neutral-900 transition-colors"
+                  className="py-4 px-8 rounded-full border border-neutral-700 hover:border-white text-white font-extrabold text-xs tracking-wider uppercase hover:bg-neutral-900 transition-colors"
                 >
                   View Calendar
                 </Link>
@@ -79,7 +79,7 @@ export default function LandingHomePage() {
         </section>
 
         {/* Nixtio "Our Clients" Style Clubs / Communities Grid Cards */}
-        <section className="space-y-6 pt-4">
+        <section className="space-y-6 pt-4 px-2 sm:px-4">
           <div className="flex items-center justify-between border-b border-neutral-300 pb-4">
             <span className="text-xs font-mono text-neutral-500 uppercase font-bold tracking-widest">
               001 / Our Communities
@@ -122,7 +122,7 @@ export default function LandingHomePage() {
         </section>
 
         {/* Upcoming Schedules Section */}
-        <section className="space-y-8 pt-4">
+        <section className="space-y-8 pt-4 px-2 sm:px-4">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-neutral-300 pb-6">
             <div>
               <span className="text-xs font-mono text-neutral-500 uppercase font-bold tracking-widest">002 / Upcoming Timeline</span>
