@@ -56,17 +56,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const todayDateStr = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
 
   return (
-    <div className="min-h-screen w-full bg-[#edf0f4] flex flex-col md:flex-row font-sans" suppressHydrationWarning>
-      {/* Left Dark Sidebar */}
-      <AdminSidebar currentRole={currentRole} onSignOut={handleSignOut} />
+    <div
+      className="min-h-screen w-full bg-[#edf0f4] flex flex-col md:flex-row font-sans"
+      suppressHydrationWarning
+    >
+      <AdminSidebar
+        currentRole={currentRole}
+        onSignOut={handleSignOut}
+      />
 
-      {/* Main Workspace Area (Light Grey Canvas) */}
-      <main className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 flex flex-col overflow-y-auto text-[#141518] pb-28 md:pb-8" suppressHydrationWarning>
-
-        {/* Top Navigation Header */}
+      <main
+        className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 flex flex-col text-[#141518] pb-28 md:pb-8"
+        suppressHydrationWarning
+      >
         <div className="flex flex-row items-center justify-between gap-4 pb-6 mb-2 border-b border-neutral-200/80">
-
-          {/* User Profile Card Pill (Left Header - No ChevronDown Icon) */}
           {!isProfilePage && (
             <>
               <div className="flex items-center space-x-3 bg-white rounded-full px-4 py-2 shadow-sm border border-neutral-200/60 w-fit">
@@ -101,11 +104,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           )}
         </div>
 
-        {/* Child Page Main View Content */}
-        <div className="flex-1 min-w-0 pt-2" suppressHydrationWarning>
+        <div
+          className="flex-1 min-w-0 pt-2"
+          suppressHydrationWarning
+        >
           {children}
         </div>
-
       </main>
     </div>
   );

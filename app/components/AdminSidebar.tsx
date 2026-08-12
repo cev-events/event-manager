@@ -1,7 +1,8 @@
 // Created by Shibili Aman TK | GitHub: https://github.com/LordSA
 'use client';
 
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -23,6 +24,11 @@ interface AdminSidebarProps {
 
 export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarProps) {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navItems = [
     { label: 'Dashboard', shortLabel: 'Dashboard', href: '/admin', icon: LayoutDashboard, roleRequired: ['dev', 'admin', 'manager', 'editor'] },
@@ -43,7 +49,7 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
         className="hidden md:flex w-64 lg:w-72 h-screen sticky top-0 overflow-y-auto bg-[#18191c] text-white p-6 flex-col justify-between shrink-0 select-none border-r border-[#24262b] z-40"
       >
         <div className="space-y-8">
-          
+
           {/* Brand Logo */}
           <div className="flex items-center justify-between px-2 pt-2">
             <Link href="/" className="flex items-center space-x-3 group">
@@ -124,7 +130,7 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
       <div className="flex md:hidden items-center justify-between px-4 py-3 border-b border-neutral-300 bg-white shrink-0 sticky top-0 z-40 shadow-sm">
         <div className="flex items-center space-x-2.5">
           <img src="/cev_logo_b.svg" alt="CEV Logo" className="h-6 w-auto object-contain" />
-          <span className="font-extrabold text-sm text-[#141518] font-display">cev_admin</span>
+          <span className="font-extrabold text-sm text-[#141518] font-display">Admin Panel</span>
         </div>
 
         <div className="flex items-center space-x-2">
@@ -148,29 +154,35 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
       </div>
 
       {/* Mobile Bottom Glass Floating Navigation Bar */}
-      <nav className="fixed bottom-3 left-3 right-3 z-50 md:hidden bg-[#18191c]/90 backdrop-blur-2xl border border-neutral-800 rounded-full p-1.5 shadow-2xl flex items-center justify-between gap-1 select-none">
-        {navItems.map((item) => {
-          if (!item.roleRequired.includes(currentRole)) return null;
-          const isActive = pathname === item.href;
-          const Icon = item.icon;
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex-1 min-w-0 flex flex-col items-center justify-center py-2 px-1 rounded-full transition-all duration-300 ${
-                isActive
-                  ? 'bg-white text-[#141518] font-bold shadow-md'
-                  : 'text-neutral-400 hover:text-white'
-              }`}
-            >
-              <Icon className="w-4 h-4 shrink-0" />
-              <span className="text-[9px] font-heading mt-0.5 tracking-tight truncate max-w-full text-center leading-none">
-                {item.shortLabel || item.label}
-              </span>
-            </Link>
-          );
-        })}
-      </nav>
+      {mounted &&
+        createPortal(
+          <nav className="fixed bottom-3 left-3 right-3 z-[99999] md:hidden bg-[#18191c]/90 backdrop-blur-2xl border border-neutral-800 rounded-full p-1.5 shadow-2xl flex items-center justify-between gap-1 select-none">
+            {navItems.map((item) => {
+              if (!item.roleRequired.includes(currentRole)) return null;
+
+              const isActive = pathname === item.href;
+              const Icon = item.icon;
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex-1 min-w-0 flex flex-col items-center justify-center py-2 px-1 rounded-full transition-all duration-300 ${isActive
+                      ? 'bg-white text-[#141518] font-bold shadow-md'
+                      : 'text-neutral-400 hover:text-white'
+                    }`}
+                >
+                  <Icon className="w-4 h-4 shrink-0" />
+
+                  <span className="text-[9px] font-heading mt-0.5 tracking-tight truncate max-w-full text-center leading-none">
+                    {item.shortLabel || item.label}
+                  </span>
+                </Link>
+              );
+            })}
+          </nav>,
+          document.body
+        )}
     </>
   );
 }
