@@ -71,7 +71,7 @@ export default function AdminDashboardPage() {
 
       {/* White Metric Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        
+
         {/* Metric 1: Live Events */}
         <div className="bg-white rounded-[28px] p-6 shadow-sm border border-neutral-200/60 flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow">
           <div className="flex items-center justify-between">
@@ -143,7 +143,7 @@ export default function AdminDashboardPage() {
 
       {/* Main Feature Layout Grid (Dark Feature Card + White Quick Cards) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        
+
         {/* Left: Dark Feature Card */}
         <div className="lg:col-span-7 bg-[#18191c] text-white rounded-[28px] p-6 sm:p-8 shadow-xl flex flex-col justify-between space-y-6 relative overflow-hidden">
           <div className="flex items-center justify-between relative z-10">
@@ -198,7 +198,7 @@ export default function AdminDashboardPage() {
 
         {/* Right: Quick Action Cards */}
         <div className="lg:col-span-5 space-y-6 flex flex-col justify-between">
-          
+
           {/* Quick Action 1: Event Slot Booking */}
           <div className="bg-white rounded-[28px] p-6 shadow-sm border border-neutral-200/60 flex flex-col justify-between space-y-4 hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between">

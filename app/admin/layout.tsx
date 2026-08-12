@@ -66,7 +66,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       />
 
       <main
-        className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 flex flex-col text-[#141518] pb-28 md:pb-8"
+        className="flex-1 min-w-0 p-2 sm:p-2 lg:p-4 flex flex-col text-[#141518] pb-28 md:pb-8"
         suppressHydrationWarning
       >
         <div className="flex flex-row items-center justify-between gap-4 pb-6 mb-2 border-b border-neutral-200/80">
@@ -105,7 +105,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
 
         <div
-          className="flex-1 min-w-0 pt-2"
+          className="flex-1 min-w-0 pt-1"
           suppressHydrationWarning
         >
           {children}
