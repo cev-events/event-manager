@@ -99,115 +99,155 @@ export default function MyProfilePage() {
 
   if (loading) {
     return (
-      <div className="p-8 text-center text-neutral-500 text-xs bg-white border border-neutral-200/60 rounded-[28px]">
-        Loading user profile...
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="text-xs font-mono uppercase tracking-widest text-neutral-400">
+          Loading profile...
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-3xl space-y-8 pb-12">
-      <div className="space-y-1">
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#141518] font-display">
-          My Profile & Account Settings
-        </h1>
-        <p className="text-xs sm:text-sm text-neutral-500 font-medium">
-          Manage full name, WebP avatar uploads, and password security settings.
-        </p>
-      </div>
-
+    <div className="w-full min-h-[calc(100vh-7rem)] lg:h-[calc(100vh-7rem)] lg:overflow-hidden">
       {toastMsg && (
         <div
-          className={`p-4 rounded-2xl border text-xs font-semibold flex items-center gap-3 ${
-            toastMsg.type === 'success'
-              ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
-              : 'bg-rose-50 border-rose-200 text-rose-800'
-          }`}
+          className={`flex items-center gap-3 rounded-2xl px-5 py-4 border text-xs font-semibold ${toastMsg.type === 'success'
+            ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+            : 'bg-rose-50 border-rose-200 text-rose-800'
+            }`}
         >
           {toastMsg.type === 'success' ? (
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
           ) : (
             <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
           )}
+
           <span>{toastMsg.text}</span>
         </div>
       )}
 
-      {/* Profile Card */}
-      <div className="p-6 sm:p-8 rounded-[28px] bg-white border border-neutral-200/60 space-y-6 shadow-sm">
-        <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 pb-6 border-b border-neutral-100">
-          <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-[#141518] text-white shrink-0 flex items-center justify-center text-xl font-extrabold shadow-md">
-            {avatarUrl || profile?.avatar_url ? (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src={avatarUrl || profile?.avatar_url || ''}
-                alt={fullName || profile?.email || 'Avatar'}
-                className="w-full h-full object-cover"
-                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
-              />
-            ) : (
-              <span>{(fullName || profile?.email || 'ME').substring(0, 2).toUpperCase()}</span>
-            )}
+      <section className="h-full grid grid-cols-1 lg:grid-cols-12 gap-1">
+        <div className="lg:col-span-4 h-full min-h-0 bg-[#141518] text-white rounded-[28px] p-6 sm:p-8 flex flex-col justify-between overflow-hidden relative">
+          <div className="absolute -right-24 -top-24 w-64 h-64 rounded-full border border-white/10" />
+          <div className="absolute -right-12 -top-12 w-40 h-40 rounded-full border border-white/10" />
+
+          <div className="relative z-10 flex justify-end">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-white/40">
+              CEV EVENTS
+            </span>
           </div>
 
-          <div className="text-center sm:text-left space-y-1">
-            <h2 className="text-xl font-extrabold text-[#141518] font-display">{profile?.full_name || 'My Account'}</h2>
-            <p className="text-xs text-neutral-400 font-mono">{profile?.email}</p>
-
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1.5">
-              <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#141518] text-white flex items-center gap-1 font-mono">
-                <Shield className="w-3 h-3 text-white" />
-                {profile?.role || 'editor'}
-              </span>
-
-              <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-neutral-100 text-neutral-700 border border-neutral-200 flex items-center gap-1">
-                <Building className="w-3 h-3 text-neutral-400" />
-                {profile?.community?.name || 'Super Admin (All)'}
-              </span>
+          <div className="relative z-10 space-y-6">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-[24px] overflow-hidden bg-white/10 border border-white/10 flex items-center justify-center">
+              {avatarUrl || profile?.avatar_url ? (
+                <img
+                  src={avatarUrl || profile?.avatar_url || ''}
+                  alt={fullName || profile?.email || 'Avatar'}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display =
+                      'none';
+                  }}
+                />
+              ) : (
+                <span className="text-3xl font-extrabold font-display">
+                  {(fullName || profile?.email || 'ME')
+                    .substring(0, 2)
+                    .toUpperCase()}
+                </span>
+              )}
             </div>
+
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold font-display tracking-[-0.04em] leading-[0.95]">
+                {profile?.full_name || 'My Account'}
+              </h2>
+
+              <p className="mt-2 text-xs text-white/50 font-mono break-all">
+                {profile?.email}
+              </p>
+            </div>
+          </div>
+
+          <div className="relative z-10 flex flex-wrap gap-2">
+            <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full bg-white text-[#141518] flex items-center gap-1.5">
+              <Shield className="w-3 h-3" />
+              {profile?.role || 'editor'}
+            </span>
+
+            <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full bg-white/10 text-white/70 border border-white/10 flex items-center gap-1.5">
+              <Building className="w-3 h-3" />
+              {profile?.community?.name || 'Super Admin'}
+            </span>
           </div>
         </div>
 
-        <form onSubmit={handleUpdateProfile} className="space-y-4">
-          <div>
-            <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">
-              Full Name
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                placeholder="Enter full name"
-                required
-                className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-full pl-9 pr-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black"
-              />
-              <User className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
-            </div>
-          </div>
+        <div className="lg:col-span-8 h-full min-h-0 bg-white border border-neutral-200 rounded-[28px] p-6 sm:p-8 overflow-hidden">
+          <form onSubmit={handleUpdateProfile} className="h-full flex flex-col space-y-5">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-5">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-400">
+                  Personal Information
+                </span>
 
-          <div>
-            <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">
-              Email Address
-            </label>
-            <div className="relative">
-              <input
-                type="email"
-                disabled
-                value={profile?.email || ''}
-                className="w-full bg-neutral-100 text-neutral-500 rounded-full pl-9 pr-4 py-2.5 text-xs sm:text-sm border border-neutral-200 cursor-not-allowed font-mono font-bold"
-              />
-              <Mail className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
-            </div>
-          </div>
+                <h2 className="text-xl sm:text-2xl font-extrabold font-display tracking-tight mt-1">
+                  Identity
+                </h2>
+              </div>
 
-          {/* Profile Picture WebP Upload Section */}
-          <div className="space-y-2">
-            <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider">
-              Profile Picture
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="relative">
+              <User className="w-5 h-5 text-neutral-300" />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="space-y-2">
+                <label className="text-[10px] font-extrabold uppercase tracking-widest text-neutral-500">
+                  Full Name
+                </label>
+
+                <div className="relative">
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
+
+                  <input
+                    type="text"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder="Enter full name"
+                    required
+                    className="w-full bg-[#f7f7f7] border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-2xl pl-11 pr-4 py-3.5 text-sm focus:outline-none focus:border-neutral-500 focus:bg-white transition-all"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-extrabold uppercase tracking-widest text-neutral-500">
+                  Email Address
+                </label>
+
+                <div className="relative">
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
+
+                  <input
+                    type="email"
+                    disabled
+                    value={profile?.email || ''}
+                    className="w-full bg-neutral-100 text-neutral-400 rounded-2xl pl-11 pr-4 py-3.5 text-sm border border-neutral-200 cursor-not-allowed font-mono"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="border-t border-neutral-100 pt-5 space-y-3">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-400">
+                  Profile Media
+                </span>
+
+                <h2 className="text-xl sm:text-2xl font-extrabold font-display tracking-tight mt-1">
+                  Profile Picture
+                </h2>
+              </div>
+
+              <div>
                 <input
                   type="file"
                   accept="image/*"
@@ -216,68 +256,100 @@ export default function MyProfilePage() {
                   id="avatar-file-upload"
                   className="hidden"
                 />
+
                 <label
                   htmlFor="avatar-file-upload"
-                  className="w-full bg-neutral-100 hover:bg-neutral-200 text-[#141518] rounded-full px-4 py-2.5 text-xs border border-neutral-200 flex items-center justify-center space-x-2 cursor-pointer transition-colors font-bold"
+                  className="min-h-[90px] w-full bg-[#f7f7f7] hover:bg-neutral-100 border border-dashed border-neutral-300 rounded-2xl flex flex-col items-center justify-center gap-2 cursor-pointer transition-all"
                 >
-                  <Upload className="w-3.5 h-3.5 text-[#141518]" />
-                  <span>{uploading ? 'Converting & Uploading...' : 'Upload Image File'}</span>
+                  <Upload className="w-5 h-5 text-neutral-500" />
+
+                  <span className="text-xs font-bold text-[#141518]">
+                    {uploading ? 'Uploading...' : 'Upload Image'}
+                  </span>
+
+                  <span className="text-[10px] text-neutral-400 font-mono">
+                    MAX 5MB
+                  </span>
                 </label>
+              </div>
+            </div>
+
+            <div className="border-t border-neutral-100 pt-7 space-y-4">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-400">
+                  Security
+                </span>
+
+                <h2 className="text-xl sm:text-2xl font-extrabold font-display tracking-tight mt-1">
+                  Password
+                </h2>
               </div>
 
               <div className="relative">
+                <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
+
                 <input
-                  type="url"
-                  value={avatarUrl}
-                  onChange={(e) => setAvatarUrl(e.target.value)}
-                  placeholder="Or enter Image URL link"
-                  className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-full pl-9 pr-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Leave blank to keep your current password"
+                  className="w-full bg-[#f7f7f7] border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-2xl pl-11 pr-4 py-3.5 text-sm focus:outline-none focus:border-neutral-500 focus:bg-white transition-all"
                 />
-                <ImageIcon className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
               </div>
             </div>
-          </div>
 
-          <div>
-            <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">
-              Auth Password (Optional)
-            </label>
-            <div className="relative">
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Leave blank to keep existing password"
-                className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-full pl-9 pr-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black"
-              />
-              <Key className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
+            <div className="mt-auto pt-4 border-t border-neutral-100 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3">
+              <button
+                type="button"
+                onClick={async () => {
+                  const { createClient } = await import(
+                    '@/lib/supabase/client'
+                  );
+
+                  const supabase = createClient();
+
+                  await supabase.auth.signOut();
+
+                  window.location.href = '/login';
+                }}
+                className="px-5 py-3 rounded-full bg-rose-50 border border-rose-200 text-rose-600 text-xs font-bold hover:bg-rose-100 transition-colors"
+              >
+                Sign Out
+              </button>
+
+              <button
+                type="submit"
+                disabled={saving || uploading}
+                className="px-7 py-3.5 rounded-full bg-[#141518] text-white hover:bg-black font-extrabold text-xs disabled:opacity-50 transition-all shadow-sm flex items-center justify-center gap-2"
+              >
+                {saving ? 'Saving Changes...' : 'Save Changes'}
+                {!saving && <ArrowRightIcon />}
+              </button>
             </div>
-          </div>
-
-          <div className="pt-4 border-t border-neutral-100 flex items-center justify-between">
-            <button
-              type="button"
-              onClick={async () => {
-                const { createClient } = await import('@/lib/supabase/client');
-                const supabase = createClient();
-                await supabase.auth.signOut();
-                window.location.href = '/login';
-              }}
-              className="px-5 py-2.5 rounded-full bg-rose-50 border border-rose-200 text-rose-600 text-xs font-bold hover:bg-rose-100 transition-colors"
-            >
-              Sign Out
-            </button>
-
-            <button
-              type="submit"
-              disabled={saving || uploading}
-              className="px-7 py-3 rounded-full bg-[#141518] text-white hover:bg-black font-extrabold text-xs disabled:opacity-50 transition-all shadow-md"
-            >
-              {saving ? 'Saving Profile...' : 'Save Profile Changes'}
-            </button>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      </section>
     </div>
   );
+
+  function ArrowRightIcon() {
+    return (
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 14 14"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d="M2 7H12M12 7L8 3M12 7L8 11"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
 }
