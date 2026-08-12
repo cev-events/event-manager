@@ -73,23 +73,23 @@ export default function Navbar() {
     <header className="fixed top-4 inset-x-0 z-[100] px-4 pointer-events-none transition-all duration-300">
       <div className="max-w-7xl mx-auto flex items-center justify-between pointer-events-auto">
         
-        {/* Brand Logo */}
+        {/* Brand Logo Only (Nixtio Style: Logo Only, Name Removed) */}
         <Link
           href="/"
-          className={`flex items-center space-x-2.5 group bg-black text-white border border-neutral-800 rounded-full px-4 py-2 shadow-xl transition-all duration-300 ${
+          className={`flex items-center justify-center p-2.5 rounded-full bg-black text-white border border-neutral-800 shadow-xl transition-all duration-300 group hover:scale-105 ${
             scrolled ? "scale-95 bg-black/90 backdrop-blur-md" : ""
           }`}
+          aria-label="CEV EVENTS Home"
         >
-          <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-6 w-auto object-contain transition-transform group-hover:scale-105" />
-          <span className="font-extrabold text-white text-sm tracking-tight font-display">
-            CEV<span className="text-neutral-400 font-light">EVENTS</span>
-          </span>
+          <img src="/cev_logo.svg" alt="CEV Logo" className="h-6 w-6 object-contain transition-transform group-hover:scale-110" />
         </Link>
 
-        {/* Center Black Floating Nav Pill with scroll animation */}
+        {/* Center Floating Nav Pill with Nixtio Scroll Animation */}
         <nav
-          className={`hidden md:flex items-center space-x-1 bg-black text-white border border-neutral-800 rounded-full px-6 py-2 shadow-xl transition-all duration-300 ${
-            scrolled ? "scale-95 bg-black/90 backdrop-blur-md shadow-2xl" : ""
+          className={`hidden md:flex items-center space-x-1.5 transition-all duration-300 ${
+            scrolled
+              ? "bg-white/95 text-black border border-neutral-200/80 rounded-full px-5 py-1.5 shadow-xl backdrop-blur-md transform scale-95"
+              : "bg-black/95 text-white border border-neutral-800 rounded-full px-6 py-2 shadow-xl backdrop-blur-md"
           }`}
         >
           {navLinks.map((link) => {
@@ -99,7 +99,13 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 className={`px-4 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 ${
-                  isActive ? "text-white bg-neutral-800" : "text-neutral-300 hover:text-white hover:bg-neutral-900"
+                  scrolled
+                    ? isActive
+                      ? "text-white bg-black font-bold"
+                      : "text-neutral-700 hover:text-black hover:bg-neutral-100"
+                    : isActive
+                    ? "text-white bg-neutral-800 font-bold"
+                    : "text-neutral-300 hover:text-white hover:bg-neutral-900"
                 }`}
               >
                 {link.name}
@@ -113,7 +119,7 @@ export default function Navbar() {
           {!loading && (
             <Link
               href={session ? "/admin" : "/login"}
-              className={`px-5 py-2 text-xs font-bold text-white bg-black hover:bg-neutral-900 border border-neutral-700 rounded-full transition-all duration-300 flex items-center gap-1.5 shadow-md ${
+              className={`px-5 py-2 text-xs font-bold text-white bg-black hover:bg-neutral-800 border border-neutral-700 rounded-full transition-all duration-300 flex items-center gap-1.5 shadow-md ${
                 scrolled ? "scale-95" : ""
               }`}
             >
@@ -142,8 +148,7 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between border-b border-neutral-800 pb-6">
           <div className="flex items-center space-x-2">
-            <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-7 w-auto object-contain" />
-            <span className="font-extrabold text-white text-base tracking-tight font-display">CEV EVENTS</span>
+            <img src="/cev_logo.svg" alt="CEV Logo" className="h-7 w-7 object-contain" />
           </div>
           <button
             onClick={() => setIsOpen(false)}

@@ -1,5 +1,14 @@
 # Changelogs & Version History
 
+## [1.4.0] - 2026-08-12
+
+### 🚀 Nixtio Floating Scroll Navbar & Logo-Only Brand Update
+- **Logo-Only Brand Icon ([Navbar.tsx](./app/components/Navbar.tsx)):** Removed text name from the navbar header as requested, leaving only the clean `cev_logo.svg` icon in a dark rounded pill.
+- **Nixtio White Pill Scroll Transition ([Navbar.tsx](./app/components/Navbar.tsx)):** Implemented Nixtio's dynamic scroll animation. When scrolling past 40px, the center navigation menu smoothly transforms into a floating white glass pill container (`bg-white/95 text-black border border-neutral-200/80 rounded-full px-5 py-1.5 shadow-xl backdrop-blur-md transform scale-95`) with crisp dark typography.
+- **Black CTA Button with White Text**: Styled the `Login` / `Dashboard` CTA button as a black rounded pill with white text.
+
+---
+
 ## [1.3.0] - 2026-08-12
 
 ### 🎨 Re-Architected Google Calendar Continuous Multi-Day Banner Lines
