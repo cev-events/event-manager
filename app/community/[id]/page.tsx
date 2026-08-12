@@ -33,7 +33,7 @@ export default function SingleCommunityPage({ params }: { params: Promise<PagePa
     const fetchCommunityData = async () => {
       try {
         const supabase = createClient();
-        
+
         const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(communityId);
         let commData = null;
 
@@ -93,85 +93,131 @@ export default function SingleCommunityPage({ params }: { params: Promise<PagePa
   }
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5] text-[#0a0a0a] pt-28 md:pt-32 pb-20 px-4 sm:px-6 lg:px-8 font-sans relative">
-      <div className="max-w-6xl mx-auto space-y-6">
-        <button
-          onClick={handleBackClick}
-          className="inline-flex items-center space-x-2 text-xs font-semibold text-neutral-500 hover:text-black transition-colors cursor-pointer bg-transparent border-0 p-0"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back</span>
-        </button>
+    <div className="min-h-screen bg-[#f5f5f5] text-[#0a0a0a] font-sans pb-24">
+      <div className="w-full px-4 sm:px-6 lg:px-8 pt-28 md:pt-32">
+        <div className="max-w-[1280px] mx-auto">
+          <button
+            onClick={handleBackClick}
+            className="group inline-flex items-center gap-2 text-xs font-medium text-neutral-500 hover:text-black transition-colors mb-8"
+          >
+            <ArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />
+            <span>Back</span>
+          </button>
 
-        {/* Header Card */}
-        <div className="p-6 sm:p-10 rounded-2xl space-y-6 relative overflow-hidden text-center bg-white border border-neutral-200 shadow-sm">
-          <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-r ${community.color || 'from-blue-600 to-cyan-400'} opacity-15 blur-[100px] -z-10`} />
+          <section className="relative min-h-[430px] sm:min-h-[500px] lg:min-h-[560px] bg-white rounded-[28px] overflow-hidden flex flex-col items-center justify-center text-center px-6 sm:px-12 lg:px-20 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] rounded-full bg-neutral-100 blur-[100px] opacity-70 pointer-events-none" />
 
-          {community.logo_url ? (
-            <img
-              src={community.logo_url}
-              alt={community.name}
-              className="w-24 h-24 mx-auto rounded-3xl object-cover border-2 border-[#1e2436] shadow-2xl"
-              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
-            />
-          ) : (
-            <div className={`w-24 h-24 mx-auto rounded-3xl bg-gradient-to-br ${community.color || 'from-blue-600 to-cyan-400'} flex items-center justify-center shadow-2xl`}>
-              <span className="text-4xl font-bold text-white">
-                {community.initials || community.name.slice(0, 2).toUpperCase()}
+            <div className="relative z-10 mb-10">
+              {community.logo_url ? (
+                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-[28px] bg-white border border-neutral-200 shadow-[0_20px_50px_rgba(0,0,0,0.12)] flex items-center justify-center overflow-hidden">
+                  <img
+                    src={community.logo_url}
+                    alt={community.name}
+                    className="w-[72%] h-[72%] object-contain"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).style.display = "none";
+                    }}
+                  />
+                </div>
+              ) : (
+                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-[28px] bg-[#0a0a0a] flex items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.15)]">
+                  <span className="text-3xl sm:text-4xl font-extrabold text-white">
+                    {community.initials ||
+                      community.name.slice(0, 2).toUpperCase()}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            <h1 className="relative z-10 text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-[-0.055em] leading-[0.9] font-display text-[#0a0a0a]">
+              {community.name}
+            </h1>
+
+            <p className="relative z-10 mt-8 max-w-2xl text-sm sm:text-base lg:text-lg leading-relaxed text-neutral-500">
+              {community.description ||
+                "Campus student technical branch & community at CEV."}
+            </p>
+          </section>
+
+          <section className="mt-24">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-neutral-300 pb-6">
+              <div>
+                <span className="text-[11px] font-mono uppercase tracking-[0.18em] font-bold text-neutral-500">
+                  Events by {community.name}
+                </span>
+
+                <h2 className="mt-2 text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-[-0.05em] leading-none font-display text-[#0a0a0a]">
+                  EVENTS
+                </h2>
+              </div>
+
+              <span className="text-xs font-mono text-neutral-400 pb-1">
+                {communityEvents.length}{" "}
+                {communityEvents.length === 1 ? "EVENT" : "EVENTS"}
               </span>
             </div>
-          )}
 
-          <h1 className="text-4xl sm:text-5xl font-bold text-white font-display">{community.name}</h1>
-          <p className="text-sm sm:text-base text-[#94a3b8] leading-relaxed max-w-2xl mx-auto">
-            {community.description || 'Campus student technical branch & community at CEV.'}
-          </p>
-        </div>
-
-        {/* Events Grid */}
-        <div className="space-y-6 pt-4">
-          <h2 className="text-xl sm:text-2xl font-bold text-white font-display">
-            Events by {community.name}
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {communityEvents.length > 0 ? (
-              communityEvents.map((event) => (
-                <Link key={event.id} href={`/events/${event.slug || event.id}`} className="group block h-full">
-                  <div className="brutalist-card p-6 rounded-2xl h-full hover:border-[#6366f1] transition-all flex flex-col justify-between space-y-4">
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-start">
-                        <span className="text-xs font-bold text-[#6366f1] uppercase tracking-wider">
-                          {event.category || 'Workshop'}
-                        </span>
-                        <span className="text-xs font-mono text-[#94a3b8] border border-[#1e2436] px-2 py-1 rounded">
-                          {event.event_date}
+            <div className="mt-2">
+              {communityEvents.length > 0 ? (
+                communityEvents.map((event, index) => (
+                  <Link
+                    key={event.id}
+                    href={`/events/${event.slug || event.id}`}
+                    className="group block border-b border-neutral-300 py-8 sm:py-10 lg:py-12 transition-all duration-500 hover:px-3"
+                  >
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-start">
+                      <div className="md:col-span-1">
+                        <span className="text-xs font-mono text-neutral-400">
+                          {String(index + 1).padStart(2, "0")}
                         </span>
                       </div>
 
-                      <h3 className="text-xl font-bold text-white group-hover:text-[#6366f1] transition-colors font-display">
-                        {event.title}
-                      </h3>
-                      <p className="text-[#94a3b8] text-xs line-clamp-2 leading-relaxed">
-                        {event.description}
-                      </p>
+                      <div className="md:col-span-2">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#6366f1]">
+                          {event.category || "Workshop"}
+                        </span>
+                      </div>
+
+                      <div className="md:col-span-6">
+                        <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-[-0.035em] leading-tight font-display text-[#0a0a0a] transition-colors duration-300 group-hover:text-neutral-500">
+                          {event.title}
+                        </h3>
+
+                        {event.description && (
+                          <p className="mt-3 max-w-xl text-sm sm:text-base leading-relaxed text-neutral-500 line-clamp-2">
+                            {event.description}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="md:col-span-3 flex md:flex-col md:items-end justify-between gap-5">
+                        <span className="text-xs font-mono text-neutral-500">
+                          {event.event_date}
+                        </span>
+
+                        <span className="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-500 transition-all duration-300 group-hover:bg-[#0a0a0a] group-hover:border-[#0a0a0a] group-hover:text-white group-hover:translate-x-1">
+                          <ArrowLeft className="w-4 h-4 rotate-180" />
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="pt-4 border-t border-[#1e2436] flex items-center justify-between text-xs font-semibold text-[#94a3b8]">
-                      <span className="flex items-center gap-1.5 text-cyan-400 font-mono text-[11px]">
-                        <MessageSquare className="w-3.5 h-3.5" />
-                        Event Assistant
-                      </span>
-                      <span className="text-[#6366f1] font-bold">&rarr;</span>
+                    <div className="mt-6 md:ml-[8.333%] flex items-center gap-2 text-[11px] font-mono text-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <MessageSquare className="w-3.5 h-3.5" />
+                      Event Assistant
                     </div>
-                  </div>
-                </Link>
-              ))
-            ) : (
-              <div className="col-span-full py-12 text-center border border-dashed border-[#1e2436] rounded-2xl text-[#94a3b8] text-xs">
-                No active live events hosted by {community.name} right now.
-              </div>
-            )}
+                  </Link>
+                ))
+              ) : (
+                <div className="py-24 text-center border-b border-neutral-300 text-sm text-neutral-500">
+                  No active live events hosted by {community.name} right now.
+                </div>
+              )}
+            </div>
+          </section>
+
+          <div className="mt-20 pt-6 border-t border-neutral-300 flex items-center justify-between text-[11px] font-mono uppercase tracking-wider text-neutral-400">
+            <span>CE Vadakara</span>
+            <span>Community / {community.name}</span>
           </div>
         </div>
       </div>
