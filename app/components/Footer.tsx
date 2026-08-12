@@ -156,15 +156,6 @@ export default function Footer() {
           </p>
 
           <div className="flex items-center gap-6 text-[#94a3b8] flex-wrap">
-            <Link href="/events" className="hover:text-white transition-colors">
-              Events
-            </Link>
-            <Link href="/calendar" className="hover:text-white transition-colors">
-              Calendar
-            </Link>
-            <Link href="/support" className="hover:text-white text-[#6366f1] font-semibold transition-colors flex items-center gap-1">
-              <span>Report Bug / Support</span>
-            </Link>
             <span>&copy; {new Date().getFullYear()} CEV EVENTS</span>
           </div>
         </div>
