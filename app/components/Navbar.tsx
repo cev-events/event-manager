@@ -12,16 +12,33 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
-  const [scrolled, setScrolled] = useState(false)
+  const [scrollY, setScrollY] = useState(0)
+  const [isOverHero, setIsOverHero] = useState(true)
   const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      const y = window.scrollY;
+      setScrollY(y);
+
+      // Check if scroll position is within the dark hero section (applies to homepage)
+      if (pathname === '/') {
+        const heroEl = document.getElementById('hero-section');
+        if (heroEl) {
+          const heroHeight = heroEl.offsetHeight;
+          setIsOverHero(y < heroHeight - 80);
+        } else {
+          setIsOverHero(y < 700);
+        }
+      } else {
+        setIsOverHero(false); // Subpages default to light background mode
+      }
     };
+
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     if (isOpen) {
@@ -69,43 +86,63 @@ export default function Navbar() {
     { name: "Support", href: "/support" },
   ]
 
+  const isTop = scrollY < 40;
+
+  // Determine logo source: white logo on dark hero, black logo (/cev_logo_b.svg) on light page content
+  const logoSrc = isOverHero ? "/cev_logo.svg" : "/cev_logo_b.svg";
+
   return (
-    <header className="fixed top-4 inset-x-0 z-[100] px-4 pointer-events-none transition-all duration-300">
-      <div className="max-w-7xl mx-auto flex items-center justify-between pointer-events-auto">
+    <header className="fixed top-0 inset-x-0 z-[100] px-6 sm:px-12 py-5 pointer-events-none transition-all duration-300">
+      <div className="w-full mx-auto flex items-center justify-between pointer-events-auto">
         
-        {/* Brand Logo Only (Nixtio Style: Logo Only, Name Removed) */}
+        {/* Brand Logo Only (Nixtio Style: Standalone Logo Icon, NO Background Circle Box) */}
         <Link
           href="/"
-          className={`flex items-center justify-center p-2.5 rounded-full bg-black text-white border border-neutral-800 shadow-xl transition-all duration-300 group hover:scale-105 ${
-            scrolled ? "scale-95 bg-black/90 backdrop-blur-md" : ""
-          }`}
+          className="flex items-center justify-center transition-transform hover:scale-105 group"
           aria-label="CEV EVENTS Home"
         >
-          <img src="/cev_logo.svg" alt="CEV Logo" className="h-6 w-6 object-contain transition-transform group-hover:scale-110" />
+          <img
+            src={logoSrc}
+            alt="CEV Logo"
+            className="h-7 w-auto object-contain transition-all duration-300"
+          />
         </Link>
 
-        {/* Center Floating Nav Pill with Nixtio Scroll Animation */}
+        {/* Center Floating Nav Pill with 3 Nixtio Modes */}
         <nav
-          className={`hidden md:flex items-center space-x-1.5 transition-all duration-300 ${
-            scrolled
-              ? "bg-white/95 text-black border border-neutral-200/80 rounded-full px-5 py-1.5 shadow-xl backdrop-blur-md transform scale-95"
-              : "bg-black/95 text-white border border-neutral-800 rounded-full px-6 py-2 shadow-xl backdrop-blur-md"
+          className={`hidden md:flex items-center space-x-2 transition-all duration-300 ${
+            isTop && isOverHero
+              ? "bg-transparent text-white border-0 px-0 py-0"
+              : "bg-white text-black border border-neutral-200/90 rounded-full px-6 py-2 shadow-2xl backdrop-blur-md transform scale-95"
           }`}
         >
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
+
+            if (isTop && isOverHero) {
+              // Mode 1: Transparent spaced-out links over top dark hero
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`px-4 py-1.5 text-xs sm:text-sm font-semibold transition-all duration-200 ${
+                    isActive ? "text-white font-extrabold" : "text-white/90 hover:text-white"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              );
+            }
+
+            // Mode 2 & Mode 3: White floating pill box with dark typography
             return (
               <Link
                 key={link.name}
                 href={link.href}
-                className={`px-4 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 ${
-                  scrolled
-                    ? isActive
-                      ? "text-white bg-black font-bold"
-                      : "text-neutral-700 hover:text-black hover:bg-neutral-100"
-                    : isActive
-                    ? "text-white bg-neutral-800 font-bold"
-                    : "text-neutral-300 hover:text-white hover:bg-neutral-900"
+                className={`px-4 py-1.5 text-xs font-bold rounded-full transition-all duration-200 ${
+                  isActive
+                    ? "text-white bg-black font-extrabold shadow-sm"
+                    : "text-neutral-800 hover:text-black hover:bg-neutral-100"
                 }`}
               >
                 {link.name}
@@ -114,28 +151,34 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* CTA Button (Black background, white text) & Mobile Toggle */}
+        {/* Right CTA Button (3 Nixtio Modes) & Mobile Toggle */}
         <div className="flex items-center space-x-3">
           {!loading && (
             <Link
               href={session ? "/admin" : "/login"}
-              className={`px-5 py-2 text-xs font-bold text-white bg-black hover:bg-neutral-800 border border-neutral-700 rounded-full transition-all duration-300 flex items-center gap-1.5 shadow-md ${
-                scrolled ? "scale-95" : ""
+              className={`px-6 py-2.5 text-xs font-extrabold rounded-full transition-all duration-300 flex items-center gap-1.5 shadow-md ${
+                isOverHero
+                  ? "bg-white text-black hover:bg-neutral-200" // Modes 1 & 2 over dark hero: White button
+                  : "bg-black text-white hover:bg-neutral-800" // Mode 3 over light page: Black button
               }`}
             >
               <span>{session ? "Dashboard" : "Login"}</span>
-              <ArrowRight className="w-3.5 h-3.5 text-neutral-300" />
+              <ArrowRight className={`w-3.5 h-3.5 ${isOverHero ? "text-black" : "text-neutral-300"}`} />
             </Link>
           )}
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1 rounded-full bg-black border border-neutral-800 text-white shadow-md"
+            className={`md:hidden w-9 h-9 flex flex-col items-center justify-center gap-1 rounded-full border shadow-md transition-colors ${
+              isOverHero
+                ? "bg-black border-neutral-800 text-white"
+                : "bg-white border-neutral-300 text-black"
+            }`}
             aria-label="Toggle Menu"
           >
-            <div className={`w-4 h-0.5 bg-white transition-all ${isOpen ? "rotate-45 translate-y-1.5" : ""}`} />
-            <div className={`w-4 h-0.5 bg-white transition-all ${isOpen ? "opacity-0" : ""}`} />
-            <div className={`w-4 h-0.5 bg-white transition-all ${isOpen ? "-rotate-45 -translate-y-1.5" : ""}`} />
+            <div className={`w-4 h-0.5 transition-all ${isOverHero ? "bg-white" : "bg-black"} ${isOpen ? "rotate-45 translate-y-1.5" : ""}`} />
+            <div className={`w-4 h-0.5 transition-all ${isOverHero ? "bg-white" : "bg-black"} ${isOpen ? "opacity-0" : ""}`} />
+            <div className={`w-4 h-0.5 transition-all ${isOverHero ? "bg-white" : "bg-black"} ${isOpen ? "-rotate-45 -translate-y-1.5" : ""}`} />
           </button>
         </div>
       </div>
@@ -148,7 +191,7 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between border-b border-neutral-800 pb-6">
           <div className="flex items-center space-x-2">
-            <img src="/cev_logo.svg" alt="CEV Logo" className="h-7 w-7 object-contain" />
+            <img src="/cev_logo.svg" alt="CEV Logo" className="h-7 w-auto object-contain" />
           </div>
           <button
             onClick={() => setIsOpen(false)}

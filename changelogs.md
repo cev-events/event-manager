@@ -1,5 +1,17 @@
 # Changelogs & Version History
 
+## [1.5.0] - 2026-08-12
+
+### 🎯 3 Nixtio Navbar Transition Modes, /cev_logo_b.svg Auto-Switch & Edge-to-Edge Full Screen Hero
+- **Standalone Brand Logo with Auto-Color Switch ([Navbar.tsx](./app/components/Navbar.tsx)):** Removed circular background box around logo icon. Logo renders standalone (`/cev_logo.svg` in white over dark hero, auto-switching to `/cev_logo_b.svg` in black over light page content).
+- **The 3 Nixtio Navbar Transition Modes ([Navbar.tsx](./app/components/Navbar.tsx)):**
+  1. **Mode 1 (Initial Top State over Dark Hero)**: Standalone white logo, transparent spaced-out white text links (`Events`, `Calendar`, `Communities`, `Support`), white CTA button (`Login` / `Dashboard`).
+  2. **Mode 2 (Scrolled Over Dark Hero)**: Standalone white logo, center nav transforms into a floating **WHITE PILL CONTAINER** (`bg-white text-black border border-neutral-200 rounded-full px-6 py-2 shadow-xl backdrop-blur-md`), white CTA button.
+  3. **Mode 3 (Scrolled Over Light Page Content)**: Standalone black logo (`/cev_logo_b.svg`), center nav in floating **WHITE PILL CONTAINER**, CTA button transforms into a **BLACK PILL BUTTON** with white text.
+- **Edge-to-Edge Full Screen Hero Section ([app/page.tsx](./app/page.tsx)):** Re-architected hero container to 100vw, 100vh full viewport width and height (`w-full min-h-screen h-screen`), floating navbar layered above hero content, with title (`CEV EVENTS`) and content alignment matching Nixtio web.
+
+---
+
 ## [1.4.0] - 2026-08-12
 
 ### 🚀 Nixtio Floating Scroll Navbar & Logo-Only Brand Update
