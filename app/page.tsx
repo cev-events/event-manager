@@ -152,56 +152,101 @@ export default function LandingHomePage() {
         </section>
 
         {/* Upcoming Schedules Section */}
-        <section className="space-y-8 pt-4 px-4 sm:px-8 max-w-7xl mx-auto">
+        <section className="space-y-8 pt-4 px-4 sm:px-8 max-w-[1800px] mx-auto">
+
+          {/* Section Header */}
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-neutral-300 pb-6">
             <div>
-              <span className="text-xs font-mono text-neutral-500 uppercase font-bold tracking-widest">002 / Upcoming Timeline</span>
-              <h2 className="text-3xl sm:text-5xl font-extrabold text-[#0a0a0a] font-display mt-1 tracking-tight">
+              <span className="text-xs font-mono text-neutral-500 uppercase font-bold tracking-widest">
+                002 / Upcoming Timeline
+              </span>
+
+              <h2 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-[#0a0a0a] font-display mt-1 tracking-tight">
                 SCHEDULES
               </h2>
             </div>
-            <Link href="/calendar" className="text-xs text-[#0a0a0a] hover:underline font-bold flex items-center gap-1">
-              <span>Open Master Calendar</span> <ArrowRight className="w-3.5 h-3.5" />
+
+            <Link
+              href="/calendar"
+              className="text-xs text-[#0a0a0a] hover:underline font-bold flex items-center gap-1 mb-1"
+            >
+              <span>Open Master Calendar</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           {eventsLoading ? (
-            <div className="p-12 text-neutral-500 text-xs bg-white border border-neutral-200 rounded-2xl text-center italic font-mono">
+            <div className="p-12 text-neutral-500 text-xs bg-white rounded-[24px] text-center italic font-mono">
               Loading campus schedules...
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {eventsList.filter((evt) => evt.status === 'live').slice(0, 3).map((evt) => (
-                <Link
-                  key={evt.id}
-                  href={`/events/${evt.slug || evt.id}`}
-                  className="group rounded-2xl bg-white border border-neutral-200 hover:border-neutral-400 overflow-hidden flex flex-col justify-between transition-all duration-300 shadow-sm hover:shadow-md"
-                >
-                  <div className="relative w-full aspect-[16/10] overflow-hidden bg-neutral-100">
-                    <img
-                      src={evt.poster_url || '/images/poster.webp'}
-                      alt={evt.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/images/poster.webp'; }}
-                    />
-                    <div className="absolute top-3 left-3">
-                      <span className="text-[10px] font-mono uppercase font-extrabold text-white bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-md">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-1.5 sm:gap-2">
+
+              {eventsList
+                .filter((evt) => evt.status === "live")
+                .slice(0, 3)
+                .map((evt, index) => (
+                  <Link
+                    key={evt.id}
+                    href={`/events/${evt.slug || evt.id}`}
+                    className="group relative bg-white rounded-[24px] overflow-hidden min-h-[520px] sm:min-h-[600px] lg:min-h-[680px] flex flex-col justify-between p-6 sm:p-8 transition-all duration-500 hover:scale-[0.99] hover:shadow-xl"
+                  >
+
+                    {/* Poster */}
+                    <div className="absolute inset-0 overflow-hidden">
+                      <img
+                        src={evt.poster_url || "/images/poster.webp"}
+                        alt={evt.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src =
+                            "/images/poster.webp";
+                        }}
+                      />
+
+                      {/* Image overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/20" />
+                    </div>
+
+                    {/* Top information */}
+                    <div className="relative z-10 flex items-start justify-between gap-4">
+
+                      <span className="text-[10px] font-mono uppercase font-extrabold text-white bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full">
                         {evt.category}
                       </span>
-                    </div>
-                  </div>
 
-                  <div className="p-6 space-y-3">
-                    <div className="flex items-center justify-between text-xs text-neutral-500 font-mono">
-                      <span>{evt.community}</span>
-                      <span>{evt.date || evt.event_date}</span>
+                      <span className="text-[10px] font-mono uppercase font-bold text-white bg-white/15 backdrop-blur-md px-3 py-1.5 rounded-full">
+                        {evt.community}
+                      </span>
+
                     </div>
-                    <h3 className="text-xl font-bold text-[#0a0a0a] group-hover:text-neutral-600 transition-colors font-display line-clamp-1">
-                      {evt.title}
-                    </h3>
-                  </div>
-                </Link>
-              ))}
+
+                    {/* Bottom information */}
+                    <div className="relative z-10 text-white space-y-4">
+
+                      <div className="flex items-center gap-3 text-xs font-mono text-white/70">
+                        <span>{evt.date || evt.event_date}</span>
+                      </div>
+
+                      <h3 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[0.95] tracking-tight font-display">
+                        {evt.title}
+                      </h3>
+
+                      <div className="flex items-center justify-between pt-4 border-t border-white/20">
+                        <span className="text-xs font-bold uppercase tracking-wider">
+                          View Event
+                        </span>
+
+                        <span className="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center transition-transform duration-300 group-hover:rotate-[-45deg]">
+                          <ArrowRight className="w-4 h-4" />
+                        </span>
+                      </div>
+
+                    </div>
+
+                  </Link>
+                ))}
+
             </div>
           )}
         </section>
