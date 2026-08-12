@@ -156,7 +156,7 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
       {/* Mobile Bottom Glass Floating Navigation Bar */}
       {mounted &&
         createPortal(
-          <nav className="fixed bottom-3 left-3 right-3 z-[99999] md:hidden bg-[#18191c]/90 backdrop-blur-2xl border border-neutral-800 rounded-full p-1.5 shadow-2xl flex items-center justify-between gap-1 select-none">
+          <nav className="fixed bottom-3 left-3 right-3 z-40 md:hidden bg-[#18191c]/90 backdrop-blur-2xl border border-neutral-800 rounded-full p-1.5 shadow-2xl flex items-center justify-between gap-1 select-none">
             {navItems.map((item) => {
               if (!item.roleRequired.includes(currentRole)) return null;
 

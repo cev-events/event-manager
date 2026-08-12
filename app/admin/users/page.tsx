@@ -391,8 +391,8 @@ export default function UserManagementPage() {
       {/* Add / Edit User Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto">
-          <div className="w-full max-w-lg bg-white border border-neutral-200/80 rounded-[28px] p-6 sm:p-8 space-y-6 my-8 shadow-2xl relative text-[#141518]">
-            <div className="flex items-center justify-between border-b border-neutral-100 pb-4">
+          <div className="w-full max-w-lg bg-white border border-neutral-200/80 rounded-[28px] p-6 sm:p-8 space-y-6 my-auto max-h-[85vh] overflow-y-auto shadow-2xl relative text-[#141518]">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-4 sticky top-0 bg-white z-10">
               <h2 className="text-xl font-extrabold text-[#141518] flex items-center gap-2 font-display">
                 <UserIcon className="w-5 h-5 text-[#141518]" />
                 {editingUser ? 'Modify Lead Profile' : 'Add New Community Lead'}

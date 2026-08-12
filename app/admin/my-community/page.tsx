@@ -120,17 +120,19 @@ export default function MyCommunityPage() {
 
   if (loading) {
     return (
-      <div className="p-8 text-center text-[#94a3b8] text-xs bg-[#0f121d] border border-[#1e2436] rounded-xl">
-        Loading community details...
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="text-xs font-mono uppercase tracking-widest text-neutral-400">
+          Loading community details...
+        </div>
       </div>
     );
   }
 
   if (!community) {
     return (
-      <div className="p-8 text-center text-[#94a3b8] text-xs bg-[#0f121d] border border-[#1e2436] rounded-xl space-y-2">
-        <ShieldAlert className="w-6 h-6 text-amber-400 mx-auto" />
-        <p className="font-bold text-white text-sm">No Community Assigned</p>
+      <div className="p-8 text-center text-neutral-500 text-xs bg-white border border-neutral-200/60 rounded-[28px] space-y-3">
+        <ShieldAlert className="w-8 h-8 text-amber-500 mx-auto" />
+        <h3 className="font-bold text-[#141518] text-base">No Community Assigned</h3>
         <p>Your account is not assigned to a specific community entity yet.</p>
       </div>
     );
@@ -140,29 +142,10 @@ export default function MyCommunityPage() {
   const isSlugEditable = role === 'admin' || role === 'dev';
 
   return (
-    <div className="max-w-4xl space-y-8 pb-12">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#141518] font-display flex items-center gap-3">
-            <Building className="w-7 h-7 text-[#141518]" />
-            {community.name} Settings
-          </h1>
-          <p className="text-xs sm:text-sm text-neutral-500 font-medium mt-1">
-            {isEditable
-              ? 'Manage logo branding, bio details, and community initials.'
-              : 'Editor read-only visibility for assigned community.'}
-          </p>
-        </div>
-
-        <div className="flex items-center space-x-2 px-4 py-2 rounded-full bg-white border border-neutral-200/80 text-xs font-bold text-[#141518] shadow-sm w-fit">
-          {isEditable ? <Edit2 className="w-3.5 h-3.5 text-[#141518]" /> : <Eye className="w-3.5 h-3.5 text-neutral-500" />}
-          <span>{isEditable ? 'Manager Edit Access' : 'Editor Read-Only'}</span>
-        </div>
-      </div>
-
+    <div className="w-full min-h-[calc(100vh-7rem)] lg:h-[calc(100vh-7rem)] lg:overflow-hidden pb-12 lg:pb-0">
       {toastMsg && (
         <div
-          className={`p-4 rounded-2xl border text-xs font-semibold flex items-center gap-3 ${
+          className={`flex items-center gap-3 rounded-2xl px-5 py-4 border text-xs font-semibold mb-4 ${
             toastMsg.type === 'success'
               ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
               : 'bg-rose-50 border-rose-200 text-rose-800'
@@ -177,155 +160,216 @@ export default function MyCommunityPage() {
         </div>
       )}
 
-      {/* Settings Form */}
-      <div className="p-6 sm:p-8 rounded-[28px] bg-white border border-neutral-200/60 shadow-sm space-y-6">
-        <div className="flex items-center space-x-4 border-b border-neutral-100 pb-4">
-          {logoUrl ? (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src={logoUrl}
-              alt={name}
-              className="w-14 h-14 rounded-2xl object-cover border border-neutral-200"
-              onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
-            />
-          ) : (
-            <div className="w-14 h-14 rounded-2xl bg-[#141518] text-white flex items-center justify-center font-bold text-xl font-display">
-              {initials || name.slice(0, 2).toUpperCase()}
+      <section className="h-full grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
+        {/* Left Dark Card - Community Brand Overview */}
+        <div className="lg:col-span-4 h-full min-h-0 bg-[#141518] text-white rounded-[28px] p-6 sm:p-8 flex flex-col justify-between overflow-hidden relative shadow-xl">
+          <div className="absolute -right-24 -top-24 w-64 h-64 rounded-full border border-white/10" />
+          <div className="absolute -right-12 -top-12 w-40 h-40 rounded-full border border-white/10" />
+
+          <div className="relative z-10 flex justify-between items-center">
+            <span className="text-[10px] font-mono uppercase tracking-widest text-white/40">
+              COMMUNITY ENTITY
+            </span>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-white/40">
+              {role}
+            </span>
+          </div>
+
+          <div className="relative z-10 space-y-6 my-6 lg:my-0">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-[24px] overflow-hidden bg-white/10 border border-white/10 flex items-center justify-center shadow-lg">
+              {logoUrl ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img
+                  src={logoUrl}
+                  alt={name}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display = 'none';
+                  }}
+                />
+              ) : (
+                <span className="text-3xl font-extrabold font-display">
+                  {initials || name.substring(0, 2).toUpperCase()}
+                </span>
+              )}
             </div>
-          )}
-          <div>
-            <h2 className="text-xl font-bold text-[#141518] font-display">{name}</h2>
-            <p className="text-xs text-neutral-400 font-mono mt-0.5">slug: {community.slug}</p>
+
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-extrabold font-display tracking-[-0.04em] leading-[0.95]">
+                {name || 'My Community'}
+              </h2>
+
+              <p className="mt-2 text-xs text-white/50 font-mono break-all">
+                slug: {community.slug}
+              </p>
+            </div>
+          </div>
+
+          <div className="relative z-10 flex flex-wrap gap-2">
+            <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full bg-white text-[#141518] flex items-center gap-1.5">
+              <Building className="w-3 h-3" />
+              {community.name}
+            </span>
+
+            <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full bg-white/10 text-white/70 border border-white/10 flex items-center gap-1.5">
+              {isEditable ? <Edit2 className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
+              {isEditable ? 'Editable' : 'Read-Only'}
+            </span>
           </div>
         </div>
 
-        <form onSubmit={handleUpdateCommunity} className="space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">
-                Community Name
-              </label>
-              <input
-                type="text"
-                disabled={!isEditable}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                className="w-full bg-[#161a29] text-white disabled:text-slate-500 rounded-lg px-3.5 py-2 text-xs border border-[#1e2436] focus:outline-none focus:border-[#6366f1]"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">
-                URL Slug {isSlugEditable ? '(Dev/Admin Editable)' : '(Read-Only for Manager)'}
-              </label>
-              <input
-                type="text"
-                disabled={!isSlugEditable}
-                value={slug}
-                onChange={(e) => setSlug(e.target.value)}
-                className="w-full bg-[#161a29] text-white disabled:text-slate-500 rounded-lg px-3.5 py-2 text-xs border border-[#1e2436] focus:outline-none focus:border-[#6366f1] disabled:cursor-not-allowed"
-              />
-            </div>
-          </div>
-
-          {/* WebP Logo Upload Section */}
-          <div className="space-y-2">
-            <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider">
-              Community Logo (WebP Auto-Compressed Vercel Blob Upload)
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {/* Right White Card - Form Controls */}
+        <div className="lg:col-span-8 h-full min-h-0 bg-white border border-neutral-200 rounded-[28px] p-6 sm:p-8 overflow-y-auto shadow-sm">
+          <form onSubmit={handleUpdateCommunity} className="h-full flex flex-col space-y-6">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-5">
               <div>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleLogoFileUpload}
-                  disabled={!isEditable || uploading}
-                  id="logo-file-upload"
-                  className="hidden"
-                />
-                <label
-                  htmlFor="logo-file-upload"
-                  className={`w-full bg-[#161a29] hover:bg-[#1e2436] text-[#94a3b8] hover:text-white rounded-lg px-4 py-2 text-xs border border-[#1e2436] flex items-center justify-center space-x-2 cursor-pointer transition-colors ${
-                    !isEditable ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
-                >
-                  <Upload className="w-3.5 h-3.5 text-[#6366f1]" />
-                  <span>{uploading ? 'Converting & Uploading...' : 'Upload Logo File'}</span>
+                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-400">
+                  Entity Details
+                </span>
+                <h2 className="text-xl sm:text-2xl font-extrabold font-display tracking-tight mt-1 text-[#141518]">
+                  Community Branding
+                </h2>
+              </div>
+
+              <Building className="w-5 h-5 text-neutral-300" />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="space-y-2">
+                <label className="text-[10px] font-extrabold uppercase tracking-widest text-neutral-500">
+                  Community Name
                 </label>
+                <input
+                  type="text"
+                  disabled={!isEditable}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Community name"
+                  required
+                  className="w-full bg-[#f7f7f7] border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:border-neutral-500 focus:bg-white transition-all disabled:cursor-not-allowed disabled:opacity-70"
+                />
               </div>
 
-              <div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-extrabold uppercase tracking-widest text-neutral-500">
+                  URL Slug {isSlugEditable ? '(Dev/Admin Editable)' : '(Read-Only)'}
+                </label>
                 <input
-                  type="url"
-                  disabled={!isEditable}
-                  value={logoUrl}
-                  onChange={(e) => setLogoUrl(e.target.value)}
-                  placeholder="Or enter Image URL link"
-                  className="w-full bg-[#161a29] text-white disabled:text-slate-500 rounded-lg px-3.5 py-2 text-xs border border-[#1e2436] focus:outline-none focus:border-[#6366f1]"
+                  type="text"
+                  disabled={!isSlugEditable}
+                  value={slug}
+                  onChange={(e) => setSlug(e.target.value)}
+                  className="w-full bg-neutral-100 text-neutral-500 rounded-2xl px-4 py-3.5 text-sm border border-neutral-200 cursor-not-allowed font-mono font-bold"
                 />
               </div>
             </div>
-          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">
-                Initials Badge
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="space-y-2">
+                <label className="text-[10px] font-extrabold uppercase tracking-widest text-neutral-500">
+                  Initials Badge
+                </label>
+                <input
+                  type="text"
+                  disabled={!isEditable}
+                  value={initials}
+                  onChange={(e) => setInitials(e.target.value)}
+                  placeholder="e.g. IE"
+                  className="w-full bg-[#f7f7f7] border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:border-neutral-500 focus:bg-white transition-all disabled:cursor-not-allowed disabled:opacity-70"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-extrabold uppercase tracking-widest text-neutral-500">
+                  Brand Color Accent
+                </label>
+                <input
+                  type="text"
+                  disabled={!isEditable}
+                  value={color}
+                  onChange={(e) => setColor(e.target.value)}
+                  placeholder="#6366f1"
+                  className="w-full bg-[#f7f7f7] border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:border-neutral-500 focus:bg-white transition-all font-mono disabled:cursor-not-allowed disabled:opacity-70"
+                />
+              </div>
+            </div>
+
+            {/* Logo Media Upload */}
+            <div className="border-t border-neutral-100 pt-5 space-y-3">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-400">
+                  Brand Assets
+                </span>
+                <h2 className="text-xl sm:text-2xl font-extrabold font-display tracking-tight mt-1 text-[#141518]">
+                  Community Logo Image
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleLogoFileUpload}
+                    disabled={!isEditable || uploading}
+                    id="logo-file-upload"
+                    className="hidden"
+                  />
+                  <label
+                    htmlFor="logo-file-upload"
+                    className={`min-h-[80px] w-full bg-[#f7f7f7] hover:bg-neutral-100 border border-dashed border-neutral-300 rounded-2xl flex flex-col items-center justify-center gap-1 cursor-pointer transition-all ${
+                      !isEditable ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                  >
+                    <Upload className="w-5 h-5 text-neutral-500" />
+                    <span className="text-xs font-bold text-[#141518]">
+                      {uploading ? 'Uploading...' : 'Upload WebP Logo'}
+                    </span>
+                  </label>
+                </div>
+
+                <div className="relative flex items-center">
+                  <input
+                    type="url"
+                    disabled={!isEditable}
+                    value={logoUrl}
+                    onChange={(e) => setLogoUrl(e.target.value)}
+                    placeholder="Or enter Image URL link"
+                    className="w-full bg-[#f7f7f7] border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:border-neutral-500 focus:bg-white transition-all disabled:cursor-not-allowed disabled:opacity-70"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Bio Description */}
+            <div className="border-t border-neutral-100 pt-5 space-y-3">
+              <label className="text-[10px] font-extrabold uppercase tracking-widest text-neutral-500">
+                Community Description / Mission
               </label>
-              <input
-                type="text"
+              <textarea
                 disabled={!isEditable}
-                value={initials}
-                onChange={(e) => setInitials(e.target.value)}
-                className="w-full bg-[#161a29] text-white disabled:text-slate-500 rounded-lg px-3.5 py-2 text-xs border border-[#1e2436] focus:outline-none focus:border-[#6366f1]"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="Community mission and details..."
+                className="w-full bg-[#f7f7f7] border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-2xl p-4 text-sm focus:outline-none focus:border-neutral-500 focus:bg-white transition-all h-24 disabled:cursor-not-allowed disabled:opacity-70"
               />
             </div>
 
-            <div>
-              <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">
-                Theme Accent Class
-              </label>
-              <select
-                disabled={!isEditable}
-                value={color}
-                onChange={(e) => setColor(e.target.value)}
-                className="w-full bg-[#161a29] text-white disabled:text-slate-500 rounded-lg px-3.5 py-2 text-xs border border-[#1e2436] focus:outline-none focus:border-[#6366f1]"
-              >
-                <option value="from-blue-600 to-cyan-400">Electric Blue / Cyan</option>
-                <option value="from-green-500 to-emerald-300">Emerald Green</option>
-                <option value="from-yellow-400 to-orange-500">Solar Amber</option>
-                <option value="from-green-600 to-lime-400">Lime Green</option>
-                <option value="from-purple-600 to-pink-500">Neon Violet</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">
-              Description / Mission Bio
-            </label>
-            <textarea
-              disabled={!isEditable}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="w-full bg-[#161a29] text-white disabled:text-slate-500 rounded-lg px-3.5 py-2 text-xs border border-[#1e2436] focus:outline-none focus:border-[#6366f1] h-24"
-            />
-          </div>
-
-          {isEditable && (
-            <div className="pt-4 border-t border-[#1e2436] flex justify-end">
-              <button
-                type="submit"
-                disabled={saving || uploading}
-                className="brutalist-btn-primary px-6 py-2 rounded-lg text-xs disabled:opacity-50"
-              >
-                {saving ? 'Updating...' : 'Save Community Profile'}
-              </button>
-            </div>
-          )}
-        </form>
-      </div>
+            {/* Submit Action */}
+            {isEditable && (
+              <div className="mt-auto pt-4 border-t border-neutral-100 flex justify-end">
+                <button
+                  type="submit"
+                  disabled={saving || uploading}
+                  className="px-7 py-3.5 rounded-full bg-[#141518] text-white hover:bg-black font-extrabold text-xs disabled:opacity-50 transition-all shadow-sm flex items-center justify-center gap-2"
+                >
+                  {saving ? 'Saving Profile...' : 'Save Community Profile'}
+                </button>
+              </div>
+            )}
+          </form>
+        </div>
+      </section>
     </div>
   );
 }

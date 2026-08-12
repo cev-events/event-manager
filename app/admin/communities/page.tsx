@@ -291,9 +291,9 @@ export default function CommunitiesManagementPage() {
 
       {/* Modal for Creating Community */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white border border-neutral-200/80 rounded-[28px] p-6 sm:p-8 w-full max-w-md space-y-4 text-[#141518] shadow-2xl relative">
-            <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white border border-neutral-200/80 rounded-[28px] p-6 sm:p-8 w-full max-w-md space-y-4 text-[#141518] shadow-2xl relative max-h-[85vh] overflow-y-auto my-auto">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-3 sticky top-0 bg-white z-10">
               <h3 className="text-xl font-extrabold font-display text-[#141518]">Create Community Entity</h3>
               <button onClick={resetForm} className="text-neutral-400 hover:text-[#141518] p-1 rounded-full hover:bg-neutral-100 transition-colors">
                 <X className="w-5 h-5" />
@@ -443,9 +443,9 @@ export default function CommunitiesManagementPage() {
 
       {/* Modal for Editing Community (Dev/Admin) */}
       {editingCommunity && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white border border-neutral-200/80 rounded-[28px] p-6 sm:p-8 w-full max-w-md space-y-4 text-[#141518] shadow-2xl relative">
-            <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white border border-neutral-200/80 rounded-[28px] p-6 sm:p-8 w-full max-w-md space-y-4 text-[#141518] shadow-2xl relative max-h-[85vh] overflow-y-auto my-auto">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-3 sticky top-0 bg-white z-10">
               <h3 className="text-xl font-extrabold font-display flex items-center gap-2 text-[#141518]">
                 <Edit2 className="w-5 h-5 text-[#141518]" /> Edit Community Entity
               </h3>
