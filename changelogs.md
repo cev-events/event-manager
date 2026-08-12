@@ -1,5 +1,14 @@
 # Changelogs & Version History
 
+## [1.6.0] - 2026-08-12
+
+### 🎨 Nixtio Hero Card 4-Corner Container & Smooth Scroll Corner Transitions
+- **State 1: 4-Corner Rounded Hero Card Container ([app/page.tsx](./app/page.tsx)):** Re-architected hero container to sit inside outer container padding (`px-3 sm:px-5 lg:px-6 pt-3 sm:pt-5`) with **ALL 4 CORNERS ROUNDED** (`rounded-[2.2rem] sm:rounded-[3rem] lg:rounded-[3.5rem]`), matching Nixtio's exact initial State 1 layout.
+- **State 2: Smooth Side Adjustments on Scroll ([Navbar.tsx](./app/components/Navbar.tsx), [app/page.tsx](./app/page.tsx)):** Added smooth CSS transitions (`transition-all duration-500 ease-out`) for container padding and navbar alignment as the page scrolls down.
+- **State 3: Curved Bottom Corner Boundary ([app/page.tsx](./app/page.tsx)):** Verified curved bottom corners (`rounded-b-[2.5rem] sm:rounded-b-[3.5rem]`) overlaying white page content below.
+
+---
+
 ## [1.5.0] - 2026-08-12
 
 ### 🎯 3 Nixtio Navbar Transition Modes, /cev_logo_b.svg Auto-Switch & Edge-to-Edge Full Screen Hero

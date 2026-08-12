@@ -26,7 +26,7 @@ export default function Navbar() {
         const heroEl = document.getElementById('hero-section');
         if (heroEl) {
           const heroHeight = heroEl.offsetHeight;
-          setIsOverHero(y < heroHeight - 80);
+          setIsOverHero(y < heroHeight - 100);
         } else {
           setIsOverHero(y < 700);
         }
@@ -92,7 +92,13 @@ export default function Navbar() {
   const logoSrc = isOverHero ? "/cev_logo.svg" : "/cev_logo_b.svg";
 
   return (
-    <header className="fixed top-0 inset-x-0 z-[100] px-6 sm:px-12 py-5 pointer-events-none transition-all duration-300">
+    <header
+      className={`fixed top-0 inset-x-0 z-[100] transition-all duration-500 ease-out pointer-events-none ${
+        isTop && isOverHero
+          ? "px-8 sm:px-14 py-7 sm:py-9"
+          : "px-6 sm:px-12 py-4 sm:py-5"
+      }`}
+    >
       <div className="w-full mx-auto flex items-center justify-between pointer-events-auto">
         
         {/* Brand Logo Only (Nixtio Style: Standalone Logo Icon, NO Background Circle Box) */}
@@ -110,7 +116,7 @@ export default function Navbar() {
 
         {/* Center Floating Nav Pill with 3 Nixtio Modes */}
         <nav
-          className={`hidden md:flex items-center space-x-2 transition-all duration-300 ${
+          className={`hidden md:flex items-center space-x-2 transition-all duration-500 ease-out ${
             isTop && isOverHero
               ? "bg-transparent text-white border-0 px-0 py-0"
               : "bg-white text-black border border-neutral-200/90 rounded-full px-6 py-2 shadow-2xl backdrop-blur-md transform scale-95"
@@ -156,7 +162,7 @@ export default function Navbar() {
           {!loading && (
             <Link
               href={session ? "/admin" : "/login"}
-              className={`px-6 py-2.5 text-xs font-extrabold rounded-full transition-all duration-300 flex items-center gap-1.5 shadow-md ${
+              className={`px-6 py-2.5 text-xs font-extrabold rounded-full transition-all duration-500 ease-out flex items-center gap-1.5 shadow-md ${
                 isOverHero
                   ? "bg-white text-black hover:bg-neutral-200" // Modes 1 & 2 over dark hero: White button
                   : "bg-black text-white hover:bg-neutral-800" // Mode 3 over light page: Black button

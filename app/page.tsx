@@ -1,7 +1,7 @@
 // Created by Shibili Aman TK | GitHub: https://github.com/LordSA
 'use client';
 
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowRight, ArrowUpRight, Calendar, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { useCommunities } from '@/lib/hooks/useCommunities';
@@ -10,6 +10,17 @@ import { useRealtimeEvents } from '@/lib/hooks/useRealtimeEvents';
 export default function LandingHomePage() {
   const { communities, loading: communitiesLoading } = useCommunities();
   const { eventsList, loading: eventsLoading } = useRealtimeEvents();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Filter out college entity so it is not listed as a student community
   const filteredCommunities = communities.filter(
@@ -18,124 +29,125 @@ export default function LandingHomePage() {
 
   return (
     <div className="min-h-screen bg-[#f5f5f5] text-[#0a0a0a] flex flex-col font-sans">
-      <main className="flex-1 w-full pb-24 space-y-16">
-        
-        {/* Full-Screen Edge-to-Edge Nixtio-Style Hero Header Section */}
-        <section
-          id="hero-section"
-          className="relative w-full h-screen min-h-screen overflow-hidden bg-[#0a0a0a] text-white p-6 sm:p-12 lg:p-16 flex flex-col justify-between shadow-2xl rounded-b-[2.5rem] sm:rounded-b-[4rem]"
-        >
-          {/* Animated Header GIF Background */}
-          <img
-            src="/header.gif"
-            alt="CEV Header Background"
-            className="absolute inset-0 w-full h-full object-cover opacity-45 mix-blend-screen pointer-events-none z-0"
-          />
+      <main className="flex-1 w-full pb-24 space-y-5">
 
-          {/* Gradient Overlay for Text Legibility */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/30 to-[#0a0a0a]/70 z-[1] pointer-events-none" />
+        {/* Full-Screen Nixtio-Style Hero Header Card Container (All 4 Corners Rounded in State 1) */}
+        <div className={`mx-auto pt-1 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${scrolled ? "w-[92%] sm:w-[94%] lg:w-[95%]" : "w-[99%]"}`}>
+          <section
+            id="hero-section"
+            className={`relative w-full overflow-hidden bg-[#0a0a0a] text-white flex flex-col justify-between shadow-2xl border border-neutral-800/80 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${scrolled
+              ? `min-h-[70vh] sm:min-h-[72vh] lg:min-h-[75vh] rounded-[0.8rem] sm:rounded-[0.9rem] lg:rounded-[1rem] p-4 sm:p-7 lg:p-9` : `min-h-[92vh] sm:min-h-[95vh] lg:min-h-[99vh] rounded-[0.9rem] sm:rounded-[1.1rem] lg:rounded-[1.3rem] p-6 sm:p-12 lg:p-16`}`}
+          >
+            {/* Animated Header GIF Background */}
+            <img
+              src="/header.gif"
+              alt="CEV Header Background"
+              className="absolute inset-0 w-full h-full object-cover opacity-45 mix-blend-screen pointer-events-none z-0"
+            />
 
-          {/* Top Filler Spacing for Layered Floating Navbar */}
-          <div className="relative z-10 pt-20 sm:pt-24" />
+            {/* Gradient Overlay for Text Legibility */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/30 to-[#0a0a0a]/70 z-[1] pointer-events-none" />
 
-          {/* Hero Oversized Display Title matching Nixtio reference */}
-          <div className="relative z-10 my-auto">
-            <h1 className="text-7xl sm:text-9xl md:text-[11rem] lg:text-[13rem] xl:text-[15rem] font-extrabold font-display leading-[0.82] tracking-tight text-white select-none">
-              CEV EVENTS
-            </h1>
-          </div>
+            {/* Top Filler Spacing for Layered Floating Navbar */}
+            <div className={`relative z-10 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${scrolled ? "pt-8 sm:pt-10" : "pt-24 sm:pt-28"}`} />
 
-          {/* Alignment of Title and Content of Header matching Nixtio Web */}
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-end border-t border-neutral-800/80 pt-8 mt-auto">
-            
-            {/* Left Column: Stats Line & Subtext */}
-            <div className="md:col-span-7 space-y-4">
-              <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm font-bold text-neutral-300">
-                <span>50+ Campus Events</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-neutral-600" />
-                <span>10+ Tech Communities</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-neutral-600" />
-                <span>Founded at CE Vadakara</span>
-              </div>
-
-              <p className="text-sm sm:text-base md:text-lg text-neutral-300 max-w-2xl leading-relaxed font-sans">
-                We create digital event experiences that stand out. Unified multi-community event management, conflict-free slot reservation, WebP poster management, and discovery for College of Engineering Vadakara.
-              </p>
+            {/* Hero Oversized Display Title matching Nixtio reference */}
+            <div className={`relative z-10 my-auto transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${scrolled ? "pt-1" : "pt-4"}`}>
+              <h1 className={`font-extrabold font-display leading-[0.82] tracking-tight text-white select-none transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${scrolled ? "text-5xl sm:text-7xl md:text-[8rem] lg:text-[9rem] xl:text-[10rem]" : "text-7xl sm:text-9xl md:text-[11rem] lg:text-[13rem] xl:text-[15rem]"}`} >
+                CEV EVENTS
+              </h1>
             </div>
 
-            {/* Right Column: Hero Action CTAs & Bottom Corner Widget */}
-            <div className="md:col-span-5 flex flex-col items-start md:items-end justify-end space-y-4">
-              <div className="flex flex-wrap items-center gap-3">
-                <Link
-                  href="/events"
-                  className="py-4 px-8 rounded-full bg-white hover:bg-neutral-200 text-[#0a0a0a] font-extrabold text-xs tracking-wider uppercase flex items-center gap-2 shadow-lg transition-colors"
-                >
-                  <span>Explore Events</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+            {/* Alignment of Title and Content of Header matching Nixtio Web */}
+            <div className={`relative z-10 grid grid-cols-1 md:grid-cols-12 items-end border-t border-neutral-800/80 mt-auto transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${scrolled ? "gap-5 pt-4 sm:pt-5" : "gap-8 pt-8"}`}>
 
-                <Link
-                  href="/calendar"
-                  className="py-4 px-8 rounded-full border border-neutral-700 hover:border-white text-white font-extrabold text-xs tracking-wider uppercase hover:bg-neutral-900 transition-colors"
-                >
-                  View Calendar
-                </Link>
+              {/* Left Column: Stats Line & Subtext */}
+              <div className="md:col-span-7 space-y-4">
+                <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm font-bold text-neutral-300">
+                  <span>50+ Campus Events</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-600" />
+                  <span>10+ Tech Communities</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-600" />
+                  <span>Founded at CE Vadakara</span>
+                </div>
+
+                <p className="text-sm sm:text-base md:text-lg text-neutral-300 max-w-2xl leading-relaxed font-sans">
+                  We create digital event experiences that stand out. Unified multi-community event management, conflict-free slot reservation, WebP poster management, and discovery for College of Engineering Vadakara.
+                </p>
               </div>
 
-              {/* Bottom Right Corner Profile Card Widget matching Nixtio Arsen Card */}
-              <div className="bg-[#141414]/90 backdrop-blur-md border border-neutral-800 rounded-2xl p-3.5 flex items-center space-x-3 shadow-2xl max-w-xs self-end hidden sm:flex">
-                <div className="w-10 h-10 rounded-xl bg-neutral-800 flex items-center justify-center text-white shrink-0 font-bold text-xs">
-                  <Sparkles className="w-5 h-5 text-amber-400" />
+              {/* Right Column: Hero Action CTAs & Bottom Corner Widget */}
+              <div className="md:col-span-5 flex flex-col items-start md:items-end justify-end space-y-4">
+                <div className="flex flex-wrap items-center gap-3">
+                  <Link
+                    href="/events"
+                    className="py-4 px-8 rounded-full bg-white hover:bg-neutral-200 text-[#0a0a0a] font-extrabold text-xs tracking-wider uppercase flex items-center gap-2 shadow-lg transition-colors"
+                  >
+                    <span>Explore Events</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+
+                  <Link
+                    href="/calendar"
+                    className="py-4 px-8 rounded-full border border-neutral-700 hover:border-white text-white font-extrabold text-xs tracking-wider uppercase hover:bg-neutral-900 transition-colors"
+                  >
+                    View Calendar
+                  </Link>
                 </div>
-                <div className="text-left text-xs">
-                  <p className="text-[10px] text-neutral-400 font-mono uppercase">Official System</p>
-                  <p className="font-bold text-white">CE Vadakara Events</p>
-                </div>
+
+
+
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
 
         {/* Nixtio "Our Clients" Style Clubs / Communities Grid Cards */}
-        <section className="space-y-6 pt-8 px-4 sm:px-8 max-w-7xl mx-auto">
-          <div className="flex items-center justify-between border-b border-neutral-300 pb-4">
+        <section className="space-y-8 pt-8 px-4 sm:px-8 max-w-[1800px] mx-auto">
+
+          {/* Section Header */}
+          <div className="flex items-center justify-between border-b border-neutral-200 pb-4">
             <span className="text-xs font-mono text-neutral-500 uppercase font-bold tracking-widest">
-              001 / Our Communities
+              Our Communities
             </span>
-            <span className="text-xs text-neutral-500 font-mono font-bold">CE VADAKARA</span>
+
+            <span className="text-xs text-neutral-500 font-mono font-bold">
+              CE VADAKARA
+            </span>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6">
+          {/* Community Cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-1.5 sm:gap-2">
+
             {communitiesLoading ? (
-              <div className="col-span-full py-12 text-center text-xs text-neutral-500 font-mono">Loading campus communities...</div>
+              <div className="col-span-full py-12 text-center text-xs text-neutral-500 font-mono">
+                Loading campus communities...
+              </div>
             ) : (
               filteredCommunities.map((c) => (
                 <Link
                   key={c.id}
                   href={`/community/${c.slug || c.id}`}
-                  className="bg-white rounded-2xl border border-neutral-200 p-6 flex flex-col items-center justify-center space-y-3 shadow-sm hover:shadow-md hover:border-neutral-400 transition-all duration-200 group h-36 min-h-[140px] text-center"
+                  className="group bg-white rounded-[24px] h-[150px] sm:h-[165px] flex items-center justify-center p-6 overflow-hidden transition-all duration-300 hover:scale-[1.015] hover:shadow-lg"
                 >
                   {c.logo_url ? (
                     <img
                       src={c.logo_url}
                       alt={c.name}
-                      className="h-10 w-auto max-w-[80px] object-contain transition-transform group-hover:scale-110 duration-200"
+                      className="max-h-12 sm:max-h-14 max-w-[150px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                       onError={(e) => {
-                        (e.currentTarget as HTMLImageElement).style.display = 'none';
+                        (e.currentTarget as HTMLImageElement).style.display = "none";
                       }}
                     />
                   ) : (
-                    <div className="w-10 h-10 rounded-xl bg-neutral-100 border border-neutral-200 flex items-center justify-center text-neutral-800 text-xs font-bold font-display group-hover:bg-neutral-900 group-hover:text-white transition-colors">
+                    <div className="w-14 h-14 rounded-2xl bg-neutral-100 flex items-center justify-center text-neutral-800 text-sm font-bold font-display transition-all duration-300 group-hover:bg-neutral-900 group-hover:text-white">
                       {c.initials || c.name.slice(0, 2).toUpperCase()}
                     </div>
                   )}
-
-                  <span className="text-xs font-bold text-[#0a0a0a] group-hover:text-black truncate font-heading max-w-full">
-                    {c.name}
-                  </span>
                 </Link>
               ))
             )}
+
           </div>
         </section>
 
