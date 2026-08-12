@@ -602,15 +602,15 @@ export default function EventBookingEnginePage() {
               setEditingEvent(null);
             }
           }}
-          className="fixed inset-0 bg-black/85 backdrop-blur-md z-[99999] flex items-end sm:items-center justify-center p-0 sm:p-6 overflow-y-auto"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[99999] flex items-end sm:items-center justify-center p-0 sm:p-6 overflow-y-auto"
         >
           <div
             data-lenis-prevent
             onClick={(e) => e.stopPropagation()}
-            className="brutalist-card p-5 sm:p-8 w-full max-w-3xl rounded-t-2xl sm:rounded-2xl text-white space-y-5 sm:space-y-6 my-0 sm:my-auto max-h-[92vh] sm:max-h-[88vh] overflow-y-auto relative shadow-2xl border-t-2 sm:border-2 border-[#1e2436] bg-[#0f121d]"
+            className="w-full max-w-3xl rounded-t-[28px] sm:rounded-[28px] text-[#141518] space-y-5 sm:space-y-6 my-0 sm:my-auto max-h-[92vh] sm:max-h-[88vh] overflow-y-auto relative shadow-2xl border border-neutral-200/80 bg-white p-6 sm:p-8"
           >
-            <div className="flex items-center justify-between border-b border-[#1e2436] pb-3.5">
-              <h3 className="text-lg sm:text-xl font-bold font-display text-white">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-4">
+              <h3 className="text-xl sm:text-2xl font-extrabold font-display text-[#141518]">
                 {editingEvent ? 'Modify Event / Reserved Slot' : 'Book Date / Time Slot'}
               </h3>
               <button
@@ -619,7 +619,7 @@ export default function EventBookingEnginePage() {
                   setShowModal(false);
                   setEditingEvent(null);
                 }}
-                className="text-[#94a3b8] hover:text-white p-1 rounded-lg hover:bg-[#161a29] transition-colors text-xs font-bold"
+                className="text-neutral-400 hover:text-[#141518] p-2 rounded-full hover:bg-neutral-100 transition-colors text-xs font-bold"
               >
                 ✕ Close
               </button>
@@ -628,7 +628,7 @@ export default function EventBookingEnginePage() {
             <form onSubmit={handleBookSlot} className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
                     Event Name *
                   </label>
                   <input
@@ -637,36 +637,36 @@ export default function EventBookingEnginePage() {
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="e.g. BitBurst Hackathon 2.0"
                     required
-                    className="w-full bg-[#161a29] border border-[#1e2436] text-white placeholder-slate-500 rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#6366f1] transition-colors"
+                    className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-full px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                    <Globe className="w-3.5 h-3.5 text-[#6366f1]" /> Event Format / Mode *
+                  <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                    <Globe className="w-3.5 h-3.5 text-[#141518]" /> Event Format / Mode *
                   </label>
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       type="button"
                       onClick={() => setEventType('offline')}
-                      className={`py-2 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${eventType === 'offline'
-                        ? 'bg-indigo-950/80 border-indigo-500 text-indigo-300 shadow-[0_0_10px_rgba(99,102,241,0.3)]'
-                        : 'bg-[#161a29] border-[#1e2436] text-slate-400 hover:text-white'
+                      className={`py-2.5 px-4 rounded-full border text-xs font-extrabold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${eventType === 'offline'
+                        ? 'bg-[#141518] border-[#141518] text-white shadow-md'
+                        : 'bg-neutral-100 border-neutral-200 text-neutral-600 hover:bg-neutral-200'
                         }`}
                     >
-                      <MapPin className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                      <MapPin className="w-3.5 h-3.5 shrink-0" />
                       <span>Offline</span>
                     </button>
 
                     <button
                       type="button"
                       onClick={() => setEventType('online')}
-                      className={`py-2 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${eventType === 'online'
-                        ? 'bg-cyan-950/80 border-cyan-500 text-cyan-300 shadow-[0_0_10px_rgba(6,182,212,0.3)]'
-                        : 'bg-[#161a29] border-[#1e2436] text-slate-400 hover:text-white'
+                      className={`py-2.5 px-4 rounded-full border text-xs font-extrabold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${eventType === 'online'
+                        ? 'bg-[#141518] border-[#141518] text-white shadow-md'
+                        : 'bg-neutral-100 border-neutral-200 text-neutral-600 hover:bg-neutral-200'
                         }`}
                     >
-                      <Globe className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                      <Globe className="w-3.5 h-3.5 shrink-0" />
                       <span>Online</span>
                     </button>
                   </div>
@@ -675,8 +675,8 @@ export default function EventBookingEnginePage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-emerald-400" /> Venue / Stream Link *
+                  <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                    <MapPin className="w-3.5 h-3.5 text-[#141518]" /> Venue / Stream Link *
                   </label>
                   <input
                     type="text"
@@ -684,18 +684,18 @@ export default function EventBookingEnginePage() {
                     onChange={(e) => setVenue(e.target.value)}
                     placeholder={eventType === 'online' ? "e.g. Google Meet / Zoom Stream" : "e.g. Main Auditorium / Lab 2 / CEV"}
                     required
-                    className="w-full bg-[#161a29] border border-[#1e2436] text-white placeholder-slate-500 rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#6366f1] transition-colors"
+                    className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-full px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
                     Category *
                   </label>
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="w-full bg-[#161a29] border border-[#1e2436] text-white rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#6366f1] transition-colors"
+                    className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] rounded-full px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black transition-colors"
                   >
                     <option value="Workshop">Workshop</option>
                     <option value="Hackathon">Hackathon</option>
@@ -719,13 +719,13 @@ export default function EventBookingEnginePage() {
                       onChange={(e) => setCustomCategory(e.target.value)}
                       placeholder="Specify custom category name..."
                       required
-                      className="mt-2 w-full bg-[#161a29] border border-[#1e2436] text-white placeholder-slate-500 rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#6366f1] transition-colors"
+                      className="mt-2 w-full bg-neutral-100 border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-full px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black transition-colors"
                     />
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
                     Organizing Community *
                   </label>
                   {isSuperAdmin ? (
@@ -733,7 +733,7 @@ export default function EventBookingEnginePage() {
                       value={selectedCommunityId}
                       onChange={(e) => setSelectedCommunityId(e.target.value)}
                       required
-                      className="w-full bg-[#161a29] border border-[#1e2436] text-white rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#6366f1] transition-colors"
+                      className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] rounded-full px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black transition-colors"
                     >
                       <option value="">-- Select Organizing Entity --</option>
                       <optgroup label="Institution">
@@ -754,9 +754,9 @@ export default function EventBookingEnginePage() {
                       </optgroup>
                     </select>
                   ) : (
-                    <div className="p-2.5 rounded-xl bg-[#161a29] border border-[#1e2436] text-xs text-slate-300 flex items-center justify-between h-[42px]">
-                      <span className="text-[#94a3b8]">Community:</span>
-                      <span className="font-bold text-[#6366f1]">{currentUserCommunityName || 'Assigned Community'}</span>
+                    <div className="p-2.5 rounded-full bg-neutral-100 border border-neutral-200 text-xs text-[#141518] flex items-center justify-between h-[42px] px-4 font-bold">
+                      <span className="text-neutral-500">Community:</span>
+                      <span className="font-extrabold text-[#141518]">{currentUserCommunityName || 'Assigned Community'}</span>
                     </div>
                   )}
                 </div>
@@ -764,72 +764,72 @@ export default function EventBookingEnginePage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                    <CalendarIcon className="w-3.5 h-3.5 text-[#6366f1]" /> Start Date *
+                  <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                    <CalendarIcon className="w-3.5 h-3.5 text-[#141518]" /> Start Date *
                   </label>
                   <input
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
                     required
-                    className="w-full bg-[#161a29] border border-[#1e2436] text-white rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#6366f1] transition-colors"
+                    className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] rounded-full px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                    <CalendarIcon className="w-3.5 h-3.5 text-[#6366f1]" /> End Date *
+                  <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                    <CalendarIcon className="w-3.5 h-3.5 text-[#141518]" /> End Date *
                   </label>
                   <input
                     type="date"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
                     required
-                    className="w-full bg-[#161a29] border border-[#1e2436] text-white rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#6366f1] transition-colors"
+                    className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] rounded-full px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black transition-colors"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5 text-cyan-400" /> Start Time (12-Hr Format) *
+                  <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5 text-[#141518]" /> Start Time (12-Hr Format) *
                   </label>
                   <input
                     type="time"
                     value={startTime}
                     onChange={(e) => setStartTime(e.target.value)}
                     required
-                    className="w-full bg-[#161a29] border border-[#1e2436] text-white rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#6366f1] transition-colors"
+                    className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] rounded-full px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5 text-cyan-400" /> End Time (12-Hr Format) *
+                  <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5 text-[#141518]" /> End Time (12-Hr Format) *
                   </label>
                   <input
                     type="time"
                     value={endTime}
                     onChange={(e) => setEndTime(e.target.value)}
                     required
-                    className="w-full bg-[#161a29] border border-[#1e2436] text-white rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#6366f1] transition-colors"
+                    className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] rounded-full px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black transition-colors"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
                     Publishing Status *
                   </label>
                   <div className="grid grid-cols-2 gap-2">
                     <button
                       type="button"
                       onClick={() => setStatus('closed')}
-                      className={`py-2.5 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-colors ${status === 'closed'
-                        ? 'bg-amber-950/80 border-amber-500 text-amber-300'
-                        : 'bg-[#161a29] border-[#1e2436] text-slate-400'
+                      className={`py-2.5 px-3 rounded-full border text-xs font-extrabold flex items-center justify-center gap-1.5 transition-colors ${status === 'closed'
+                        ? 'bg-amber-100 border-amber-300 text-amber-900'
+                        : 'bg-neutral-100 border-neutral-200 text-neutral-600 hover:bg-neutral-200'
                         }`}
                     >
                       <Lock className="w-3.5 h-3.5" /> Closed (Draft)
@@ -837,9 +837,9 @@ export default function EventBookingEnginePage() {
                     <button
                       type="button"
                       onClick={() => setStatus('live')}
-                      className={`py-2.5 px-3 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 transition-colors ${status === 'live'
-                        ? 'bg-emerald-950/80 border-emerald-500 text-emerald-300'
-                        : 'bg-[#161a29] border-[#1e2436] text-slate-400'
+                      className={`py-2.5 px-3 rounded-full border text-xs font-extrabold flex items-center justify-center gap-1.5 transition-colors ${status === 'live'
+                        ? 'bg-[#141518] border-[#141518] text-white shadow-md'
+                        : 'bg-neutral-100 border-neutral-200 text-neutral-600 hover:bg-neutral-200'
                         }`}
                     >
                       <CheckCircle2 className="w-3.5 h-3.5" /> Live (Publish)
@@ -849,14 +849,14 @@ export default function EventBookingEnginePage() {
 
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider">
+                    <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider">
                       Event Poster Image
                     </label>
                     {posterUrl && posterUrl.trim() !== '' && (
                       <button
                         type="button"
                         onClick={() => setPosterUrl('')}
-                        className="text-[10px] font-bold text-rose-400 hover:text-rose-300 flex items-center gap-1 transition-colors"
+                        className="text-[10px] font-bold text-rose-600 hover:text-rose-700 flex items-center gap-1 transition-colors"
                       >
                         <X className="w-3 h-3" /> Remove Poster
                       </button>
@@ -874,23 +874,23 @@ export default function EventBookingEnginePage() {
                     />
                     <label
                       htmlFor="poster-file-upload"
-                      className="w-full bg-[#161a29] hover:bg-[#1e2436] text-slate-300 hover:text-white rounded-xl px-4 py-2.5 text-xs border border-[#1e2436] flex flex-col justify-center space-y-1.5 cursor-pointer transition-colors"
+                      className="w-full bg-neutral-100 hover:bg-neutral-200 text-[#141518] rounded-full px-4 py-2.5 text-xs border border-neutral-200 flex flex-col justify-center space-y-1.5 cursor-pointer transition-colors"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-2 min-w-0">
-                          <Upload className="w-4 h-4 text-[#6366f1] shrink-0" />
+                          <Upload className="w-4 h-4 text-[#141518] shrink-0" />
                           <span className="truncate font-bold">
                             {uploadingPoster ? `Uploading Poster...` : posterUrl ? 'Change Poster Image' : 'Upload Poster Image'}
                           </span>
                         </div>
                         {uploadingPoster && (
-                          <span className="text-[10px] font-mono font-bold text-[#6366f1]">{uploadProgress}%</span>
+                          <span className="text-[10px] font-mono font-bold text-[#141518]">{uploadProgress}%</span>
                         )}
                       </div>
                       {uploadingPoster && (
-                        <div className="w-full h-1.5 bg-[#0f121d] rounded-full overflow-hidden">
+                        <div className="w-full h-1.5 bg-neutral-200 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-[#6366f1] transition-all duration-150 rounded-full"
+                            className="h-full bg-[#141518] transition-all duration-150 rounded-full"
                             style={{ width: `${uploadProgress}%` }}
                           />
                         </div>
@@ -899,7 +899,7 @@ export default function EventBookingEnginePage() {
                   </div>
 
                   {posterUrl && posterUrl.trim() !== '' && (
-                    <div className="mt-2.5 relative w-full h-32 rounded-xl overflow-hidden border border-[#1e2436] bg-[#161a29] group">
+                    <div className="mt-2.5 relative w-full h-32 rounded-2xl overflow-hidden border border-neutral-200 bg-neutral-100 group">
                       <img
                         src={posterUrl}
                         alt="Poster Preview"
@@ -910,7 +910,7 @@ export default function EventBookingEnginePage() {
                         <button
                           type="button"
                           onClick={() => setPosterUrl('')}
-                          className="px-3 py-1.5 rounded-lg bg-rose-600/90 hover:bg-rose-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg transition-colors"
+                          className="px-4 py-2 rounded-full bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg transition-colors"
                         >
                           <X className="w-3.5 h-3.5" /> Remove Poster Image
                         </button>
@@ -921,23 +921,23 @@ export default function EventBookingEnginePage() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                  <LinkIcon className="w-3.5 h-3.5 text-emerald-400" /> Registration / Form Link (Optional)
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                  <LinkIcon className="w-3.5 h-3.5 text-[#141518]" /> Registration / Form Link (Optional)
                 </label>
                 <input
                   type="url"
                   value={redirectUrl}
                   onChange={(e) => setRedirectUrl(e.target.value)}
                   placeholder="e.g. https://forms.google.com/your-event-form or https://unstop.com/..."
-                  className="w-full bg-[#161a29] border border-[#1e2436] text-white placeholder-slate-500 rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#6366f1] transition-colors"
+                  className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-full px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black transition-colors"
                 />
-                <p className="text-[10px] text-slate-400 mt-1">
+                <p className="text-[10px] text-neutral-500 mt-1 font-medium">
                   If provided, a &quot;Register Now&quot; button will redirect users to your form. If left empty, no registration button will be shown on the event page.
                 </p>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
                   Full Detailed Description of Event *
                 </label>
                 <textarea
@@ -945,12 +945,12 @@ export default function EventBookingEnginePage() {
                   onChange={(e) => setDesc(e.target.value)}
                   placeholder="Explain event details, schedule, venue rules, food info, prize details..."
                   required
-                  className="w-full bg-[#161a29] border border-[#1e2436] text-white placeholder-slate-500 rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#6366f1] h-24 transition-colors"
+                  className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-2xl px-4 py-3 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black h-24 transition-colors"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
                   Optional Highlights / Perks (Optional)
                 </label>
                 <input
@@ -958,26 +958,26 @@ export default function EventBookingEnginePage() {
                   value={perks}
                   onChange={(e) => setPerks(e.target.value)}
                   placeholder="e.g. KTU Activity Points, Certificates, Free Refreshments"
-                  className="w-full bg-[#161a29] border border-[#1e2436] text-white placeholder-slate-500 rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-[#6366f1] transition-colors"
+                  className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-full px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black transition-colors"
                 />
-                <p className="text-[10px] text-[#94a3b8] mt-1">Leave blank if no special perks apply.</p>
+                <p className="text-[10px] text-neutral-400 mt-1">Leave blank if no special perks apply.</p>
               </div>
 
-              <div className="flex items-center justify-end space-x-3 pt-4 border-t border-[#1e2436]">
+              <div className="flex items-center justify-end space-x-3 pt-4 border-t border-neutral-100">
                 <button
                   type="button"
                   onClick={() => {
                     setShowModal(false);
                     setEditingEvent(null);
                   }}
-                  className="px-4 py-2.5 rounded-xl text-[#94a3b8] hover:text-white text-xs font-bold hover:bg-[#161a29] transition-colors"
+                  className="px-5 py-2.5 rounded-full text-neutral-500 hover:text-[#141518] text-xs font-bold hover:bg-neutral-100 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="brutalist-btn-primary px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider disabled:opacity-50"
+                  className="py-3 px-7 rounded-full bg-[#141518] hover:bg-black text-white font-extrabold text-xs tracking-wider disabled:opacity-50 shadow-md transition-all"
                 >
                   {submitting ? 'Saving Event...' : (editingEvent ? 'Save Changes' : 'Reserve & Save Slot')}
                 </button>

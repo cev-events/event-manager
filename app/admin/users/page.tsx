@@ -390,16 +390,16 @@ export default function UserManagementPage() {
 
       {/* Add / Edit User Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto">
-          <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 my-8 shadow-2xl relative">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-              <h2 className="text-xl font-extrabold text-white flex items-center gap-2">
-                <UserIcon className="w-5 h-5 text-blue-400" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto">
+          <div className="w-full max-w-lg bg-white border border-neutral-200/80 rounded-[28px] p-6 sm:p-8 space-y-6 my-8 shadow-2xl relative text-[#141518]">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-4">
+              <h2 className="text-xl font-extrabold text-[#141518] flex items-center gap-2 font-display">
+                <UserIcon className="w-5 h-5 text-[#141518]" />
                 {editingUser ? 'Modify Lead Profile' : 'Add New Community Lead'}
               </h2>
               <button
                 onClick={resetForm}
-                className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
+                className="p-2 text-neutral-400 hover:text-[#141518] rounded-full hover:bg-neutral-100 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -407,7 +407,7 @@ export default function UserManagementPage() {
 
             <form onSubmit={handleSaveUser} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
                   Full Name
                 </label>
                 <div className="relative">
@@ -417,14 +417,14 @@ export default function UserManagementPage() {
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Dr. Anand P."
                     required
-                    className="w-full bg-slate-950 text-white placeholder-slate-500 rounded-xl pl-10 pr-4 py-2.5 text-sm border border-slate-800 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-neutral-100 text-[#141518] placeholder-neutral-400 rounded-full pl-10 pr-4 py-2.5 text-xs sm:text-sm border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
                   />
-                  <UserIcon className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
+                  <UserIcon className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3" />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
                   Position / Designation
                 </label>
                 <div className="relative">
@@ -434,14 +434,14 @@ export default function UserManagementPage() {
                     onChange={(e) => setPosition(e.target.value)}
                     placeholder="e.g. IEEE SB Lead / Nodal Officer"
                     required
-                    className="w-full bg-slate-950 text-white placeholder-slate-500 rounded-xl pl-10 pr-4 py-2.5 text-sm border border-slate-800 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-neutral-100 text-[#141518] placeholder-neutral-400 rounded-full pl-10 pr-4 py-2.5 text-xs sm:text-sm border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
                   />
-                  <Briefcase className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
+                  <Briefcase className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3" />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
                   Email Address (Auth User)
                 </label>
                 <div className="relative">
@@ -451,14 +451,14 @@ export default function UserManagementPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="lead@cev.ac.in"
                     required
-                    className="w-full bg-slate-950 text-white placeholder-slate-500 rounded-xl pl-10 pr-4 py-2.5 text-sm border border-slate-800 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-neutral-100 text-[#141518] placeholder-neutral-400 rounded-full pl-10 pr-4 py-2.5 text-xs sm:text-sm border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
                   />
-                  <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
+                  <Mail className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3" />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
                   {editingUser ? 'Reset Password (Optional)' : 'Auth Password'}
                 </label>
                 <div className="relative">
@@ -468,14 +468,14 @@ export default function UserManagementPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder={editingUser ? 'Leave blank to keep existing password' : 'Enter password'}
                     required={!editingUser}
-                    className="w-full bg-slate-950 text-white placeholder-slate-500 rounded-xl pl-10 pr-4 py-2.5 text-sm border border-slate-800 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-neutral-100 text-[#141518] placeholder-neutral-400 rounded-full pl-10 pr-4 py-2.5 text-xs sm:text-sm border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
                   />
-                  <Key className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
+                  <Key className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3" />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
                   Profile Picture URL (Avatar)
                 </label>
                 <div className="relative">
@@ -484,21 +484,21 @@ export default function UserManagementPage() {
                     value={avatarUrl}
                     onChange={(e) => setAvatarUrl(e.target.value)}
                     placeholder="https://images.unsplash.com/photo-..."
-                    className="w-full bg-slate-950 text-white placeholder-slate-500 rounded-xl pl-10 pr-4 py-2.5 text-sm border border-slate-800 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-neutral-100 text-[#141518] placeholder-neutral-400 rounded-full pl-10 pr-4 py-2.5 text-xs sm:text-sm border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
                   />
-                  <ImageIcon className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
+                  <ImageIcon className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3" />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
                     RBAC Role
                   </label>
                   <select
                     value={role}
                     onChange={(e) => setRole(e.target.value as UserRole)}
-                    className="w-full bg-slate-950 text-[#fff] rounded-xl px-3 py-2.5 text-sm border border-slate-800 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-neutral-100 text-[#141518] rounded-full px-4 py-2.5 text-xs sm:text-sm border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
                   >
                     {currentUserRole === 'dev' && (
                       <option value="dev">Dev (Super Admin)</option>
@@ -512,7 +512,7 @@ export default function UserManagementPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
+                  <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
                     Associated Community
                   </label>
                   {currentUserRole === 'manager' ? (
@@ -520,13 +520,13 @@ export default function UserManagementPage() {
                       type="text"
                       disabled
                       value={communities.find((c) => c.id === currentUserCommunityId)?.name || 'Assigned Community'}
-                      className="w-full bg-slate-950/60 text-slate-400 rounded-xl px-3 py-2.5 text-sm border border-slate-800"
+                      className="w-full bg-neutral-100 text-neutral-500 rounded-full px-4 py-2.5 text-xs sm:text-sm border border-neutral-200 font-bold"
                     />
                   ) : (
                     <select
                       value={communityId}
                       onChange={(e) => setCommunityId(e.target.value)}
-                      className="w-full bg-slate-950 text-white rounded-xl px-3 py-2.5 text-sm border border-slate-800 focus:outline-none focus:border-blue-500"
+                      className="w-full bg-neutral-100 text-[#141518] rounded-full px-4 py-2.5 text-xs sm:text-sm border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
                     >
                       <option value="">All Communities (Super Admin)</option>
                       {communities.filter((c) => c.slug !== 'college' && c.name.toLowerCase() !== 'college').map((c) => (
@@ -539,18 +539,18 @@ export default function UserManagementPage() {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-800 flex items-center justify-end space-x-3">
+              <div className="pt-4 border-t border-neutral-100 flex items-center justify-end space-x-3">
                 <button
                   type="button"
                   onClick={resetForm}
-                  className="py-2.5 px-4 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700"
+                  className="py-2.5 px-5 rounded-full text-neutral-500 hover:text-[#141518] text-xs font-bold hover:bg-neutral-100 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="py-2.5 px-6 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-xs font-bold shadow-lg shadow-blue-500/25 hover:opacity-90 disabled:opacity-50"
+                  className="py-3 px-6 rounded-full bg-[#141518] hover:bg-black text-white text-xs font-extrabold shadow-md disabled:opacity-50 transition-all"
                 >
                   {saving ? 'Saving...' : editingUser ? 'Update Lead' : 'Add Lead Account'}
                 </button>

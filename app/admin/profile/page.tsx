@@ -99,46 +99,44 @@ export default function MyProfilePage() {
 
   if (loading) {
     return (
-      <div className="p-8 text-center text-[#94a3b8] text-xs bg-[#0f121d] border border-[#1e2436] rounded-xl">
+      <div className="p-8 text-center text-neutral-500 text-xs bg-white border border-neutral-200/60 rounded-[28px]">
         Loading user profile...
       </div>
     );
   }
 
   return (
-    <div className="max-w-3xl space-y-6">
-      <div className="border-b border-[#1e2436] pb-4 space-y-1">
-        <span className="text-xs font-mono text-[#6366f1] uppercase font-bold tracking-widest">
-          007 / Profile & Account Configuration
-        </span>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-white font-display leading-none">
-          MY PROFILE & ACCOUNT SETTINGS
+    <div className="max-w-3xl space-y-8 pb-12">
+      <div className="space-y-1">
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#141518] font-display">
+          My Profile & Account Settings
         </h1>
-        <p className="text-xs text-[#94a3b8]">
+        <p className="text-xs sm:text-sm text-neutral-500 font-medium">
           Manage full name, WebP avatar uploads, and password security settings.
         </p>
       </div>
 
       {toastMsg && (
         <div
-          className={`p-3.5 rounded-lg border text-xs flex items-center gap-3 ${toastMsg.type === 'success'
-            ? 'bg-emerald-950/80 border-emerald-800 text-emerald-200'
-            : 'bg-red-950/80 border-red-800 text-red-200'
-            }`}
+          className={`p-4 rounded-2xl border text-xs font-semibold flex items-center gap-3 ${
+            toastMsg.type === 'success'
+              ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+              : 'bg-rose-50 border-rose-200 text-rose-800'
+          }`}
         >
           {toastMsg.type === 'success' ? (
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
           ) : (
-            <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+            <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
           )}
           <span>{toastMsg.text}</span>
         </div>
       )}
 
       {/* Profile Card */}
-      <div className="p-6 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-6 shadow-sm">
-        <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 pb-6 border-b border-neutral-800">
-          <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-neutral-800 border border-neutral-700 shrink-0 flex items-center justify-center text-xl font-extrabold text-white shadow-md">
+      <div className="p-6 sm:p-8 rounded-[28px] bg-white border border-neutral-200/60 space-y-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 pb-6 border-b border-neutral-100">
+          <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-[#141518] text-white shrink-0 flex items-center justify-center text-xl font-extrabold shadow-md">
             {avatarUrl || profile?.avatar_url ? (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img
@@ -153,16 +151,16 @@ export default function MyProfilePage() {
           </div>
 
           <div className="text-center sm:text-left space-y-1">
-            <h2 className="text-lg font-bold text-white font-display">{profile?.full_name || 'My Account'}</h2>
+            <h2 className="text-xl font-extrabold text-[#141518] font-display">{profile?.full_name || 'My Account'}</h2>
             <p className="text-xs text-neutral-400 font-mono">{profile?.email}</p>
 
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1.5">
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-neutral-800 text-white border border-neutral-700 flex items-center gap-1">
-                <Shield className="w-3 h-3 text-neutral-400" />
+              <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#141518] text-white flex items-center gap-1 font-mono">
+                <Shield className="w-3 h-3 text-white" />
                 {profile?.role || 'editor'}
               </span>
 
-              <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full bg-neutral-800 text-neutral-300 border border-neutral-700 flex items-center gap-1">
+              <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-neutral-100 text-neutral-700 border border-neutral-200 flex items-center gap-1">
                 <Building className="w-3 h-3 text-neutral-400" />
                 {profile?.community?.name || 'Super Admin (All)'}
               </span>
@@ -172,7 +170,7 @@ export default function MyProfilePage() {
 
         <form onSubmit={handleUpdateProfile} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">
+            <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">
               Full Name
             </label>
             <div className="relative">
@@ -182,14 +180,14 @@ export default function MyProfilePage() {
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="Enter full name"
                 required
-                className="w-full bg-neutral-800 text-white placeholder-neutral-500 rounded-xl pl-9 pr-3.5 py-2.5 text-xs border border-neutral-700 focus:outline-none focus:border-white"
+                className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-full pl-9 pr-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black"
               />
-              <User className="w-3.5 h-3.5 text-neutral-500 absolute left-3 top-3" />
+              <User className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">
+            <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">
               Email Address
             </label>
             <div className="relative">
@@ -197,16 +195,16 @@ export default function MyProfilePage() {
                 type="email"
                 disabled
                 value={profile?.email || ''}
-                className="w-full bg-neutral-800/50 text-neutral-500 rounded-xl pl-9 pr-3.5 py-2.5 text-xs border border-neutral-800 cursor-not-allowed font-mono"
+                className="w-full bg-neutral-100 text-neutral-500 rounded-full pl-9 pr-4 py-2.5 text-xs sm:text-sm border border-neutral-200 cursor-not-allowed font-mono font-bold"
               />
-              <Mail className="w-3.5 h-3.5 text-neutral-500 absolute left-3 top-3" />
+              <Mail className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
             </div>
           </div>
 
           {/* Profile Picture WebP Upload Section */}
           <div className="space-y-2">
-            <label className="block text-xs font-bold text-neutral-400 uppercase tracking-wider">
-              Profile Pic
+            <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider">
+              Profile Picture
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="relative">
@@ -220,9 +218,9 @@ export default function MyProfilePage() {
                 />
                 <label
                   htmlFor="avatar-file-upload"
-                  className="w-full bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white rounded-xl px-4 py-2.5 text-xs border border-neutral-700 flex items-center justify-center space-x-2 cursor-pointer transition-colors"
+                  className="w-full bg-neutral-100 hover:bg-neutral-200 text-[#141518] rounded-full px-4 py-2.5 text-xs border border-neutral-200 flex items-center justify-center space-x-2 cursor-pointer transition-colors font-bold"
                 >
-                  <Upload className="w-3.5 h-3.5 text-white" />
+                  <Upload className="w-3.5 h-3.5 text-[#141518]" />
                   <span>{uploading ? 'Converting & Uploading...' : 'Upload Image File'}</span>
                 </label>
               </div>
@@ -233,15 +231,15 @@ export default function MyProfilePage() {
                   value={avatarUrl}
                   onChange={(e) => setAvatarUrl(e.target.value)}
                   placeholder="Or enter Image URL link"
-                  className="w-full bg-neutral-800 text-white placeholder-neutral-500 rounded-xl pl-9 pr-3 py-2.5 text-xs border border-neutral-700 focus:outline-none focus:border-white"
+                  className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-full pl-9 pr-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black"
                 />
-                <ImageIcon className="w-3.5 h-3.5 text-neutral-500 absolute left-3 top-3" />
+                <ImageIcon className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
               </div>
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-neutral-400 uppercase tracking-wider mb-1">
+            <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">
               Auth Password (Optional)
             </label>
             <div className="relative">
@@ -250,13 +248,13 @@ export default function MyProfilePage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Leave blank to keep existing password"
-                className="w-full bg-neutral-800 text-white placeholder-neutral-500 rounded-xl pl-9 pr-3.5 py-2.5 text-xs border border-neutral-700 focus:outline-none focus:border-white"
+                className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-full pl-9 pr-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black"
               />
-              <Key className="w-3.5 h-3.5 text-neutral-500 absolute left-3 top-3" />
+              <Key className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
             </div>
           </div>
 
-          <div className="pt-4 border-t border-neutral-800 flex items-center justify-between">
+          <div className="pt-4 border-t border-neutral-100 flex items-center justify-between">
             <button
               type="button"
               onClick={async () => {
@@ -265,7 +263,7 @@ export default function MyProfilePage() {
                 await supabase.auth.signOut();
                 window.location.href = '/login';
               }}
-              className="px-4 py-2 rounded-full bg-rose-950/60 border border-rose-800 text-rose-300 text-xs font-bold hover:bg-rose-900/60 transition-colors"
+              className="px-5 py-2.5 rounded-full bg-rose-50 border border-rose-200 text-rose-600 text-xs font-bold hover:bg-rose-100 transition-colors"
             >
               Sign Out
             </button>
@@ -273,7 +271,7 @@ export default function MyProfilePage() {
             <button
               type="submit"
               disabled={saving || uploading}
-              className="px-6 py-2.5 rounded-full bg-white text-[#0a0a0a] hover:bg-neutral-200 font-bold text-xs disabled:opacity-50 transition-colors shadow-md"
+              className="px-7 py-3 rounded-full bg-[#141518] text-white hover:bg-black font-extrabold text-xs disabled:opacity-50 transition-all shadow-md"
             >
               {saving ? 'Saving Profile...' : 'Save Profile Changes'}
             </button>

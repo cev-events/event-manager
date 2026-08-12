@@ -119,26 +119,26 @@ export default function AdminSupportPage() {
     switch (status) {
       case 'open':
         return (
-          <span className="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-rose-950 text-rose-400 border border-rose-800 flex items-center gap-1">
-            <AlertCircle className="w-3 h-3" /> Open
+          <span className="text-[10px] font-extrabold uppercase px-3 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200 flex items-center gap-1">
+            <AlertCircle className="w-3 h-3 text-rose-600" /> Open
           </span>
         );
       case 'in_progress':
         return (
-          <span className="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-amber-950 text-amber-400 border border-amber-800 flex items-center gap-1">
-            <Clock className="w-3 h-3" /> In Progress
+          <span className="text-[10px] font-extrabold uppercase px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 flex items-center gap-1">
+            <Clock className="w-3 h-3 text-amber-600" /> In Progress
           </span>
         );
       case 'resolved':
         return (
-          <span className="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 flex items-center gap-1">
-            <CheckCircle2 className="w-3 h-3" /> Resolved
+          <span className="text-[10px] font-extrabold uppercase px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+            <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Resolved
           </span>
         );
       case 'closed':
         return (
-          <span className="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-slate-900 text-slate-400 border border-slate-700 flex items-center gap-1">
-            <CheckSquare className="w-3 h-3" /> Closed
+          <span className="text-[10px] font-extrabold uppercase px-3 py-1 rounded-full bg-neutral-100 text-neutral-700 border border-neutral-200 flex items-center gap-1">
+            <CheckSquare className="w-3 h-3 text-neutral-500" /> Closed
           </span>
         );
       default:
@@ -148,15 +148,12 @@ export default function AdminSupportPage() {
 
   return (
     <div className="space-y-8 pb-12">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1e2436] pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <span className="text-xs font-mono text-[#6366f1] uppercase font-bold tracking-widest flex items-center gap-1.5">
-            <Bug className="w-3.5 h-3.5" /> 006 / Support & Bug Receiver
-          </span>
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-white font-display leading-none">
-            SUPPORT & BUG INBOX
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#141518] font-display">
+            Support & Bug Inbox
           </h1>
-          <p className="text-xs text-[#94a3b8]">
+          <p className="text-xs sm:text-sm text-neutral-500 font-medium">
             Review, track, and resolve user-submitted bug reports and feedback.
           </p>
         </div>
@@ -164,7 +161,7 @@ export default function AdminSupportPage() {
         <button
           onClick={fetchTickets}
           disabled={loading}
-          className="px-3.5 py-2 rounded-xl bg-[#161a29] hover:bg-[#1e2436] border border-[#1e2436] text-xs font-bold text-slate-300 hover:text-white flex items-center gap-2 transition-all self-start sm:self-auto"
+          className="px-5 py-2.5 rounded-full bg-white hover:bg-neutral-100 border border-neutral-200/80 text-xs font-extrabold text-[#141518] flex items-center gap-2 shadow-sm transition-all self-start sm:self-auto"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           <span>Refresh</span>
@@ -173,76 +170,78 @@ export default function AdminSupportPage() {
 
       {feedback && (
         <div
-          className={`p-4 rounded-2xl border text-xs flex items-center justify-between gap-3 ${
+          className={`p-4 rounded-2xl border text-xs font-semibold flex items-center justify-between gap-3 ${
             feedback.type === 'success'
-              ? 'bg-emerald-950/80 border-emerald-800 text-emerald-300'
-              : 'bg-rose-950/80 border-rose-800 text-rose-300'
+              ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+              : 'bg-rose-50 border-rose-200 text-rose-800'
           }`}
         >
           <div className="flex items-center gap-2">
             {feedback.type === 'success' ? (
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
             ) : (
-              <ShieldAlert className="w-4 h-4 text-rose-400 shrink-0" />
+              <ShieldAlert className="w-4 h-4 text-rose-600 shrink-0" />
             )}
             <span>{feedback.message}</span>
           </div>
-          <button onClick={() => setFeedback(null)} className="text-slate-400 hover:text-white">
+          <button onClick={() => setFeedback(null)} className="text-neutral-400 hover:text-[#141518]">
             <X className="w-4 h-4" />
           </button>
         </div>
       )}
 
+      {/* Metric Counters Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-[#0f121d] border border-[#1e2436] space-y-2">
-          <div className="text-xs text-slate-400 font-semibold uppercase">Total Tickets</div>
-          <div className="text-3xl font-extrabold text-white font-display">{totalTickets}</div>
+        <div className="p-6 rounded-[28px] bg-white border border-neutral-200/60 shadow-sm space-y-2">
+          <div className="text-xs text-neutral-500 font-extrabold uppercase tracking-wider">Total Tickets</div>
+          <div className="text-4xl font-extrabold text-[#141518] font-display">{totalTickets}</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-rose-950/30 border border-rose-900/60 space-y-2">
-          <div className="text-xs text-rose-400 font-semibold uppercase flex items-center gap-1.5">
-            <AlertCircle className="w-3.5 h-3.5" /> Open Issues
+        <div className="p-6 rounded-[28px] bg-rose-50 border border-rose-200/60 space-y-2">
+          <div className="text-xs text-rose-700 font-extrabold uppercase tracking-wider flex items-center gap-1.5">
+            <AlertCircle className="w-3.5 h-3.5 text-rose-600" /> Open Issues
           </div>
-          <div className="text-3xl font-extrabold text-rose-300 font-display">{openCount}</div>
+          <div className="text-4xl font-extrabold text-rose-900 font-display">{openCount}</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-amber-950/30 border border-amber-900/60 space-y-2">
-          <div className="text-xs text-amber-400 font-semibold uppercase flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5" /> In Progress
+        <div className="p-6 rounded-[28px] bg-amber-50 border border-amber-200/60 space-y-2">
+          <div className="text-xs text-amber-700 font-extrabold uppercase tracking-wider flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5 text-amber-600" /> In Progress
           </div>
-          <div className="text-3xl font-extrabold text-amber-300 font-display">{inProgressCount}</div>
+          <div className="text-4xl font-extrabold text-amber-900 font-display">{inProgressCount}</div>
         </div>
 
-        <div className="p-5 rounded-2xl bg-emerald-950/30 border border-emerald-900/60 space-y-2">
-          <div className="text-xs text-emerald-400 font-semibold uppercase flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5" /> Resolved
+        <div className="p-6 rounded-[28px] bg-emerald-50 border border-emerald-200/60 space-y-2">
+          <div className="text-xs text-emerald-700 font-extrabold uppercase tracking-wider flex items-center gap-1.5">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Resolved
           </div>
-          <div className="text-3xl font-extrabold text-emerald-300 font-display">{resolvedCount}</div>
+          <div className="text-4xl font-extrabold text-emerald-900 font-display">{resolvedCount}</div>
         </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#0f121d] p-4 rounded-2xl border border-[#1e2436]">
+      {/* Search & Status Filters Bar */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-4 rounded-[28px] border border-neutral-200/60 shadow-sm">
         <div className="relative w-full sm:w-72">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search tickets by name, email..."
-            className="w-full bg-[#161a29] border border-[#1e2436] text-white placeholder-slate-500 rounded-xl pl-9 pr-4 py-2 text-xs focus:outline-none focus:border-[#6366f1]"
+            className="w-full bg-neutral-100 border border-neutral-200 text-[#141518] placeholder-neutral-400 rounded-full pl-9 pr-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-black"
           />
         </div>
 
         <div className="flex items-center gap-2 w-full sm:w-auto overflow-x-auto">
-          <Filter className="w-4 h-4 text-slate-400 shrink-0" />
+          <Filter className="w-4 h-4 text-neutral-400 shrink-0" />
           {(['all', 'open', 'in_progress', 'resolved', 'closed'] as const).map((st) => (
             <button
               key={st}
               onClick={() => setStatusFilter(st)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold capitalize transition-all border shrink-0 ${
+              className={`px-4 py-2 rounded-full text-xs font-extrabold capitalize transition-all shrink-0 ${
                 statusFilter === st
-                  ? 'bg-[#6366f1] text-white border-[#4f46e5] shadow-sm'
-                  : 'bg-[#161a29] text-slate-400 hover:text-white border-[#1e2436]'
+                  ? 'bg-[#141518] text-white shadow-md'
+                  : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 border border-neutral-200'
               }`}
             >
               {st.replace('_', ' ')}
@@ -251,13 +250,14 @@ export default function AdminSupportPage() {
         </div>
       </div>
 
+      {/* Tickets List */}
       {loading ? (
-        <div className="p-12 text-center text-slate-500 text-xs italic bg-[#0f121d] border border-[#1e2436] rounded-2xl">
+        <div className="p-8 text-center text-neutral-500 text-xs bg-white border border-neutral-200/60 rounded-[28px]">
           Loading support tickets...
         </div>
       ) : filteredTickets.length === 0 ? (
-        <div className="p-12 text-center text-slate-500 text-xs italic bg-[#0f121d] border border-[#1e2436] rounded-2xl space-y-2">
-          <Bug className="w-8 h-8 text-slate-600 mx-auto" />
+        <div className="p-8 text-center text-neutral-500 text-xs bg-white border border-neutral-200/60 rounded-[28px] space-y-2">
+          <Bug className="w-8 h-8 text-neutral-400 mx-auto" />
           <div>No support tickets found matching criteria.</div>
         </div>
       ) : (
@@ -265,15 +265,15 @@ export default function AdminSupportPage() {
           {filteredTickets.map((t) => (
             <div
               key={t.id}
-              className="p-5 sm:p-6 rounded-2xl bg-[#0f121d] border border-[#1e2436] hover:border-[#6366f1]/40 transition-all space-y-4"
+              className="p-6 rounded-[28px] bg-white border border-neutral-200/60 hover:shadow-md transition-all space-y-4 shadow-sm"
             >
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#1e2436] pb-4">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-neutral-100 pb-4">
                 <div className="flex items-center gap-3">
                   {getStatusBadge(t.status)}
-                  <span className="text-[10px] font-mono text-slate-500">
+                  <span className="text-[10px] font-mono text-neutral-400 font-bold">
                     ID: {t.id.slice(0, 8)}
                   </span>
-                  <span className="text-xs text-slate-400">
+                  <span className="text-xs text-neutral-400 font-medium">
                     {new Date(t.created_at).toLocaleString()}
                   </span>
                 </div>
@@ -283,7 +283,7 @@ export default function AdminSupportPage() {
                     value={t.status}
                     disabled={updatingId === t.id}
                     onChange={(e) => handleUpdateStatus(t.id, e.target.value as TicketStatus)}
-                    className="bg-[#161a29] border border-[#1e2436] text-xs font-bold text-white rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-[#6366f1] cursor-pointer"
+                    className="bg-neutral-100 border border-neutral-200 text-xs font-bold text-[#141518] rounded-full px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-black cursor-pointer"
                   >
                     <option value="open">Mark Open</option>
                     <option value="in_progress">Mark In Progress</option>
@@ -294,7 +294,7 @@ export default function AdminSupportPage() {
                   <button
                     onClick={() => handleDeleteTicket(t.id)}
                     disabled={deletingId === t.id}
-                    className="p-1.5 rounded-xl bg-red-950/40 hover:bg-red-900/60 border border-red-800 text-red-400 hover:text-red-300 transition-colors"
+                    className="p-2 rounded-full bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-600 transition-colors"
                     title="Delete Ticket"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -303,19 +303,19 @@ export default function AdminSupportPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-                <div className="md:col-span-4 space-y-2 bg-[#161a29] p-4 rounded-xl border border-[#1e2436]">
-                  <div className="font-bold text-white text-sm flex items-center gap-2">
-                    <User className="w-4 h-4 text-[#6366f1]" /> {t.name}
+                <div className="md:col-span-4 space-y-2 bg-neutral-50 p-4 rounded-2xl border border-neutral-200/80">
+                  <div className="font-bold text-[#141518] text-sm flex items-center gap-2 font-display">
+                    <User className="w-4 h-4 text-[#141518]" /> {t.name}
                   </div>
-                  <div className="text-xs text-slate-300 flex items-center gap-2 truncate">
-                    <Mail className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                    <a href={`mailto:${t.email}`} className="hover:underline text-cyan-300 truncate">
+                  <div className="text-xs text-neutral-600 flex items-center gap-2 truncate">
+                    <Mail className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
+                    <a href={`mailto:${t.email}`} className="hover:underline text-[#141518] truncate font-semibold">
                       {t.email}
                     </a>
                   </div>
                   {t.phone && (
-                    <div className="text-xs text-slate-300 flex items-center gap-2">
-                      <Phone className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                    <div className="text-xs text-neutral-600 flex items-center gap-2">
+                      <Phone className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
                       <span>{t.phone}</span>
                     </div>
                   )}
@@ -323,17 +323,17 @@ export default function AdminSupportPage() {
 
                 <div className="md:col-span-8 space-y-3">
                   <div>
-                    <div className="text-[10px] uppercase font-bold text-slate-400 mb-1 flex items-center gap-1">
-                      <Bug className="w-3.5 h-3.5 text-rose-400" /> Issue Founded / Description
+                    <div className="text-[10px] uppercase font-bold text-neutral-400 mb-1 flex items-center gap-1">
+                      <Bug className="w-3.5 h-3.5 text-rose-500" /> Issue Description
                     </div>
-                    <div className="text-xs text-slate-200 bg-[#161a29] p-3.5 rounded-xl border border-[#1e2436] whitespace-pre-wrap leading-relaxed">
+                    <div className="text-xs text-neutral-800 bg-neutral-50 p-4 rounded-2xl border border-neutral-200/80 whitespace-pre-wrap leading-relaxed font-medium">
                       {t.issue}
                     </div>
                   </div>
 
                   {t.screenshot_url && (
                     <div>
-                      <div className="text-[10px] uppercase font-bold text-slate-400 mb-1">
+                      <div className="text-[10px] uppercase font-bold text-neutral-400 mb-1">
                         Attached Screenshot
                       </div>
                       <div className="flex items-center gap-3">
@@ -341,13 +341,13 @@ export default function AdminSupportPage() {
                           src={t.screenshot_url}
                           alt="Screenshot Proof"
                           onClick={() => setSelectedTicket(t)}
-                          className="w-20 h-20 object-cover rounded-xl border border-[#1e2436] hover:border-[#6366f1] cursor-pointer transition-all hover:scale-105"
+                          className="w-20 h-20 object-cover rounded-2xl border border-neutral-200 hover:border-black cursor-pointer transition-all hover:scale-105 shadow-sm"
                         />
                         <a
                           href={t.screenshot_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-[#6366f1] hover:underline flex items-center gap-1 font-semibold"
+                          className="text-xs text-[#141518] hover:underline flex items-center gap-1 font-bold"
                         >
                           <span>Open Full Image</span>
                           <ExternalLink className="w-3.5 h-3.5" />
@@ -358,10 +358,10 @@ export default function AdminSupportPage() {
 
                   {t.suggestions && (
                     <div>
-                      <div className="text-[10px] uppercase font-bold text-amber-400 mb-1 flex items-center gap-1">
-                        <MessageSquare className="w-3.5 h-3.5 text-amber-400" /> Additional Suggestions
+                      <div className="text-[10px] uppercase font-bold text-amber-600 mb-1 flex items-center gap-1">
+                        <MessageSquare className="w-3.5 h-3.5 text-amber-600" /> Additional Suggestions
                       </div>
-                      <div className="text-xs text-slate-300 bg-amber-950/20 border border-amber-900/40 p-3 rounded-xl whitespace-pre-wrap">
+                      <div className="text-xs text-amber-900 bg-amber-50 border border-amber-200 p-3.5 rounded-2xl whitespace-pre-wrap font-medium">
                         {t.suggestions}
                       </div>
                     </div>
@@ -375,20 +375,20 @@ export default function AdminSupportPage() {
 
       {mounted && selectedTicket && selectedTicket.screenshot_url && createPortal(
         <div
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
           onClick={() => setSelectedTicket(null)}
         >
           <div
-            className="relative max-w-4xl w-full bg-[#0f121d] border border-[#1e2436] rounded-2xl p-4 space-y-4"
+            className="relative max-w-4xl w-full bg-white border border-neutral-200/80 rounded-[28px] p-6 space-y-4 shadow-2xl text-[#141518]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between border-b border-[#1e2436] pb-3">
-              <span className="text-xs font-bold text-white font-heading">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
+              <span className="text-sm font-extrabold text-[#141518] font-display">
                 Screenshot Proof — {selectedTicket.name}
               </span>
               <button
                 onClick={() => setSelectedTicket(null)}
-                className="text-slate-400 hover:text-white p-1"
+                className="text-neutral-400 hover:text-[#141518] p-1.5 rounded-full hover:bg-neutral-100 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -397,7 +397,7 @@ export default function AdminSupportPage() {
               <img
                 src={selectedTicket.screenshot_url}
                 alt="Enlarged Screenshot"
-                className="max-w-full max-h-[75vh] object-contain rounded-xl border border-[#1e2436]"
+                className="max-w-full max-h-[75vh] object-contain rounded-2xl border border-neutral-200"
               />
             </div>
           </div>

@@ -291,30 +291,30 @@ export default function CommunitiesManagementPage() {
 
       {/* Modal for Creating Community */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#0f121d] border-2 border-[#1e2436] rounded-xl p-6 w-full max-w-md space-y-4 text-white shadow-2xl relative">
-            <div className="flex items-center justify-between border-b border-[#1e2436] pb-3">
-              <h3 className="text-lg font-bold font-display">Create Community Entity</h3>
-              <button onClick={resetForm} className="text-[#94a3b8] hover:text-white">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white border border-neutral-200/80 rounded-[28px] p-6 sm:p-8 w-full max-w-md space-y-4 text-[#141518] shadow-2xl relative">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
+              <h3 className="text-xl font-extrabold font-display text-[#141518]">Create Community Entity</h3>
+              <button onClick={resetForm} className="text-neutral-400 hover:text-[#141518] p-1 rounded-full hover:bg-neutral-100 transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <form onSubmit={handleAdd} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">Community Name</label>
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">Community Name</label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. IEEE SB CEV"
                   required
-                  className="w-full bg-[#161a29] border border-[#1e2436] rounded-lg px-3.5 py-2 text-xs focus:outline-none focus:border-[#6366f1]"
+                  className="w-full bg-neutral-100 border border-neutral-200 rounded-full px-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-black"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">
                   Custom URL Slug (Dev / Admin Only)
                 </label>
                 <input
@@ -322,12 +322,12 @@ export default function CommunitiesManagementPage() {
                   value={slug}
                   onChange={(e) => setSlug(e.target.value)}
                   placeholder="e.g. ieee-sb-cev"
-                  className="w-full bg-[#161a29] border border-[#1e2436] rounded-lg px-3.5 py-2 text-xs focus:outline-none focus:border-[#6366f1]"
+                  className="w-full bg-neutral-100 border border-neutral-200 rounded-full px-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-black"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">
                   Community Logo (WebP Compressed Vercel Blob Upload)
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
@@ -342,9 +342,9 @@ export default function CommunitiesManagementPage() {
                     />
                     <label
                       htmlFor="comm-logo-add-upload"
-                      className="w-full bg-[#161a29] hover:bg-[#1e2436] text-[#94a3b8] hover:text-white rounded-lg px-3 py-2 text-xs border border-[#1e2436] flex items-center justify-center space-x-1.5 cursor-pointer transition-colors"
+                      className="w-full bg-neutral-100 hover:bg-neutral-200 text-[#141518] rounded-full px-4 py-2.5 text-xs border border-neutral-200 flex items-center justify-center space-x-1.5 cursor-pointer transition-colors font-bold"
                     >
-                      <Upload className="w-3.5 h-3.5 text-[#6366f1]" />
+                      <Upload className="w-3.5 h-3.5 text-[#141518]" />
                       <span>{uploading ? 'Uploading...' : 'Upload File'}</span>
                     </label>
                   </div>
@@ -355,26 +355,26 @@ export default function CommunitiesManagementPage() {
                       value={logoUrl}
                       onChange={(e) => setLogoUrl(e.target.value)}
                       placeholder="Or Image URL"
-                      className="w-full bg-[#161a29] border border-[#1e2436] rounded-lg pl-8 pr-2.5 py-2 text-xs focus:outline-none focus:border-[#6366f1]"
+                      className="w-full bg-neutral-100 border border-neutral-200 rounded-full pl-8 pr-3 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-black"
                     />
-                    <Link2 className="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-2.5" />
+                    <Link2 className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-3" />
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">Initials Badge</label>
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">Initials Badge</label>
                 <input
                   type="text"
                   value={initials}
                   onChange={(e) => setInitials(e.target.value)}
                   placeholder="e.g. IE"
-                  className="w-full bg-[#161a29] border border-[#1e2436] rounded-lg px-3.5 py-2 text-xs focus:outline-none focus:border-[#6366f1]"
+                  className="w-full bg-neutral-100 border border-neutral-200 rounded-full px-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-black"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">
                   Community Brand Color (Calendar Slot Color)
                 </label>
                 <div className="flex flex-wrap items-center gap-2 mb-2">
@@ -385,7 +385,7 @@ export default function CommunitiesManagementPage() {
                       onClick={() => setColor(preset.hex)}
                       className={`w-6 h-6 rounded-full transition-transform border ${
                         color.toLowerCase() === preset.hex.toLowerCase()
-                          ? 'scale-125 border-white shadow-md ring-2 ring-white/30'
+                          ? 'scale-125 border-[#141518] shadow-md ring-2 ring-black/30'
                           : 'border-transparent hover:scale-110 opacity-80 hover:opacity-100'
                       }`}
                       style={{ backgroundColor: preset.hex }}
@@ -398,40 +398,40 @@ export default function CommunitiesManagementPage() {
                     type="color"
                     value={color.startsWith('#') ? color : '#6366f1'}
                     onChange={(e) => setColor(e.target.value)}
-                    className="w-9 h-9 p-0.5 bg-[#161a29] border border-[#1e2436] rounded-lg cursor-pointer shrink-0"
+                    className="w-9 h-9 p-0.5 bg-neutral-100 border border-neutral-200 rounded-full cursor-pointer shrink-0"
                   />
                   <input
                     type="text"
                     value={color}
                     onChange={(e) => setColor(e.target.value)}
                     placeholder="#6366f1"
-                    className="flex-1 bg-[#161a29] border border-[#1e2436] rounded-lg px-3.5 py-2 text-xs font-mono text-white focus:outline-none focus:border-[#6366f1]"
+                    className="flex-1 bg-neutral-100 border border-neutral-200 rounded-full px-4 py-2 text-xs font-mono text-[#141518] focus:outline-none focus:ring-2 focus:ring-black"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">Description / Bio</label>
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">Description / Bio</label>
                 <textarea
                   value={desc}
                   onChange={(e) => setDesc(e.target.value)}
                   placeholder="Community mission..."
-                  className="w-full bg-[#161a29] border border-[#1e2436] rounded-lg px-3.5 py-2 text-xs focus:outline-none focus:border-[#6366f1] h-20"
+                  className="w-full bg-neutral-100 border border-neutral-200 rounded-2xl px-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-black h-20"
                 />
               </div>
 
-              <div className="flex items-center justify-end space-x-3 pt-4 border-t border-[#1e2436]">
+              <div className="flex items-center justify-end space-x-3 pt-4 border-t border-neutral-100">
                 <button
                   type="button"
                   onClick={resetForm}
-                  className="px-3 py-1.5 text-xs text-[#94a3b8] hover:text-white"
+                  className="px-4 py-2 text-xs text-neutral-500 hover:text-[#141518] font-bold rounded-full hover:bg-neutral-100 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving || uploading}
-                  className="brutalist-btn-primary px-4 py-2 rounded-lg text-xs disabled:opacity-50"
+                  className="py-2.5 px-6 rounded-full bg-[#141518] hover:bg-black text-white text-xs font-extrabold shadow-md disabled:opacity-50 transition-all"
                 >
                   {saving ? 'Creating...' : 'Create Community'}
                 </button>
@@ -443,32 +443,32 @@ export default function CommunitiesManagementPage() {
 
       {/* Modal for Editing Community (Dev/Admin) */}
       {editingCommunity && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#0f121d] border-2 border-[#1e2436] rounded-xl p-6 w-full max-w-md space-y-4 text-white shadow-2xl relative">
-            <div className="flex items-center justify-between border-b border-[#1e2436] pb-3">
-              <h3 className="text-lg font-bold font-display flex items-center gap-2">
-                <Edit2 className="w-4 h-4 text-[#6366f1]" /> Edit Community Entity
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white border border-neutral-200/80 rounded-[28px] p-6 sm:p-8 w-full max-w-md space-y-4 text-[#141518] shadow-2xl relative">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
+              <h3 className="text-xl font-extrabold font-display flex items-center gap-2 text-[#141518]">
+                <Edit2 className="w-5 h-5 text-[#141518]" /> Edit Community Entity
               </h3>
-              <button onClick={resetForm} className="text-[#94a3b8] hover:text-white">
+              <button onClick={resetForm} className="text-neutral-400 hover:text-[#141518] p-1 rounded-full hover:bg-neutral-100 transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <form onSubmit={handleSaveEdit} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">Community Name</label>
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">Community Name</label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. IEEE SB CEV"
                   required
-                  className="w-full bg-[#161a29] border border-[#1e2436] rounded-lg px-3.5 py-2 text-xs focus:outline-none focus:border-[#6366f1]"
+                  className="w-full bg-neutral-100 border border-neutral-200 rounded-full px-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-black"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">
                   Custom URL Slug
                 </label>
                 <input
@@ -476,12 +476,12 @@ export default function CommunitiesManagementPage() {
                   value={slug}
                   onChange={(e) => setSlug(e.target.value)}
                   placeholder="e.g. ieee-sb-cev"
-                  className="w-full bg-[#161a29] border border-[#1e2436] rounded-lg px-3.5 py-2 text-xs focus:outline-none focus:border-[#6366f1]"
+                  className="w-full bg-neutral-100 border border-neutral-200 rounded-full px-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-black"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">
                   Community Logo (WebP Compressed Vercel Blob Upload)
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-2">
@@ -496,9 +496,9 @@ export default function CommunitiesManagementPage() {
                     />
                     <label
                       htmlFor="comm-logo-edit-upload"
-                      className="w-full bg-[#161a29] hover:bg-[#1e2436] text-[#94a3b8] hover:text-white rounded-lg px-3 py-2 text-xs border border-[#1e2436] flex items-center justify-center space-x-1.5 cursor-pointer transition-colors"
+                      className="w-full bg-neutral-100 hover:bg-neutral-200 text-[#141518] rounded-full px-4 py-2.5 text-xs border border-neutral-200 flex items-center justify-center space-x-1.5 cursor-pointer transition-colors font-bold"
                     >
-                      <Upload className="w-3.5 h-3.5 text-[#6366f1]" />
+                      <Upload className="w-3.5 h-3.5 text-[#141518]" />
                       <span>{uploading ? 'Uploading...' : 'Upload File'}</span>
                     </label>
                   </div>
@@ -509,26 +509,26 @@ export default function CommunitiesManagementPage() {
                       value={logoUrl}
                       onChange={(e) => setLogoUrl(e.target.value)}
                       placeholder="Or Image URL"
-                      className="w-full bg-[#161a29] border border-[#1e2436] rounded-lg pl-8 pr-2.5 py-2 text-xs focus:outline-none focus:border-[#6366f1]"
+                      className="w-full bg-neutral-100 border border-neutral-200 rounded-full pl-8 pr-3 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-black"
                     />
-                    <Link2 className="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-2.5" />
+                    <Link2 className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-3" />
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">Initials Badge</label>
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">Initials Badge</label>
                 <input
                   type="text"
                   value={initials}
                   onChange={(e) => setInitials(e.target.value)}
                   placeholder="e.g. IE"
-                  className="w-full bg-[#161a29] border border-[#1e2436] rounded-lg px-3.5 py-2 text-xs focus:outline-none focus:border-[#6366f1]"
+                  className="w-full bg-neutral-100 border border-neutral-200 rounded-full px-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-black"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">
                   Community Brand Color (Calendar Slot Color)
                 </label>
                 <div className="flex flex-wrap items-center gap-2 mb-2">
@@ -539,7 +539,7 @@ export default function CommunitiesManagementPage() {
                       onClick={() => setColor(preset.hex)}
                       className={`w-6 h-6 rounded-full transition-transform border ${
                         color.toLowerCase() === preset.hex.toLowerCase()
-                          ? 'scale-125 border-white shadow-md ring-2 ring-white/30'
+                          ? 'scale-125 border-[#141518] shadow-md ring-2 ring-black/30'
                           : 'border-transparent hover:scale-110 opacity-80 hover:opacity-100'
                       }`}
                       style={{ backgroundColor: preset.hex }}
@@ -552,40 +552,40 @@ export default function CommunitiesManagementPage() {
                     type="color"
                     value={color.startsWith('#') ? color : '#6366f1'}
                     onChange={(e) => setColor(e.target.value)}
-                    className="w-9 h-9 p-0.5 bg-[#161a29] border border-[#1e2436] rounded-lg cursor-pointer shrink-0"
+                    className="w-9 h-9 p-0.5 bg-neutral-100 border border-neutral-200 rounded-full cursor-pointer shrink-0"
                   />
                   <input
                     type="text"
                     value={color}
                     onChange={(e) => setColor(e.target.value)}
                     placeholder="#6366f1"
-                    className="flex-1 bg-[#161a29] border border-[#1e2436] rounded-lg px-3.5 py-2 text-xs font-mono text-white focus:outline-none focus:border-[#6366f1]"
+                    className="flex-1 bg-neutral-100 border border-neutral-200 rounded-full px-4 py-2 text-xs font-mono text-[#141518] focus:outline-none focus:ring-2 focus:ring-black"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#94a3b8] uppercase tracking-wider mb-1">Description / Bio</label>
+                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1">Description / Bio</label>
                 <textarea
                   value={desc}
                   onChange={(e) => setDesc(e.target.value)}
                   placeholder="Community mission..."
-                  className="w-full bg-[#161a29] border border-[#1e2436] rounded-lg px-3.5 py-2 text-xs focus:outline-none focus:border-[#6366f1] h-20"
+                  className="w-full bg-neutral-100 border border-neutral-200 rounded-2xl px-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-black h-20"
                 />
               </div>
 
-              <div className="flex items-center justify-end space-x-3 pt-4 border-t border-[#1e2436]">
+              <div className="flex items-center justify-end space-x-3 pt-4 border-t border-neutral-100">
                 <button
                   type="button"
                   onClick={resetForm}
-                  className="px-3 py-1.5 text-xs text-[#94a3b8] hover:text-white"
+                  className="px-4 py-2 text-xs text-neutral-500 hover:text-[#141518] font-bold rounded-full hover:bg-neutral-100 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving || uploading}
-                  className="brutalist-btn-primary px-4 py-2 rounded-lg text-xs disabled:opacity-50"
+                  className="py-2.5 px-6 rounded-full bg-[#141518] hover:bg-black text-white text-xs font-extrabold shadow-md disabled:opacity-50 transition-all"
                 >
                   {saving ? 'Saving...' : 'Save Community Changes'}
                 </button>

@@ -11,10 +11,8 @@ import {
   LayoutDashboard,
   User,
   LogOut,
-  ExternalLink,
+  ArrowLeft,
   LifeBuoy,
-  Sparkles,
-  ArrowUpRight
 } from 'lucide-react';
 import { UserRole } from '@/types/database.types';
 
@@ -39,15 +37,18 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
 
   return (
     <>
-      {/* Desktop Sidebar (Dark Charcoal Container matching reference) */}
-      <aside className="hidden md:flex w-64 lg:w-72 h-screen sticky top-0 overflow-y-auto bg-[#18191c] text-white p-6 flex-col justify-between shrink-0 select-none border-r border-[#24262b] z-40">
+      {/* Desktop Sidebar (Dark Charcoal Container) */}
+      <aside
+        suppressHydrationWarning
+        className="hidden md:flex w-64 lg:w-72 h-screen sticky top-0 overflow-y-auto bg-[#18191c] text-white p-6 flex-col justify-between shrink-0 select-none border-r border-[#24262b] z-40"
+      >
         <div className="space-y-8">
-
+          
           {/* Brand Logo */}
           <div className="flex items-center justify-between px-2 pt-2">
             <Link href="/" className="flex items-center space-x-3 group">
               <img src="/cev_logo.svg" alt="CEV Logo" className="h-7 w-auto object-contain transition-transform group-hover:scale-105" />
-              <span className="font-extrabold text-xl text-white tracking-tight font-display">ADMIN PANEL</span>
+              <span className="font-extrabold text-xl text-white tracking-tight font-display">cev_admin</span>
             </Link>
           </div>
 
@@ -91,36 +92,20 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
           </nav>
         </div>
 
-        {/* Bottom Promo Card (Clean Dark Card with White Accent Button) */}
-        <div className="space-y-4 pt-4">
-          <div className="bg-[#24262b] text-white rounded-[24px] p-5 border border-neutral-800 shadow-lg space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] uppercase font-mono font-extrabold tracking-wider bg-white/10 text-white px-2 py-0.5 rounded-md">
-                CEV System
-              </span>
-              <Sparkles className="w-4 h-4 text-amber-400" />
-            </div>
+        {/* Bottom Section: Back to Home Button & Sign Out */}
+        <div className="space-y-4 pt-4 border-t border-[#24262b]">
+          <Link
+            href="/"
+            className="w-full py-3 px-4 rounded-full bg-white hover:bg-neutral-200 text-[#141518] text-xs font-extrabold transition-all flex items-center justify-center space-x-2 shadow-md"
+          >
+            <ArrowLeft className="w-4 h-4 text-[#141518]" />
+            <span>Back to Home</span>
+          </Link>
 
-            <div className="space-y-1">
-              <h4 className="font-extrabold text-sm font-display tracking-tight leading-snug">
-                Event Manager Pro
-              </h4>
-              <p className="text-[11px] text-neutral-400 leading-relaxed">
-                Full access for {currentRole} role.
-              </p>
-            </div>
-
-            <Link
-              href="/"
-              className="w-full py-2.5 px-4 rounded-full bg-white hover:bg-neutral-200 text-[#141518] text-xs font-bold transition-all flex items-center justify-center space-x-1.5 shadow-md"
-            >
-              <span>Public View</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-[#141518]" />
-            </Link>
-          </div>
-
-          <div className="flex items-center justify-between px-2 text-xs">
+          <div className="flex items-center justify-between px-2 pt-1 text-xs">
             <button
+              type="button"
+              suppressHydrationWarning
               onClick={onSignOut}
               className="flex items-center space-x-2 text-rose-400 hover:text-rose-300 font-bold transition-colors"
             >
@@ -145,13 +130,17 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
         <div className="flex items-center space-x-2">
           <Link
             href="/"
-            className="p-2 rounded-full bg-neutral-100 text-neutral-700 text-xs font-bold hover:bg-neutral-200 transition-colors"
+            className="p-2 rounded-full bg-neutral-100 text-neutral-700 text-xs font-bold hover:bg-neutral-200 transition-colors flex items-center gap-1"
+            title="Back to Home"
           >
-            <ExternalLink className="w-3.5 h-3.5" />
+            <ArrowLeft className="w-3.5 h-3.5" />
           </Link>
           <button
+            type="button"
+            suppressHydrationWarning
             onClick={onSignOut}
             className="p-2 rounded-full bg-rose-50 text-rose-600 text-xs font-bold hover:bg-rose-100 transition-colors"
+            title="Sign Out"
           >
             <LogOut className="w-3.5 h-3.5" />
           </button>
@@ -168,10 +157,11 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
             <Link
               key={item.href}
               href={item.href}
-              className={`flex-1 min-w-0 flex flex-col items-center justify-center py-2 px-1 rounded-full transition-all duration-300 ${isActive
+              className={`flex-1 min-w-0 flex flex-col items-center justify-center py-2 px-1 rounded-full transition-all duration-300 ${
+                isActive
                   ? 'bg-white text-[#141518] font-bold shadow-md'
                   : 'text-neutral-400 hover:text-white'
-                }`}
+              }`}
             >
               <Icon className="w-4 h-4 shrink-0" />
               <span className="text-[9px] font-heading mt-0.5 tracking-tight truncate max-w-full text-center leading-none">
