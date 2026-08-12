@@ -2,9 +2,10 @@
 
 ## [1.9.0] - 2026-08-12
 
-### 📱 Mobile Viewport Fixes & Split-Card My Community Layout
-- **Mobile Navbar Z-Index Adjustment ([AdminSidebar.tsx](./app/components/AdminSidebar.tsx)):** Updated mobile floating glass navbar z-index to `z-40` so that overlay modal dialogs (`z-50`) render cleanly over the mobile bottom navigation bar without overlapping action buttons.
-- **Mobile-Responsive Scrollable Modals ([app/admin/communities/page.tsx](./app/admin/communities/page.tsx), [app/admin/users/page.tsx](./app/admin/users/page.tsx)):** Enforced `max-h-[85vh] overflow-y-auto` and sticky headers on community create/edit modals and user management modals to ensure full form accessibility on all mobile phone viewports.
+### 📱 Mobile Viewport Fixes, Portal Modals & Manager Security Enforcement
+- **Manager Community Scope Security ([app/admin/users/page.tsx](./app/admin/users/page.tsx), [app/api/admin/users/route.ts](./app/api/admin/users/route.ts)):** Restricted Community Managers to viewing, creating, updating, and deleting team members strictly within their assigned community (`community_id === currentUserCommunityId`). Server API checks return `403 Forbidden` if a manager attempts to modify an account outside their community.
+- **Screen-Optimized Portal Modals ([app/admin/communities/page.tsx](./app/admin/communities/page.tsx), [app/admin/users/page.tsx](./app/admin/users/page.tsx)):** Upgraded all community and user management modals to render via `createPortal(..., document.body)` with `data-lenis-prevent` backdrop, `z-[99999]`, sticky headers, and compact 2-column mobile input grids (`grid grid-cols-1 sm:grid-cols-2 gap-3`), eliminating long vertical scrolling on mobile phone screens.
+- **Mobile Navbar Z-Index Adjustment ([AdminSidebar.tsx](./app/components/AdminSidebar.tsx)):** Updated mobile floating glass navbar z-index to `z-40` so that overlay modal dialogs (`z-50` / `z-[99999]`) render cleanly over the mobile bottom navigation bar without overlapping action buttons.
 - **Split-Card My Community Page ([app/admin/my-community/page.tsx](./app/admin/my-community/page.tsx)):** Redesigned the assigned community settings page into a modern 12-column split-card layout matching `profile/page.tsx`: left dark charcoal brand identity card (`lg:col-span-4 bg-[#141518]`) and right white form inputs card (`lg:col-span-8 bg-white`).
 
 ## [1.8.0] - 2026-08-12

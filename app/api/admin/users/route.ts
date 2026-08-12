@@ -14,23 +14,26 @@ function getAdminSupabaseClient() {
   });
 }
 
-async function getRequesterRole(req: NextRequest, supabase: any): Promise<string | null> {
+async function getRequesterProfile(req: NextRequest, supabase: any): Promise<{ role: string | null; community_id: string | null }> {
   try {
     const authHeader = req.headers.get('authorization');
-    if (!authHeader) return null;
+    if (!authHeader) return { role: null, community_id: null };
     const token = authHeader.replace('Bearer ', '');
     const { data: { user } } = await supabase.auth.getUser(token);
-    if (!user) return null;
+    if (!user) return { role: null, community_id: null };
 
     const { data: profile } = await supabase
       .from('profiles')
-      .select('role')
+      .select('role, community_id')
       .eq('id', user.id)
       .single();
 
-    return profile?.role || null;
+    return {
+      role: profile?.role || null,
+      community_id: profile?.community_id || null,
+    };
   } catch {
-    return null;
+    return { role: null, community_id: null };
   }
 }
 
@@ -55,19 +58,21 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { email, password, full_name, position, avatar_url, role = 'manager', community_id = null } = body;
+    let { email, password, full_name, position, avatar_url, role = 'manager', community_id = null } = body;
 
     if (!email) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
     const supabase = getAdminSupabaseClient();
+    const requester = await getRequesterProfile(req, supabase);
 
-    if (role === 'dev') {
-      const requesterRole = await getRequesterRole(req, supabase);
-      if (requesterRole && requesterRole !== 'dev') {
-        return NextResponse.json({ error: 'Forbidden: Only Dev users can create Dev accounts.' }, { status: 403 });
-      }
+    if (role === 'dev' && requester.role !== 'dev') {
+      return NextResponse.json({ error: 'Forbidden: Only Dev users can create Dev accounts.' }, { status: 403 });
+    }
+
+    if (requester.role === 'manager') {
+      community_id = requester.community_id;
     }
 
     let userId = `usr_${Date.now()}`;
@@ -126,20 +131,28 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
-    const { id, email, password, full_name, position, avatar_url, role, community_id } = body;
+    let { id, email, password, full_name, position, avatar_url, role, community_id } = body;
 
     if (!id) {
       return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
     }
 
     const supabase = getAdminSupabaseClient();
+    const requester = await getRequesterProfile(req, supabase);
 
-    const { data: existingProfile } = await supabase.from('profiles').select('role').eq('id', id).single();
+    const { data: existingProfile } = await supabase.from('profiles').select('role, community_id').eq('id', id).single();
+    
     if (existingProfile?.role === 'dev' || role === 'dev') {
-      const requesterRole = await getRequesterRole(req, supabase);
-      if (requesterRole && requesterRole !== 'dev') {
+      if (requester.role !== 'dev') {
         return NextResponse.json({ error: 'Forbidden: Dev accounts cannot be modified by non-dev roles.' }, { status: 403 });
       }
+    }
+
+    if (requester.role === 'manager') {
+      if (existingProfile?.community_id !== requester.community_id) {
+        return NextResponse.json({ error: 'Forbidden: Managers can only edit team members in their assigned community.' }, { status: 403 });
+      }
+      community_id = requester.community_id;
     }
 
     if (email || password) {
@@ -197,13 +210,16 @@ export async function DELETE(req: NextRequest) {
     }
 
     const supabase = getAdminSupabaseClient();
+    const requester = await getRequesterProfile(req, supabase);
 
-    const { data: targetProfile } = await supabase.from('profiles').select('role').eq('id', id).single();
-    if (targetProfile?.role === 'dev') {
-      const requesterRole = await getRequesterRole(req, supabase);
-      if (requesterRole && requesterRole !== 'dev') {
-        return NextResponse.json({ error: 'Forbidden: Dev accounts cannot be deleted by non-dev roles.' }, { status: 403 });
-      }
+    const { data: targetProfile } = await supabase.from('profiles').select('role, community_id').eq('id', id).single();
+    
+    if (targetProfile?.role === 'dev' && requester.role !== 'dev') {
+      return NextResponse.json({ error: 'Forbidden: Dev accounts cannot be deleted by non-dev roles.' }, { status: 403 });
+    }
+
+    if (requester.role === 'manager' && targetProfile?.community_id !== requester.community_id) {
+      return NextResponse.json({ error: 'Forbidden: Managers can only delete users in their assigned community.' }, { status: 403 });
     }
 
     try {

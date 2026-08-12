@@ -2,6 +2,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useCommunities } from '@/lib/hooks/useCommunities';
 import { UserRole, Profile } from '@/types/database.types';
 import { createClient } from '@/lib/supabase/client';
@@ -30,6 +31,7 @@ export default function UserManagementPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [toastMsg, setToastMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   const [currentUserRole, setCurrentUserRole] = useState<UserRole>('editor');
   const [currentUserCommunityId, setCurrentUserCommunityId] = useState<string | null>(null);
@@ -46,6 +48,7 @@ export default function UserManagementPage() {
   const [communityId, setCommunityId] = useState('');
 
   useEffect(() => {
+    setMounted(true);
     const fetchActiveUser = async () => {
       try {
         const supabase = createClient();
@@ -96,7 +99,7 @@ export default function UserManagementPage() {
       return true;
     }
     if (currentUserRole === 'manager') {
-      return p.community_id === currentUserCommunityId || p.id === currentUserCommunityId;
+      return p.community_id === currentUserCommunityId && Boolean(currentUserCommunityId);
     }
     return false;
   });
@@ -130,6 +133,10 @@ export default function UserManagementPage() {
   const openEditModal = (user: Profile) => {
     if (user.role === 'dev' && currentUserRole !== 'dev') {
       setToastMsg({ type: 'error', text: 'Dev (Superuser) accounts cannot be modified.' });
+      return;
+    }
+    if (currentUserRole === 'manager' && user.community_id !== currentUserCommunityId) {
+      setToastMsg({ type: 'error', text: 'Managers can only edit team members in their assigned community.' });
       return;
     }
     setEditingUser(user);
@@ -389,93 +396,103 @@ export default function UserManagementPage() {
       )}
 
       {/* Add / Edit User Modal */}
-      {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm overflow-y-auto">
-          <div className="w-full max-w-lg bg-white border border-neutral-200/80 rounded-[28px] p-6 sm:p-8 space-y-6 my-auto max-h-[85vh] overflow-y-auto shadow-2xl relative text-[#141518]">
-            <div className="flex items-center justify-between border-b border-neutral-100 pb-4 sticky top-0 bg-white z-10">
-              <h2 className="text-xl font-extrabold text-[#141518] flex items-center gap-2 font-display">
+      {modalOpen && mounted && typeof document !== 'undefined' && createPortal(
+        <div
+          data-lenis-prevent
+          onClick={(e) => {
+            if (e.target === e.currentTarget) resetForm();
+          }}
+          className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-sm overflow-y-auto"
+        >
+          <div className="w-full max-w-xl bg-white border border-neutral-200/80 rounded-[28px] p-5 sm:p-7 space-y-4 my-auto max-h-[90vh] overflow-y-auto shadow-2xl relative text-[#141518]">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-3 sticky top-0 bg-white z-10">
+              <h2 className="text-lg sm:text-xl font-extrabold text-[#141518] flex items-center gap-2 font-display">
                 <UserIcon className="w-5 h-5 text-[#141518]" />
                 {editingUser ? 'Modify Lead Profile' : 'Add New Community Lead'}
               </h2>
               <button
                 onClick={resetForm}
-                className="p-2 text-neutral-400 hover:text-[#141518] rounded-full hover:bg-neutral-100 transition-colors"
+                className="p-1.5 text-neutral-400 hover:text-[#141518] rounded-full hover:bg-neutral-100 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleSaveUser} className="space-y-4">
-              <div>
-                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
-                  Full Name
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    placeholder="e.g. Dr. Anand P."
-                    required
-                    className="w-full bg-neutral-100 text-[#141518] placeholder-neutral-400 rounded-full pl-10 pr-4 py-2.5 text-xs sm:text-sm border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
-                  />
-                  <UserIcon className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3" />
+            <form onSubmit={handleSaveUser} className="space-y-3.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-extrabold text-[#141518] uppercase tracking-wider mb-1">
+                    Full Name *
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="e.g. Dr. Anand P."
+                      required
+                      className="w-full bg-neutral-100 text-[#141518] placeholder-neutral-400 rounded-full pl-9 pr-3 py-2 text-xs border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
+                    />
+                    <UserIcon className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-2.5" />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-extrabold text-[#141518] uppercase tracking-wider mb-1">
+                    Position / Designation *
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={position}
+                      onChange={(e) => setPosition(e.target.value)}
+                      placeholder="e.g. IEEE SB Lead / Officer"
+                      required
+                      className="w-full bg-neutral-100 text-[#141518] placeholder-neutral-400 rounded-full pl-9 pr-3 py-2 text-xs border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
+                    />
+                    <Briefcase className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-2.5" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-extrabold text-[#141518] uppercase tracking-wider mb-1">
+                    Email Address *
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="lead@cev.ac.in"
+                      required
+                      className="w-full bg-neutral-100 text-[#141518] placeholder-neutral-400 rounded-full pl-9 pr-3 py-2 text-xs border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
+                    />
+                    <Mail className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-2.5" />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-extrabold text-[#141518] uppercase tracking-wider mb-1">
+                    {editingUser ? 'Reset Password (Optional)' : 'Auth Password *'}
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder={editingUser ? 'Leave blank to keep password' : 'Enter password'}
+                      required={!editingUser}
+                      className="w-full bg-neutral-100 text-[#141518] placeholder-neutral-400 rounded-full pl-9 pr-3 py-2 text-xs border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
+                    />
+                    <Key className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-2.5" />
+                  </div>
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
-                  Position / Designation
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={position}
-                    onChange={(e) => setPosition(e.target.value)}
-                    placeholder="e.g. IEEE SB Lead / Nodal Officer"
-                    required
-                    className="w-full bg-neutral-100 text-[#141518] placeholder-neutral-400 rounded-full pl-10 pr-4 py-2.5 text-xs sm:text-sm border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
-                  />
-                  <Briefcase className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3" />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
-                  Email Address (Auth User)
-                </label>
-                <div className="relative">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="lead@cev.ac.in"
-                    required
-                    className="w-full bg-neutral-100 text-[#141518] placeholder-neutral-400 rounded-full pl-10 pr-4 py-2.5 text-xs sm:text-sm border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
-                  />
-                  <Mail className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3" />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
-                  {editingUser ? 'Reset Password (Optional)' : 'Auth Password'}
-                </label>
-                <div className="relative">
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder={editingUser ? 'Leave blank to keep existing password' : 'Enter password'}
-                    required={!editingUser}
-                    className="w-full bg-neutral-100 text-[#141518] placeholder-neutral-400 rounded-full pl-10 pr-4 py-2.5 text-xs sm:text-sm border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
-                  />
-                  <Key className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3" />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
+                <label className="block text-[11px] font-extrabold text-[#141518] uppercase tracking-wider mb-1">
                   Profile Picture URL (Avatar)
                 </label>
                 <div className="relative">
@@ -484,21 +501,21 @@ export default function UserManagementPage() {
                     value={avatarUrl}
                     onChange={(e) => setAvatarUrl(e.target.value)}
                     placeholder="https://images.unsplash.com/photo-..."
-                    className="w-full bg-neutral-100 text-[#141518] placeholder-neutral-400 rounded-full pl-10 pr-4 py-2.5 text-xs sm:text-sm border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
+                    className="w-full bg-neutral-100 text-[#141518] placeholder-neutral-400 rounded-full pl-9 pr-3 py-2 text-xs border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
                   />
-                  <ImageIcon className="w-4 h-4 text-neutral-400 absolute left-3.5 top-3" />
+                  <ImageIcon className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-2.5" />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
+                  <label className="block text-[11px] font-extrabold text-[#141518] uppercase tracking-wider mb-1">
                     RBAC Role
                   </label>
                   <select
                     value={role}
                     onChange={(e) => setRole(e.target.value as UserRole)}
-                    className="w-full bg-neutral-100 text-[#141518] rounded-full px-4 py-2.5 text-xs sm:text-sm border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
+                    className="w-full bg-neutral-100 text-[#141518] rounded-full px-3 py-2 text-xs border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
                   >
                     {currentUserRole === 'dev' && (
                       <option value="dev">Dev (Super Admin)</option>
@@ -512,7 +529,7 @@ export default function UserManagementPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-extrabold text-[#141518] uppercase tracking-wider mb-1.5">
+                  <label className="block text-[11px] font-extrabold text-[#141518] uppercase tracking-wider mb-1">
                     Associated Community
                   </label>
                   {currentUserRole === 'manager' ? (
@@ -520,13 +537,13 @@ export default function UserManagementPage() {
                       type="text"
                       disabled
                       value={communities.find((c) => c.id === currentUserCommunityId)?.name || 'Assigned Community'}
-                      className="w-full bg-neutral-100 text-neutral-500 rounded-full px-4 py-2.5 text-xs sm:text-sm border border-neutral-200 font-bold"
+                      className="w-full bg-neutral-100 text-neutral-500 rounded-full px-3 py-2 text-xs border border-neutral-200 font-bold"
                     />
                   ) : (
                     <select
                       value={communityId}
                       onChange={(e) => setCommunityId(e.target.value)}
-                      className="w-full bg-neutral-100 text-[#141518] rounded-full px-4 py-2.5 text-xs sm:text-sm border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
+                      className="w-full bg-neutral-100 text-[#141518] rounded-full px-3 py-2 text-xs border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-black"
                     >
                       <option value="">All Communities (Super Admin)</option>
                       {communities.filter((c) => c.slug !== 'college' && c.name.toLowerCase() !== 'college').map((c) => (
@@ -539,25 +556,26 @@ export default function UserManagementPage() {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-neutral-100 flex items-center justify-end space-x-3">
+              <div className="pt-3 border-t border-neutral-100 flex items-center justify-end space-x-3">
                 <button
                   type="button"
                   onClick={resetForm}
-                  className="py-2.5 px-5 rounded-full text-neutral-500 hover:text-[#141518] text-xs font-bold hover:bg-neutral-100 transition-colors"
+                  className="py-2 px-4 rounded-full text-neutral-500 hover:text-[#141518] text-xs font-bold hover:bg-neutral-100 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="py-3 px-6 rounded-full bg-[#141518] hover:bg-black text-white text-xs font-extrabold shadow-md disabled:opacity-50 transition-all"
+                  className="py-2.5 px-6 rounded-full bg-[#141518] hover:bg-black text-white text-xs font-extrabold shadow-md disabled:opacity-50 transition-all"
                 >
                   {saving ? 'Saving...' : editingUser ? 'Update Lead' : 'Add Lead Account'}
                 </button>
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
