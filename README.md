@@ -6,6 +6,9 @@ A modern, high-performance event management, slot booking, and public discovery 
 
 ## 🚀 Key Features & Capabilities
 
+- **Nixtio Swiss Editorial UI & Dynamic Scroll Hero:** Features an edge-to-edge dark hero section with smooth cubic-bezier scroll shrink animation (`w-[99%]` to `w-[95%]`, `min-h-[99vh]` to `min-h-[75vh]`, `rounded-[1.3rem]` to `rounded-[1rem]`), oversized display headline (`CEV EVENTS`), 6-column community logo card grid (`001 / Our Communities`), and 3-column schedule timeline cards (`min-h-[680px]`) with dark poster overlays and 300ms rotating arrow CTAs.
+- **3-State Floating Navbar & Standalone Logo:** Dynamic scroll detection switching between standalone white logo (`/cev_logo.svg`) over dark hero and black logo (`/cev_logo_b.svg`) over light pages, featuring spaced-out initial links, compact white glass floating pill (`bg-white/70 backdrop-blur-2xl`), and context-aware CTA buttons.
+- **Global Page Entrance Animations:** Integrated Framer Motion page entrance transitions (`initial={{ opacity: 0, y: 24, filter: 'blur(5px)' }}`) delivering smooth fluid navigation across all public routes.
 - **Interactive Google Calendar Slot Booking Engine:** Features Month, Week, Day, and Grid views where organizers click date/time slots to reserve dates in `closed` draft mode before publishing to `live` state.
 - **College Event & Academic Schedule Booking:** Exclusive slot booking option for Superusers (`dev`) and Admins (`admin`) to book official college-conducted events, exams, and academic schedules with dedicated Ocean Royal Blue (`#0ea5e9`) visual styling, while restricting non-admin access.
 - **Connected Multi-Day Calendar Banners:** Multi-day events span continuously across calendar columns as single horizontal line bars with zero-gap column boundary alignment (`px-0` day cell containers).

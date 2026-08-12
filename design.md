@@ -48,20 +48,23 @@ The design language of **CEV EVENTS** is governed by the **Nixtio-Inspired Edito
 
 ## 4. Component Rules & Layout Specifications
 
-### Brutalist Cards & Containers
-* Class: `.brutalist-card`
-* Background: `#0f121d`
-* Border: `2px solid #1e2436`
-* Border Radius: `1rem` (16px / `rounded-2xl`)
-* Hover State: Border transitions to `#6366f1` with subtle 2px offset box-shadow.
+### Nixtio Floating Navigation Bar (3 Transition Modes)
+* **Mode 1 (Initial Top State over Dark Hero, `scrollY < 40`):** Transparent container (`bg-transparent border-transparent shadow-none`), standalone white logo (`/cev_logo.svg`), spaced-out text links (`text-white/85 hover:text-white`), and solid white CTA button (`bg-white text-black font-extrabold hover:bg-neutral-200`).
+* **Mode 2 (Scrolled Over Dark Hero, `scrollY >= 40`):** Compact floating white glass pill (`bg-white/70 backdrop-blur-2xl border border-white/70 shadow-[0_8px_35px_rgba(0,0,0,0.10)] rounded-full px-2 py-1.5`), black active tab indicator (`bg-black text-white rounded-full`), white CTA button.
+* **Mode 3 (Scrolled Over Light Page Content):** Standalone black logo (`/cev_logo_b.svg`), floating white glass pill center navigation, black CTA button (`bg-black text-white font-extrabold hover:bg-neutral-800`).
 
-### Glassmorphic Mobile Bottom Navbar
-* Positioning: `fixed bottom-3 left-3 right-3 z-50 md:hidden`
-* Background: `#0f121d` with 75% opacity (`bg-[#0f121d]/75`)
-* Backdrop Filter: `backdrop-blur-2xl`
-* Border: `1px solid rgba(30, 36, 54, 0.9)` (`rounded-2xl`)
-* Box Shadow: `0px 8px 32px rgba(0, 0, 0, 0.6)`
-* Active Tab Glow: Electric Indigo pill (`#6366f1`) with `shadow-[0_0_12px_rgba(99,102,241,0.5)]` and scale micro-animation (`scale-105`)
+### Full-Screen Hero Card Scroll Shrink Animation ([app/page.tsx](./app/page.tsx))
+* **Hero Container Shrink (`scrollY > 40`):** Hero width shrinks from `w-[99%]` to `w-[95%]`, height shrinks from `min-h-[99vh]` to `min-h-[75vh]`, and corner radius scales from `rounded-[1.3rem]` to `rounded-[1rem]`.
+* **Timing & Cubic-Bezier Easing:** `transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)]` for fluid high-end motion.
+* **Title Dynamic Scaling:** Oversized display headline (`CEV EVENTS`) scales dynamically from `text-[15rem]` to `text-[10rem]` on scroll.
+
+### Swiss Editorial Cards & Rounded Corners
+* **Community Cards (`rounded-[24px]`):** White elevated card (`bg-white rounded-[24px] h-[165px]`) with logo scale on hover (`scale-105`) and `hover:scale-[1.015] hover:shadow-lg`.
+* **Schedule Cards (`rounded-[24px]`):** Poster image card (`min-h-[680px] bg-white rounded-[24px]`) with dark image overlay, category/community badges, and 300ms rotating arrow button (`group-hover:rotate-[-45deg]`).
+* **Community Detail Hero (`rounded-[28px]`):** White hero section (`min-h-[560px] bg-white rounded-[28px]`) with centered logo container (`w-32 h-32 rounded-[28px]`) and radial blur element.
+
+### Global Page Entrance Motion ([app/template.tsx](./app/template.tsx))
+* **Framer Motion Transition:** `initial={{ opacity: 0, y: 24, filter: 'blur(5px)' }}`, `animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}`, `transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}`.
 
 ### Brutalist Action Buttons
 * Primary CTA: `.brutalist-btn-primary` (`bg-[#6366f1] text-white border border-[#4f46e5] shadow-[3px_3px_0px_0px_#312e81]`)

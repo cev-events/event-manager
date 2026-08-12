@@ -1,5 +1,18 @@
 # Changelogs & Version History
 
+## [1.7.0] - 2026-08-12
+
+### 💎 Public Pages Redesign & Nixtio Swiss Editorial UI Upgrade
+- **Hero Scroll Shrink Animation ([app/page.tsx](./app/page.tsx)):** Added smooth dynamic scroll shrink transition (`w-[99%]` to `w-[95%]`, `min-h-[99vh]` to `min-h-[75vh]`, `rounded-[1.3rem]` to `rounded-[1rem]`) with `cubic-bezier(0.16, 1, 0.3, 1)` easing. Title dynamically resizes from `text-[15rem]` to `text-[10rem]`.
+- **Public Navigation Bar 3-State Modes ([Navbar.tsx](./app/components/Navbar.tsx)):** Updated scroll detection via `getBoundingClientRect()` relative to `#hero-section`. Auto-switches `/cev_logo.svg` (white) and `/cev_logo_b.svg` (black). Features spaced-out links on top dark hero, compact white glass floating pill (`bg-white/70 backdrop-blur-2xl border border-white/70`) on scroll, and CTA color switching.
+- **Communities & Timeline Grids ([app/page.tsx](./app/page.tsx)):** Expanded communities section to a 6-column `max-w-[1800px]` grid with `rounded-[24px]` cards. Expanded schedules timeline to 3-column `min-h-[680px]` cards featuring image poster overlay, dark gradient, category/community badges, and 300ms rotating arrow CTAs.
+- **Events Directory & Public Shielding ([app/events/page.tsx](./app/events/page.tsx), [MasterCalendar.tsx](./app/components/MasterCalendar.tsx)):** Set page container width `w-[96%] mx-auto` with centered loading spinner. Enforced public shielding: hides draft events (`status !== 'live'`) and suppresses `college schedule` & `exam` categories in public view. Renders `aspect-[3/4] rounded-[24px]` cards with poster hover zoom (`scale-105`), dark gradient overlay, category/status badges, and YIQ high-contrast community text.
+- **Communities & Detail Pages ([app/community/page.tsx](./app/community/page.tsx), [app/community/[id]/page.tsx](./app/community/[id]/page.tsx)):** Redesigned community list into 3-column `min-h-[430px] rounded-[24px]` cards with `001` index badges, logo container (`w-20 h-20`), title hover offset (`group-hover:translate-x-1`), and arrow rotation. Redesigned detail page hero (`min-h-[560px] bg-white rounded-[28px]`, radial blur, `w-32 h-32` logo container) and editorial events list (`01`, `02` index numbers, bold typography, hover slide arrow button).
+- **Support & Bug Report Page ([app/support/page.tsx](./app/support/page.tsx)):** Cleaned up back link navigation. Updated form container styling (`bg-white rounded-[28px] p-8 sm:p-12 shadow-sm border border-neutral-200`) and dark emerald/rose contrast badges.
+- **Global Page Entrance Animations ([app/template.tsx](./app/template.tsx)):** Added Framer Motion page entrance transitions (`initial={{ opacity: 0, y: 24, filter: 'blur(5px)' }}`, `animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}`, `transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}`).
+
+---
+
 ## [1.6.0] - 2026-08-12
 
 ### 🎨 Nixtio Hero Card 4-Corner Container & Smooth Scroll Corner Transitions
