@@ -1,5 +1,31 @@
 # Changelogs & Version History
 
+## [1.3.0] - 2026-08-12
+
+### 🎨 Re-Architected Google Calendar Continuous Multi-Day Banner Lines
+- **Google Calendar Week-Row Banner Architecture ([GoogleCalendarView.tsx](./app/components/GoogleCalendarView.tsx)):** Re-architected Month View to use a 7-column CSS grid week-row structure (`grid grid-cols-7`). Multi-day events now render as **ONE single continuous horizontal banner bar** per week row (`gridColumn: `${colStart} / span ${colSpan}``) with zero gaps, matching Google Calendar's exact UI design.
+- **Single Title Rendering at Start**: Title text is displayed once at the start of each continuous banner line, eliminating duplicate per-cell text chips.
+
+---
+
+## [1.2.0] - 2026-08-12
+
+### 🐛 Fixed Calendar Full Width Viewport Layout & Multi-Day Date Range Parser
+- **Full Width 7-Column Grid Layout ([GoogleCalendarView.tsx](./app/components/GoogleCalendarView.tsx)):** Added `min-w-0` to main flexbox containers. Resolved column clipping so all 7 day columns (`SUN`, `MON`, `TUE`, `WED`, `THU`, `FRI`, `SAT`) stretch 100% full width across the viewport with zero right-side cutoff.
+- **Universal Multi-Day Date Range Scanner ([GoogleCalendarView.tsx](./app/components/GoogleCalendarView.tsx)):** Updated `getEventStartEndIso` helper to regex scan all text attributes (`date`, `event_date`, `description`, `title`) for date range patterns (`YYYY-MM-DD to YYYY-MM-DD` or `YYYY-MM-DD - YYYY-MM-DD`). Events like **Series Exam 1** (Aug 18-20) and **Onam Vacation** (Aug 22-30) now accurately render continuous horizontal banners across every day in their active date range.
+
+---
+
+## [1.1.0] - 2026-08-12
+
+### 📅 Calendar Grid View Mode, Multi-Day Event Continuous Banners & Contrast Text Colors
+- **Grid View Mode ([GoogleCalendarView.tsx](./app/components/GoogleCalendarView.tsx)):** Implemented rich `Grid` view mode in the calendar view mode dropdown (`Month`, `Week`, `Day`, `Grid`), rendering a responsive multi-column card directory of all master campus schedules.
+- **Dynamic Contrast Text Colors ([GoogleCalendarView.tsx](./app/components/GoogleCalendarView.tsx)):** Implemented relative YIQ luminance contrast calculation (`getContrastTextColor`). Automatically sets text color to `#0a0a0a` (dark) when community color is light (yellow, white, cyan, light lime, amber) and `#ffffff` (white) when dark.
+- **Multi-Day Banner Visibility Across All Days ([GoogleCalendarView.tsx](./app/components/GoogleCalendarView.tsx)):** Refined multi-day event date range resolution (`getEventStartEndIso`). Ensures multi-day events render continuous horizontal banner spans across every day in their active date range with readable titles on all days.
+- **Mobile Responsive Optimization ([GoogleCalendarView.tsx](./app/components/GoogleCalendarView.tsx)):** Added touch-friendly mobile layouts (`overflow-x-auto min-w-full`, compact dropdown selectors, and responsive padding) for mobile screens.
+
+---
+
 ## [1.0.0] - 2026-08-12
 
 ### 🔒 Strict Non-Live / Draft Event Public Access Restriction
