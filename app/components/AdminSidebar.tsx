@@ -4,7 +4,18 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Shield, Users, Calendar, Building, LayoutDashboard, User, LogOut, ExternalLink, LifeBuoy } from 'lucide-react';
+import {
+  Users,
+  Calendar,
+  Building,
+  LayoutDashboard,
+  User,
+  LogOut,
+  ExternalLink,
+  LifeBuoy,
+  Sparkles,
+  ArrowUpRight
+} from 'lucide-react';
 import { UserRole } from '@/types/database.types';
 
 interface AdminSidebarProps {
@@ -16,7 +27,7 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
   const pathname = usePathname();
 
   const navItems = [
-    { label: 'Overview', shortLabel: 'Overview', href: '/admin', icon: LayoutDashboard, roleRequired: ['dev', 'admin', 'manager', 'editor'] },
+    { label: 'Dashboard', shortLabel: 'Dashboard', href: '/admin', icon: LayoutDashboard, roleRequired: ['dev', 'admin', 'manager', 'editor'] },
     { label: 'Event Booking', shortLabel: 'Events', href: '/admin/events', icon: Calendar, roleRequired: ['dev', 'admin', 'manager', 'editor'] },
     { label: 'My Community', shortLabel: 'Community', href: '/admin/my-community', icon: Building, roleRequired: ['manager', 'editor'] },
     { label: 'My Events', shortLabel: 'My Events', href: '/admin/my-community/events', icon: Calendar, roleRequired: ['manager', 'editor'] },
@@ -28,34 +39,51 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
 
   return (
     <>
-      <aside className="hidden md:flex w-64 h-screen sticky top-0 bg-[#0a0a0a] border-r border-neutral-800 p-6 flex-col justify-between shrink-0 overflow-y-auto z-40 select-none">
-        <div className="space-y-6">
-          <div className="flex items-center space-x-3">
-            <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-8 w-auto object-contain" />
-            <div>
-              <h2 className="font-extrabold text-base text-white font-display tracking-tight">CEV EVENTS</h2>
-              <span className="text-[10px] uppercase font-bold text-white bg-neutral-800 px-2.5 py-0.5 rounded-full border border-neutral-700 font-mono">
-                {currentRole} Access
-              </span>
-            </div>
+      {/* Desktop Sidebar (Dark Charcoal Container matching reference) */}
+      <aside className="hidden md:flex w-64 lg:w-72 h-screen sticky top-0 overflow-y-auto bg-[#18191c] text-white p-6 flex-col justify-between shrink-0 select-none border-r border-[#24262b] z-40">
+        <div className="space-y-8">
+
+          {/* Brand Logo */}
+          <div className="flex items-center justify-between px-2 pt-2">
+            <Link href="/" className="flex items-center space-x-3 group">
+              <img src="/cev_logo.svg" alt="CEV Logo" className="h-7 w-auto object-contain transition-transform group-hover:scale-105" />
+              <span className="font-extrabold text-xl text-white tracking-tight font-display">ADMIN PANEL</span>
+            </Link>
           </div>
 
-          <nav className="space-y-1.5 pt-4">
+          {/* Navigation Menu */}
+          <nav className="space-y-2">
             {navItems.map((item) => {
               if (!item.roleRequired.includes(currentRole)) return null;
               const isActive = pathname === item.href;
               const Icon = item.icon;
+
+              if (isActive) {
+                // Active State: White Rounded Pill Container with Dark Active Dot
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="flex items-center justify-between px-5 py-3 rounded-full bg-white text-[#141518] font-bold text-xs shadow-lg transition-all duration-300 transform scale-[1.02]"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <Icon className="w-4 h-4 text-[#141518]" />
+                      <span className="font-heading">{item.label}</span>
+                    </div>
+
+                    <span className="w-2 h-2 rounded-full bg-[#141518] shrink-0" />
+                  </Link>
+                );
+              }
+
+              // Inactive State: Dark text link with soft hover rounded pill
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all ${
-                    isActive
-                      ? 'bg-neutral-800 text-white font-bold'
-                      : 'text-neutral-400 hover:text-white hover:bg-neutral-900'
-                  }`}
+                  className="flex items-center space-x-3 px-5 py-3 rounded-full text-xs font-semibold text-neutral-400 hover:text-white hover:bg-[#25262c] transition-all duration-200"
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-4 h-4 text-neutral-400" />
                   <span className="font-heading">{item.label}</span>
                 </Link>
               );
@@ -63,60 +91,75 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
           </nav>
         </div>
 
-        <div className="pt-6 border-t border-[#1e2436] space-y-2">
-          <Link
-            href="/"
-            className="flex items-center justify-between text-xs text-[#94a3b8] hover:text-white transition-colors py-2 px-1 font-semibold"
-          >
-            <span>Home</span>
-            <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
-          </Link>
+        {/* Bottom Promo Card (Clean Dark Card with White Accent Button) */}
+        <div className="space-y-4 pt-4">
+          <div className="bg-[#24262b] text-white rounded-[24px] p-5 border border-neutral-800 shadow-lg space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] uppercase font-mono font-extrabold tracking-wider bg-white/10 text-white px-2 py-0.5 rounded-md">
+                CEV System
+              </span>
+              <Sparkles className="w-4 h-4 text-amber-400" />
+            </div>
 
-          <button
-            onClick={onSignOut}
-            className="w-full flex items-center justify-between text-xs text-red-400 hover:text-red-300 hover:bg-red-950/40 rounded-lg py-2 px-1 font-semibold transition-colors"
-          >
-            <span>Sign Out</span>
-            <LogOut className="w-3.5 h-3.5" />
-          </button>
+            <div className="space-y-1">
+              <h4 className="font-extrabold text-sm font-display tracking-tight leading-snug">
+                Event Manager Pro
+              </h4>
+              <p className="text-[11px] text-neutral-400 leading-relaxed">
+                Full access for {currentRole} role.
+              </p>
+            </div>
 
-          <div className="pt-3 border-t border-[#1e2436] text-[10px] text-[#94a3b8] flex items-center justify-between font-mono">
-            <span>By Shibili Aman TK</span>
-            <a href="https://github.com/LordSA" target="_blank" rel="noopener noreferrer" className="hover:text-[#6366f1] transition-colors">@LordSA</a>
+            <Link
+              href="/"
+              className="w-full py-2.5 px-4 rounded-full bg-white hover:bg-neutral-200 text-[#141518] text-xs font-bold transition-all flex items-center justify-center space-x-1.5 shadow-md"
+            >
+              <span>Public View</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#141518]" />
+            </Link>
+          </div>
+
+          <div className="flex items-center justify-between px-2 text-xs">
+            <button
+              onClick={onSignOut}
+              className="flex items-center space-x-2 text-rose-400 hover:text-rose-300 font-bold transition-colors"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              <span>Sign Out</span>
+            </button>
+
+            <span className="text-[10px] font-mono text-neutral-500 uppercase font-bold">
+              {currentRole}
+            </span>
           </div>
         </div>
       </aside>
 
-      <div className="flex md:hidden items-center justify-between px-4 py-3 border-b border-[#1e2436]/80 bg-[#0f121d]/80 backdrop-blur-xl shrink-0 sticky top-0 z-40">
+      {/* Mobile Top Bar */}
+      <div className="flex md:hidden items-center justify-between px-4 py-3 border-b border-neutral-300 bg-white shrink-0 sticky top-0 z-40 shadow-sm">
         <div className="flex items-center space-x-2.5">
-          <img src="/cev_logo.svg" alt="CEV EVENTS" className="h-6 w-auto object-contain" />
-          <div>
-            <h2 className="font-bold text-sm text-white font-display">CEV EVENTS</h2>
-            <span className="text-[9px] uppercase font-bold text-white bg-[#6366f1] px-1.5 py-0.2 rounded border border-[#4f46e5] font-mono">
-              {currentRole} Access
-            </span>
-          </div>
+          <img src="/cev_logo_b.svg" alt="CEV Logo" className="h-6 w-auto object-contain" />
+          <span className="font-extrabold text-sm text-[#141518] font-display">cev_admin</span>
         </div>
 
         <div className="flex items-center space-x-2">
           <Link
             href="/"
-            className="p-2 rounded-xl bg-[#161a29]/80 border border-[#1e2436] text-slate-300 text-xs flex items-center gap-1 font-semibold hover:text-white"
-            title="Public Site"
+            className="p-2 rounded-full bg-neutral-100 text-neutral-700 text-xs font-bold hover:bg-neutral-200 transition-colors"
           >
             <ExternalLink className="w-3.5 h-3.5" />
           </Link>
           <button
             onClick={onSignOut}
-            className="p-2 rounded-xl bg-red-950/60 border border-red-800 text-red-300 text-xs flex items-center gap-1 font-semibold"
-            title="Sign Out"
+            className="p-2 rounded-full bg-rose-50 text-rose-600 text-xs font-bold hover:bg-rose-100 transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
-      <nav className="fixed bottom-2.5 left-2 right-2 sm:left-4 sm:right-4 z-50 md:hidden bg-[#0f121d]/85 backdrop-blur-2xl border border-[#1e2436]/90 rounded-2xl p-1 sm:p-1.5 shadow-[0_8px_32px_0_rgba(0,0,0,0.7)] flex items-center justify-between gap-0.5 sm:gap-1 select-none">
+      {/* Mobile Bottom Glass Floating Navigation Bar */}
+      <nav className="fixed bottom-3 left-3 right-3 z-50 md:hidden bg-[#18191c]/90 backdrop-blur-2xl border border-neutral-800 rounded-full p-1.5 shadow-2xl flex items-center justify-between gap-1 select-none">
         {navItems.map((item) => {
           if (!item.roleRequired.includes(currentRole)) return null;
           const isActive = pathname === item.href;
@@ -125,14 +168,13 @@ export default function AdminSidebar({ currentRole, onSignOut }: AdminSidebarPro
             <Link
               key={item.href}
               href={item.href}
-              className={`flex-1 min-w-0 flex flex-col items-center justify-center py-1.5 px-0.5 sm:px-2 rounded-xl transition-all duration-200 border ${
-                isActive
-                  ? 'bg-[#6366f1] text-white border-[#4f46e5] shadow-[0_0_10px_rgba(99,102,241,0.5)] font-bold'
-                  : 'text-[#94a3b8] hover:text-white border-transparent'
-              }`}
+              className={`flex-1 min-w-0 flex flex-col items-center justify-center py-2 px-1 rounded-full transition-all duration-300 ${isActive
+                  ? 'bg-white text-[#141518] font-bold shadow-md'
+                  : 'text-neutral-400 hover:text-white'
+                }`}
             >
               <Icon className="w-4 h-4 shrink-0" />
-              <span className="text-[9px] sm:text-[10px] font-heading mt-0.5 tracking-tight truncate max-w-full text-center leading-none">
+              <span className="text-[9px] font-heading mt-0.5 tracking-tight truncate max-w-full text-center leading-none">
                 {item.shortLabel || item.label}
               </span>
             </Link>

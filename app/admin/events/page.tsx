@@ -546,30 +546,27 @@ export default function EventBookingEnginePage() {
     <div className="space-y-8 pb-20 md:pb-12">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <span className="text-xs font-mono text-[#6366f1] uppercase font-bold tracking-widest">
-            002 / Slot Booking Engine
-          </span>
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-display leading-none">
-            SLOT RESERVATION & MANAGEMENT
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#141518] font-display">
+            Event Slot Reservation
           </h1>
-          <p className="text-xs text-[#94a3b8]">
-            Reserve dates in <span className="text-amber-400 font-bold">closed</span> draft state to avoid conflicts across communities, then toggle to <span className="text-emerald-400 font-bold">live</span> for public release.
+          <p className="text-xs sm:text-sm text-neutral-500 font-medium">
+            Reserve dates in <span className="text-amber-700 font-bold">closed</span> draft state to avoid conflicts, then toggle to <span className="text-emerald-700 font-bold">live</span> for public release.
           </p>
         </div>
 
         <div className="flex items-center space-x-3">
           <button
             onClick={() => openAddModal()}
-            className="brutalist-btn-primary px-5 py-2.5 rounded-xl font-extrabold text-xs tracking-wider uppercase flex items-center space-x-2"
+            className="py-2.5 px-6 rounded-full bg-[#141518] hover:bg-black text-white font-extrabold text-xs tracking-wider uppercase flex items-center space-x-2 shadow-md transition-all"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 h-4 text-white" />
             <span>Book Event Slot</span>
           </button>
         </div>
       </div>
 
       {feedback && (
-        <div className={`p-4 rounded-xl text-xs font-semibold flex items-center gap-2 border ${feedback.type === 'success' ? 'bg-emerald-950/80 border-emerald-800 text-emerald-300' : 'bg-red-950/80 border-red-800 text-red-300'
+        <div className={`p-4 rounded-2xl text-xs font-semibold flex items-center gap-2 border ${feedback.type === 'success' ? 'bg-emerald-50 border-emerald-200 text-emerald-800' : 'bg-rose-50 border-rose-200 text-rose-800'
           }`}>
           <AlertCircle className="w-4 h-4 shrink-0" />
           <span>{feedback.message}</span>

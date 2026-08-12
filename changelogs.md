@@ -1,5 +1,15 @@
 # Changelogs & Version History
 
+## [1.8.0] - 2026-08-12
+
+### ⚡ Flux Admin Dashboard Theme & Workspace Redesign
+- **Sticky Dark Charcoal Sidebar ([app/components/AdminSidebar.tsx](./app/components/AdminSidebar.tsx)):** Built sticky dark charcoal sidebar (`bg-[#18191c] w-64 lg:w-72 sticky top-0 h-screen overflow-y-auto`) with active link floating white rounded pill cards (`bg-white text-[#141518] font-extrabold rounded-full px-5 py-3 shadow-lg`), dark indicator dots, and bottom promo card (`bg-[#24262b] rounded-[24px]`).
+- **Workspace Canvas Layout & Header ([app/admin/layout.tsx](./app/admin/layout.tsx)):** Full-viewport light grey workspace canvas (`bg-[#edf0f4] min-h-screen w-full flex flex-col md:flex-row`) with top navigation header bar featuring user profile pill with avatar, search input bar, notification bell button, and date badge.
+- **Overview Dashboard Cards ([app/admin/page.tsx](./app/admin/page.tsx)):** Designed white metric cards (`bg-white rounded-[28px] p-6 shadow-sm border border-neutral-200/60`), dark feature cards (`bg-[#18191c] text-white rounded-[28px] p-6 sm:p-8 shadow-xl`), and quick action pill buttons.
+- **Admin Pages Theme Integration ([app/admin/events/page.tsx](./app/admin/events/page.tsx), [app/admin/communities/page.tsx](./app/admin/communities/page.tsx), [app/admin/my-community/page.tsx](./app/admin/my-community/page.tsx), [app/admin/users/page.tsx](./app/admin/users/page.tsx)):** Converted all admin management pages to the Flux theme with white card surfaces, rounded pill buttons, and monochrome typography, while keeping public pages and Google Calendar rendering completely untouched.
+
+---
+
 ## [1.7.0] - 2026-08-12
 
 ### 💎 Public Pages Redesign & Nixtio Swiss Editorial UI Upgrade

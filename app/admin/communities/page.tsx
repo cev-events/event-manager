@@ -193,12 +193,12 @@ export default function CommunitiesManagementPage() {
 
   if (userRole === 'manager' || userRole === 'editor') {
     return (
-      <div className="p-8 rounded-xl bg-[#0f121d] border-2 border-[#1e2436] text-center space-y-4 max-w-2xl mx-auto my-12">
-        <div className="p-3 rounded-lg bg-amber-950/80 border border-amber-800 text-amber-300 w-fit mx-auto">
+      <div className="p-8 rounded-[28px] bg-white border border-neutral-200/80 text-center space-y-4 max-w-2xl mx-auto my-12 shadow-sm">
+        <div className="p-3 rounded-full bg-rose-50 border border-rose-200 text-rose-600 w-fit mx-auto">
           <ShieldAlert className="w-6 h-6" />
         </div>
-        <h2 className="text-xl font-bold text-white font-display">Access Restricted</h2>
-        <p className="text-xs text-[#94a3b8] leading-relaxed">
+        <h2 className="text-xl font-bold text-[#141518] font-display">Access Restricted</h2>
+        <p className="text-xs text-neutral-500 leading-relaxed font-medium">
           Community Management is restricted to Super Admins and Developers. Community Managers and Editors do not have permission to add, edit, or delete campus community entities.
         </p>
       </div>
@@ -206,37 +206,34 @@ export default function CommunitiesManagementPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#1e2436] pb-4">
-        <div className="space-y-0.5">
-          <span className="text-xs font-mono text-[#6366f1] uppercase font-bold tracking-widest">
-            004 / Community Entity Registry
-          </span>
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-display leading-none">
-            COMMUNITY MANAGEMENT
+    <div className="space-y-8 pb-12">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#141518] font-display">
+            Community Management
           </h1>
-          <p className="text-xs text-[#94a3b8]">
-            Create or Modify campus community entities and brand signatures.
+          <p className="text-xs sm:text-sm text-neutral-500 font-medium">
+            Create or modify campus community entities and signature colors.
           </p>
         </div>
 
         <button
           onClick={() => { resetForm(); setShowAddModal(true); }}
-          className="py-2.5 px-5 rounded-full bg-white hover:bg-neutral-200 text-[#0a0a0a] font-bold text-xs shadow-md flex items-center space-x-2 w-fit transition-colors"
+          className="py-2.5 px-6 rounded-full bg-[#141518] hover:bg-black text-white font-extrabold text-xs shadow-md flex items-center space-x-2 w-fit transition-all"
         >
-          <Plus className="w-4 h-4" />
+          <Plus className="w-4 h-4 text-white" />
           <span>Add New Community</span>
         </button>
       </div>
 
       {loading ? (
-        <div className="p-8 text-center text-neutral-400 text-sm bg-neutral-900 border border-neutral-800 rounded-2xl">
+        <div className="p-8 text-center text-neutral-500 text-xs bg-white border border-neutral-200/60 rounded-[28px]">
           Loading community entities...
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {communities.filter((c) => c.slug !== 'college' && c.name.toLowerCase() !== 'college').map((c) => (
-            <div key={c.id} className="p-6 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-4 flex flex-col justify-between relative group hover:border-neutral-700 transition-colors shadow-sm">
+            <div key={c.id} className="p-6 rounded-[28px] bg-white border border-neutral-200/60 space-y-4 flex flex-col justify-between relative group hover:shadow-md transition-all shadow-sm">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
@@ -245,21 +242,21 @@ export default function CommunitiesManagementPage() {
                       <img
                         src={c.logo_url}
                         alt={c.name}
-                        className="w-10 h-10 rounded-xl object-cover border border-neutral-700"
+                        className="w-10 h-10 rounded-2xl object-cover border border-neutral-200"
                         onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
                       />
                     ) : (
-                      <div className="w-10 h-10 rounded-xl bg-neutral-800 border border-neutral-700 flex items-center justify-center text-white font-bold text-sm">
+                      <div className="w-10 h-10 rounded-2xl bg-[#141518] text-white flex items-center justify-center font-bold text-sm">
                         {c.initials || c.name.slice(0, 2).toUpperCase()}
                       </div>
                     )}
-                    <h3 className="text-base font-bold text-white font-display">{c.name}</h3>
+                    <h3 className="text-base font-bold text-[#141518] font-display">{c.name}</h3>
                   </div>
 
                   <div className="flex items-center space-x-1">
                     <button
                       onClick={() => handleOpenEdit(c)}
-                      className="p-1.5 text-neutral-400 hover:text-white rounded-full hover:bg-neutral-800 transition-colors"
+                      className="p-2 text-neutral-400 hover:text-[#141518] rounded-full hover:bg-neutral-100 transition-colors"
                       title="Edit Community Entity"
                     >
                       <Edit2 className="w-4 h-4" />
@@ -267,7 +264,7 @@ export default function CommunitiesManagementPage() {
 
                     <button
                       onClick={() => handleDelete(c.id)}
-                      className="p-1.5 text-neutral-400 hover:text-rose-400 rounded-full hover:bg-neutral-800 transition-colors"
+                      className="p-2 text-neutral-400 hover:text-rose-600 rounded-full hover:bg-rose-50 transition-colors"
                       title="Delete Community Entity"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -275,14 +272,14 @@ export default function CommunitiesManagementPage() {
                   </div>
                 </div>
 
-                <p className="text-xs text-neutral-400 line-clamp-2">{c.description}</p>
+                <p className="text-xs text-neutral-500 line-clamp-2 font-medium">{c.description}</p>
               </div>
 
               {/* Slug & Logo Info Footer */}
-              <div className="pt-3 border-t border-[#1e2436] text-[11px] text-[#94a3b8] flex items-center justify-between font-mono">
+              <div className="pt-3 border-t border-neutral-100 text-[11px] text-neutral-400 flex items-center justify-between font-mono">
                 <span className="truncate max-w-[150px]">slug: {c.slug || c.name.toLowerCase().replace(/\s+/g, '-')}</span>
                 {c.logo_url && (
-                  <span className="text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-800 flex items-center gap-1 text-[10px]">
+                  <span className="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1 text-[10px] font-semibold">
                     <ImageIcon className="w-3 h-3" /> Logo Set
                   </span>
                 )}

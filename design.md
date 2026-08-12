@@ -7,14 +7,14 @@ The design language of **CEV EVENTS** is governed by the **Nixtio-Inspired Edito
 
 ## 2. Color System & Palette (Nixtio Dual Theme)
 
-### Base Palette Tokens
-* **Public Body Background:** `#f5f5f5` (Off-white Minimal Canvas)
-* **Dark Hero & Admin Background:** `#0a0a0a` (Deep Charcoal Black)
-* **Elevated Light Panel:** `#ffffff` (Clean White Card Surface)
-* **Elevated Dark Panel:** `#111113` / `#171717` (Dark Elevated Panel)
-* **Border Colors:** `#e5e5e5` (Light Border) / `#262626` (Dark Border)
-* **Primary Text:** `#0a0a0a` (Light Canvas) / `#ffffff` (Dark Canvas)
-* **Muted Text:** `#737373` / `#a3a3a3` (Neutral Muted)
+### Flux Admin Dashboard Design Tokens
+* **Workspace Light Canvas:** `#edf0f4` (Light Grey Soft Slate)
+* **Sidebar Dark Charcoal:** `#18191c` (Deep Charcoal Black)
+* **Sidebar Border:** `#24262b` (Dark Slate Border)
+* **White Card Surface:** `#ffffff` (`rounded-[28px] p-6 shadow-sm border border-neutral-200/60`)
+* **Dark Feature Card Surface:** `#18191c` (`rounded-[28px] p-6 sm:p-8 shadow-xl text-white`)
+* **Active Sidebar Link:** Floating White Pill (`bg-white text-[#141518] font-extrabold rounded-full px-5 py-3 shadow-lg`) with dark indicator dot (`w-2 h-2 rounded-full bg-[#141518]`).
+* **Header Profile & Search Bar:** Pill-shaped white input & user card (`bg-white rounded-full px-4 py-2 text-xs font-bold shadow-sm`).
 
 ### Community Signature Color Palette (Preset Swatches)
 * **IEEE Indigo:** `#6366f1` (Default)

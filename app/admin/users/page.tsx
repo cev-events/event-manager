@@ -280,121 +280,108 @@ export default function UserManagementPage() {
       {/* Top Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
-          <span className="text-xs font-mono text-neutral-400 uppercase font-bold tracking-widest">
-            005 / Access Control & RBAC Matrix
-          </span>
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-display leading-none">
-            {currentUserRole === 'manager' ? 'TEAM & COMMUNITY LEADS' : 'USER ROLES & ACCESS MANAGEMENT'}
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#141518] font-display">
+            {currentUserRole === 'manager' ? 'Team & Community Leads' : 'User Roles & Access Management'}
           </h1>
-          <p className="text-xs text-neutral-400">
+          <p className="text-xs sm:text-sm text-neutral-500 font-medium">
             {currentUserRole === 'manager'
               ? 'Add and modify community leads and editors.'
-              : 'Create, modify, and assign position roles.'}
+              : 'Create, modify, and assign position roles across campus.'}
           </p>
         </div>
 
         <button
           onClick={openAddModal}
-          className="py-2.5 px-5 rounded-full bg-white hover:bg-neutral-200 text-[#0a0a0a] font-bold text-xs shadow-md flex items-center space-x-2 w-fit transition-colors"
+          className="py-2.5 px-6 rounded-full bg-[#141518] hover:bg-black text-white font-extrabold text-xs shadow-md flex items-center space-x-2 w-fit transition-all"
         >
-          <UserPlus className="w-4 h-4" />
-          <span>Add New Lead / Editor</span>
+          <UserPlus className="w-4 h-4 text-white" />
+          <span>Add New User</span>
         </button>
       </div>
 
-      {/* Toast Messages */}
       {toastMsg && (
         <div
-          className={`p-4 rounded-2xl border text-sm flex items-center gap-3 ${
+          className={`p-4 rounded-2xl border text-xs font-semibold flex items-center gap-3 ${
             toastMsg.type === 'success'
-              ? 'bg-emerald-950/80 border-emerald-800 text-emerald-200'
-              : 'bg-red-950/80 border-red-800 text-red-200'
+              ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+              : 'bg-rose-50 border-rose-200 text-rose-800'
           }`}
         >
           {toastMsg.type === 'success' ? (
-            <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
           ) : (
-            <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
+            <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
           )}
           <span>{toastMsg.text}</span>
         </div>
       )}
 
-      {/* Profiles Grid */}
+      {/* Profiles Cards Grid */}
       {loading ? (
-        <div className="p-12 text-center text-slate-500 text-sm bg-slate-900/60 border border-slate-800 rounded-2xl">
-          Loading user accounts & profiles...
-        </div>
-      ) : displayedProfiles.length === 0 ? (
-        <div className="p-12 text-center text-slate-500 text-sm bg-slate-900/60 border border-slate-800 rounded-2xl space-y-3">
-          <p>No community leads found. Click "Add New Lead / Editor" to create one.</p>
+        <div className="p-8 text-center text-neutral-500 text-xs bg-white border border-neutral-200/60 rounded-[28px]">
+          Loading user profiles...
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {displayedProfiles.map((usr) => (
+          {profiles.map((profile) => (
             <div
-              key={usr.id}
-              className="p-6 rounded-2xl bg-neutral-900 border border-neutral-800 flex flex-col justify-between space-y-6 hover:border-neutral-700 transition-colors shadow-sm"
+              key={profile.id}
+              className="p-6 rounded-[28px] bg-white border border-neutral-200/60 flex flex-col justify-between space-y-4 shadow-sm hover:shadow-md transition-all group"
             >
               <div className="space-y-4">
-                {/* Profile Avatar & Info */}
-                <div className="flex items-center space-x-4">
-                  <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-neutral-800 border border-neutral-700 shrink-0 flex items-center justify-center text-xl font-extrabold text-white">
-                    {usr.avatar_url ? (
-                      <Image
-                        src={usr.avatar_url}
-                        alt={usr.full_name || usr.email}
-                        fill
-                        className="object-cover"
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center space-x-3">
+                    {profile.avatar_url ? (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={profile.avatar_url}
+                        alt={profile.full_name || 'User'}
+                        className="w-12 h-12 rounded-2xl object-cover border border-neutral-200"
                       />
                     ) : (
-                      <span>{(usr.full_name || usr.email).substring(0, 2).toUpperCase()}</span>
+                      <div className="w-12 h-12 rounded-2xl bg-[#141518] text-white flex items-center justify-center font-bold text-base font-display">
+                        {(profile.full_name || profile.email || 'U').slice(0, 2).toUpperCase()}
+                      </div>
                     )}
+                    <div>
+                      <h3 className="text-base font-extrabold text-[#141518] font-display">
+                        {profile.full_name || 'Unnamed User'}
+                      </h3>
+                      <p className="text-xs text-neutral-400 truncate max-w-[170px]">
+                        {profile.email}
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="overflow-hidden">
-                    <h3 className="text-lg font-bold text-white truncate font-display">
-                      {usr.full_name || 'Unnamed User'}
-                    </h3>
-                    <p className="text-xs text-neutral-300 font-semibold truncate flex items-center gap-1">
-                      <Briefcase className="w-3 h-3 shrink-0 text-neutral-400" />
-                      {usr.position || 'Community Lead'}
-                    </p>
-                    <p className="text-xs text-neutral-400 truncate mt-0.5 font-mono">{usr.email}</p>
+                  <div className="flex items-center space-x-1">
+                    <button
+                      onClick={() => openEditModal(profile)}
+                      className="p-2 text-neutral-400 hover:text-[#141518] rounded-full hover:bg-neutral-100 transition-colors"
+                      title="Edit User Role"
+                    >
+                      <Edit2 className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteUser(profile.id, profile.full_name || profile.email)}
+                      className="p-2 text-neutral-400 hover:text-rose-600 rounded-full hover:bg-rose-50 transition-colors"
+                      title="Delete User"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
 
-                {/* Role & Community Badges */}
-                <div className="flex flex-wrap gap-2 pt-2 border-t border-neutral-800">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-neutral-800 text-white border border-neutral-700 flex items-center gap-1">
-                    <Shield className="w-3 h-3 text-neutral-400" />
-                    {usr.role}
+                <div className="flex flex-wrap gap-2 pt-2 border-t border-neutral-100">
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#141518] text-white flex items-center gap-1 font-mono">
+                    <Shield className="w-3 h-3 text-white" />
+                    {profile.role}
                   </span>
 
-                  <span className="text-[10px] font-semibold px-2.5 py-1 rounded-full bg-neutral-800 text-neutral-300 border border-neutral-700 flex items-center gap-1">
+                  <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-neutral-100 text-neutral-700 border border-neutral-200 flex items-center gap-1">
                     <Building className="w-3 h-3 text-neutral-400" />
-                    {usr.community?.name || 'Super Admin (All)'}
+                    {profile.community?.name || 'Super Admin (All)'}
                   </span>
                 </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex items-center space-x-2 pt-4 border-t border-neutral-800">
-                <button
-                  onClick={() => openEditModal(usr)}
-                  className="flex-1 py-2 px-3 rounded-full bg-neutral-800 hover:bg-neutral-700 text-white text-xs font-semibold flex items-center justify-center space-x-1.5 transition-colors border border-neutral-700"
-                >
-                  <Edit2 className="w-3.5 h-3.5" />
-                  <span>Modify User</span>
-                </button>
-
-                <button
-                  onClick={() => handleDeleteUser(usr.id, usr.full_name || usr.email)}
-                  className="p-2 rounded-full bg-rose-950/60 hover:bg-rose-900/80 border border-rose-800 text-rose-300 hover:text-white text-xs transition-colors"
-                  title="Delete User Account"
-                >
-                  <Trash2 className="w-4 h-4" />
-                </button>
               </div>
             </div>
           ))}
