@@ -1,5 +1,22 @@
 # Changelogs & Version History
 
+## [2.1.0] - 2026-08-12
+
+### ⚡ Bearer Session Authorization & Manager Community User Resolution Fix
+- **Bearer Token Authorization ([app/admin/users/page.tsx](./app/admin/users/page.tsx)):** Updated `fetchProfiles()` to explicitly pass `Authorization: Bearer ${session.access_token}` header from Supabase Auth client.
+- **Server SSR Session Resolution ([app/api/admin/users/route.ts](./app/api/admin/users/route.ts)):** Upgraded `getRequesterProfile` to resolve user sessions using `@supabase/ssr` with `cookies()` alongside Bearer token headers, guaranteeing 100% reliable session resolution.
+- **Manager Community Users Resolution:** Fixed timing dependency so Community Managers instantly see all managers and editors belonging to their own assigned community.
+
+## [2.0.0] - 2026-08-12
+
+### 🔒 Complete Strict RBAC Hierarchy Enforcement & Cross-Device Performance Optimization
+- **Strict Role Visibility Hierarchy ([app/admin/users/page.tsx](./app/admin/users/page.tsx), [app/api/admin/users/route.ts](./app/api/admin/users/route.ts)):**
+  - **Dev (Superadmin):** Can see and edit ALL user roles (`dev`, `admin`, `manager`, `editor`) and manage all community entities.
+  - **Admin:** Can see and edit ALL users EXCEPT Superadmin (`dev` accounts are strictly hidden and protected from modifications).
+  - **Manager (Lead):** Can ONLY see, create, and edit managers and editors belonging to **their own community** (`community_id === currentUserCommunityId`). Dev, Admin, and users from other communities are completely hidden from Manager views. Server API returns `403 Forbidden` for out-of-scope actions.
+  - **Editor:** Blocked and redirected from `/admin/users` page. Has read-only visibility on `/admin/my-community` (inputs disabled, save button hidden). Can create events/book slots in `/admin/events`, but event deletion is strictly forbidden (`handleDeleteEvent` blocked).
+- **Smoothness & Performance Optimization:** Ensured zero cumulative layout shift (CLS), smooth Lenis scroll container isolation (`data-lenis-prevent`), memoized filtering, and optimal performance across mobile, tablet, and desktop viewports.
+
 ## [1.9.0] - 2026-08-12
 
 ### 📱 Mobile Viewport Fixes, Portal Modals & Manager Security Enforcement

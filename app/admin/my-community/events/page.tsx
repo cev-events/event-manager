@@ -340,6 +340,11 @@ export default function MyCommunityEventsPage() {
   };
 
   const handleDeleteEvent = async () => {
+    if (role === 'editor') {
+      setToastMsg({ type: 'error', text: 'RBAC Restriction: Editors are not permitted to delete events.' });
+      setDeleteId(null);
+      return;
+    }
     if (!deleteId) return;
     try {
       const supabase = createClient();

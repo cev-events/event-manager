@@ -75,7 +75,14 @@ export default function UserManagementPage() {
   const fetchProfiles = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/users');
+      const supabase = createClient();
+      const { data: { session } } = await supabase.auth.getSession();
+      const headers: Record<string, string> = {};
+      if (session?.access_token) {
+        headers['Authorization'] = `Bearer ${session.access_token}`;
+      }
+
+      const res = await fetch('/api/admin/users', { headers });
       const data = await res.json();
       if (res.ok && data.profiles) {
         setProfiles(data.profiles);
@@ -91,16 +98,23 @@ export default function UserManagementPage() {
   }, []);
 
   const displayedProfiles = profiles.filter((p) => {
-    if (p.role === 'dev' && currentUserRole !== 'dev') {
-      return false;
-    }
-
-    if (currentUserRole === 'dev' || currentUserRole === 'admin') {
+    // 1. Dev (Superadmin) can see ALL profiles
+    if (currentUserRole === 'dev') {
       return true;
     }
-    if (currentUserRole === 'manager') {
-      return p.community_id === currentUserCommunityId && Boolean(currentUserCommunityId);
+
+    // 2. Admin can see ALL profiles EXCEPT Dev (Superadmin is strictly hidden)
+    if (currentUserRole === 'admin') {
+      return p.role !== 'dev';
     }
+
+    // 3. Manager can ONLY see managers and editors in THEIR OWN community
+    if (currentUserRole === 'manager') {
+      const isOwnCommunity = !currentUserCommunityId || p.community_id === currentUserCommunityId;
+      const isManagerOrEditor = p.role === 'manager' || p.role === 'editor';
+      return isOwnCommunity && isManagerOrEditor;
+    }
+
     return false;
   });
 
