@@ -1,5 +1,14 @@
 # Changelogs & Version History
 
+## [1.0.0] - 2026-08-12
+
+### 🔒 Strict Non-Live / Draft Event Public Access Restriction
+- **Public Directory Live Filtering ([MasterCalendar.tsx](./app/components/MasterCalendar.tsx)):** Enforced strict `evt.status === 'live'` filtering on public event listings (`/events`). Non-live, closed, draft, or reserved slot events are never displayed in public discovery view regardless of user login status.
+- **Direct Event Detail Page Shield ([app/events/[id]/page.tsx](./app/events/[id]/page.tsx)):** Implemented strict status check on public detail route `/events/[id]`. Accessing a non-live event directly displays an `Event Access Restricted` banner blocking access for all public users and logged-in admins on public routes.
+- **Landing & Community Page Filter Alignment ([app/page.tsx](./app/page.tsx), [app/community/[id]/page.tsx](./app/community/[id]/page.tsx)):** Ensured upcoming schedules and community event lists exclusively render published `live` events.
+
+---
+
 ## [0.99.0] - 2026-08-11
 
 ### ✨ Full-Screen Hero Viewport, Black CTA Button & Navbar Scroll Animations

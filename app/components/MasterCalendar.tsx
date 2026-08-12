@@ -43,6 +43,7 @@ export default function MasterCalendar({
   const [activeTab, setActiveTab] = useState<'list' | 'community'>('list');
 
   const filteredEvents = events.filter((evt) => {
+    if (!isManagerView && evt.status !== 'live') return false;
     if (selectedCommunity === 'all') return true;
     return (evt.community || '').toLowerCase() === selectedCommunity.toLowerCase();
   });

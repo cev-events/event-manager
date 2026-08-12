@@ -141,7 +141,7 @@ export default function LandingHomePage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {eventsList.slice(0, 3).map((evt) => (
+              {eventsList.filter((evt) => evt.status === 'live').slice(0, 3).map((evt) => (
                 <Link
                   key={evt.id}
                   href={`/events/${evt.slug || evt.id}`}

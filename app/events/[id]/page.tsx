@@ -4,7 +4,7 @@
 import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Calendar, Clock, MapPin, Award, ExternalLink, MessageSquare, Sparkles, Users, Globe, Zap } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, MapPin, Award, ExternalLink, MessageSquare, Sparkles, Users, Globe, Zap, Lock } from 'lucide-react';
 import EventAiDrawer from '@/app/components/EventAiDrawer';
 import { createClient } from '@/lib/supabase/client';
 
@@ -141,12 +141,33 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
 
   if (!eventData) {
     return (
-      <div className="min-h-screen bg-[#08090d] text-[#f8fafc] flex flex-col items-center justify-center p-6 space-y-4">
-        <h1 className="text-2xl font-bold font-display text-white">Event Not Found</h1>
-        <p className="text-xs text-[#94a3b8]">The requested event slot may have been removed or updated.</p>
-        <Link href="/events" className="brutalist-btn-primary px-4 py-2 rounded-lg text-xs">
-          &larr; Return to Event Directory
-        </Link>
+      <div className="min-h-screen bg-[#f5f5f5] text-[#0a0a0a] flex flex-col items-center justify-center p-6 space-y-4 font-sans">
+        <div className="p-8 sm:p-10 rounded-2xl bg-white border border-neutral-200 text-center max-w-md space-y-4 shadow-sm">
+          <h1 className="text-xl font-bold font-display text-[#0a0a0a]">Event Not Found</h1>
+          <p className="text-xs text-neutral-600">The requested event slot may have been removed or updated.</p>
+          <Link href="/events" className="inline-block px-5 py-2.5 rounded-full bg-[#0a0a0a] text-white text-xs font-bold hover:bg-neutral-800 transition-colors shadow-md">
+            &larr; Return to Event Directory
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (eventData.status !== 'live') {
+    return (
+      <div className="min-h-screen bg-[#f5f5f5] text-[#0a0a0a] flex flex-col items-center justify-center p-6 space-y-4 font-sans">
+        <div className="p-8 sm:p-10 rounded-2xl bg-white border border-neutral-200 text-center max-w-md space-y-4 shadow-sm">
+          <div className="w-12 h-12 rounded-full bg-amber-100 border border-amber-200 text-amber-700 flex items-center justify-center mx-auto">
+            <Lock className="w-6 h-6" />
+          </div>
+          <h1 className="text-xl font-bold font-display text-[#0a0a0a]">Event Access Restricted</h1>
+          <p className="text-xs text-neutral-600 leading-relaxed">
+            This event slot is currently in draft or reserved status and is restricted from public access.
+          </p>
+          <Link href="/events" className="inline-block px-5 py-2.5 rounded-full bg-[#0a0a0a] text-white text-xs font-bold hover:bg-neutral-800 transition-colors shadow-md">
+            &larr; Return to Event Directory
+          </Link>
+        </div>
       </div>
     );
   }
