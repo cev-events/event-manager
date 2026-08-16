@@ -1,6 +1,8 @@
 // Created by Shibili Aman TK | GitHub: https://github.com/LordSA
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
 import SmoothScroll from "./components/SmoothScroll";
 import ConditionalNavbar from "./components/ConNav";
@@ -60,6 +62,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${quera.variable} ${gued.variable}`}>
+      <Analytics />
+      <SpeedInsights />
       <body className="bg-[#08090d] text-[#f8fafc] antialiased overflow-y-auto overflow-x-hidden selection:bg-[#6366f1] selection:text-white font-sans">
         <LoadingScreen />
         <SmoothScroll />
