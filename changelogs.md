@@ -1,5 +1,17 @@
 # Changelogs & Version History
 
+## [2.3.0] - 2026-08-16
+
+### 📅 Smart Main Page Schedules Ordering & Public Event Registration Link Sanitization
+- **Main Page Schedules Ordering & Visibility ([app/page.tsx](./app/page.tsx)):**
+  - Added `getOrderedSchedules()` helper to filter and sort published events (`status === 'live'`).
+  - Prioritizes live events happening today first, followed by upcoming events in the current month sorted by nearest date to today.
+  - If no live or upcoming events exist in the current month, it automatically falls back to showing next months' upcoming events sorted by nearest date.
+  - Keeps section headers clean without inserting extra subheadings.
+- **Public Event Registration Button Fix ([app/events/[id]/page.tsx](./app/events/[id]/page.tsx)):**
+  - Added `getValidRegistrationUrl()` helper to sanitize external registration URLs (adding `https://` prefix if missing to prevent relative path 404 errors).
+  - Ensures the "Register Now" button is always functional; if no explicit `redirect_url` is provided, clicking "Register Now" opens the AI Event Assistant drawer to guide the user.
+
 ## [2.2.2] - 2026-08-16
 
 ### 🚀 Event AI Drawer React Portal Mounting & Gemini Mobile UI Engine

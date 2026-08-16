@@ -7,6 +7,58 @@ import Link from 'next/link';
 import { useCommunities } from '@/lib/hooks/useCommunities';
 import { useRealtimeEvents } from '@/lib/hooks/useRealtimeEvents';
 
+function getOrderedSchedules(eventsList: any[]): any[] {
+  if (!eventsList || eventsList.length === 0) return [];
+
+  const published = eventsList.filter(
+    (evt) => evt.status === 'live' && (evt.event_date || evt.date)
+  );
+
+  if (published.length === 0) return [];
+
+  const todayStr = new Date().toISOString().split('T')[0];
+  const currentYrMo = todayStr.slice(0, 7);
+
+  const getEventDate = (e: any) => e.event_date || e.date;
+
+  const currentMonthEvents = published.filter((e) =>
+    getEventDate(e).startsWith(currentYrMo)
+  );
+
+  const currentMonthUpcoming = currentMonthEvents.filter(
+    (e) => getEventDate(e) >= todayStr
+  );
+
+  if (currentMonthUpcoming.length > 0) {
+    return currentMonthUpcoming.sort((a, b) => {
+      const dateA = getEventDate(a);
+      const dateB = getEventDate(b);
+
+      const isTodayA = dateA === todayStr;
+      const isTodayB = dateB === todayStr;
+
+      if (isTodayA && !isTodayB) return -1;
+      if (!isTodayA && isTodayB) return 1;
+
+      return dateA.localeCompare(dateB);
+    });
+  }
+
+  const nextMonthsUpcoming = published.filter(
+    (e) => getEventDate(e) >= todayStr
+  );
+
+  if (nextMonthsUpcoming.length > 0) {
+    return nextMonthsUpcoming.sort((a, b) =>
+      getEventDate(a).localeCompare(getEventDate(b))
+    );
+  }
+
+  return published.sort((a, b) =>
+    getEventDate(a).localeCompare(getEventDate(b))
+  );
+}
+
 export default function LandingHomePage() {
   const { communities, loading: communitiesLoading } = useCommunities();
   const { eventsList, loading: eventsLoading } = useRealtimeEvents();
@@ -181,9 +233,7 @@ export default function LandingHomePage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-1.5 sm:gap-2">
-
-              {eventsList
-                .filter((evt) => evt.status === "live")
+              {getOrderedSchedules(eventsList)
                 .slice(0, 3)
                 .map((evt, index) => (
                   <Link
@@ -191,7 +241,6 @@ export default function LandingHomePage() {
                     href={`/events/${evt.slug || evt.id}`}
                     className="group relative bg-white rounded-[24px] overflow-hidden min-h-[520px] sm:min-h-[600px] lg:min-h-[680px] flex flex-col justify-between p-6 sm:p-8 transition-all duration-500 hover:scale-[0.99] hover:shadow-xl"
                   >
-
                     {/* Poster */}
                     <div className="absolute inset-0 overflow-hidden">
                       <img
@@ -210,7 +259,6 @@ export default function LandingHomePage() {
 
                     {/* Top information */}
                     <div className="relative z-10 flex items-start justify-between gap-4">
-
                       <span className="text-[10px] font-mono uppercase font-extrabold text-white bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full">
                         {evt.category}
                       </span>
@@ -218,12 +266,10 @@ export default function LandingHomePage() {
                       <span className="text-[10px] font-mono uppercase font-bold text-white bg-white/15 backdrop-blur-md px-3 py-1.5 rounded-full">
                         {evt.community}
                       </span>
-
                     </div>
 
                     {/* Bottom information */}
                     <div className="relative z-10 text-white space-y-4">
-
                       <div className="flex items-center gap-3 text-xs font-mono text-white/70">
                         <span>{evt.date || evt.event_date}</span>
                       </div>
@@ -241,12 +287,9 @@ export default function LandingHomePage() {
                           <ArrowRight className="w-4 h-4" />
                         </span>
                       </div>
-
                     </div>
-
                   </Link>
                 ))}
-
             </div>
           )}
         </section>

@@ -68,6 +68,15 @@ function refactorDescription3Lines(text: string | null | undefined): string {
   return selected.length > 280 ? selected.slice(0, 277) + '...' : selected;
 }
 
+function getValidRegistrationUrl(url?: string | null): string {
+  if (!url || !url.trim()) return '';
+  const trimmed = url.trim();
+  if (/^https?:\/\//i.test(trimmed)) {
+    return trimmed;
+  }
+  return `https://${trimmed}`;
+}
+
 export default function EventDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const eventId = resolvedParams.id;
@@ -281,17 +290,31 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
               </div>
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
-                {eventData.redirect_url && eventData.redirect_url.trim() !== '' && (
-                  <a
-                    href={eventData.redirect_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 brutalist-btn-primary py-3.5 px-6 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 text-center"
-                  >
-                    <span>Register Now</span>
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                )}
+                {(() => {
+                  const validRegUrl = getValidRegistrationUrl(eventData.redirect_url);
+                  if (validRegUrl) {
+                    return (
+                      <a
+                        href={validRegUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 brutalist-btn-primary py-3.5 px-6 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 text-center"
+                      >
+                        <span>Register Now</span>
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    );
+                  }
+                  return (
+                    <button
+                      onClick={() => setAiDrawerOpen(true)}
+                      className="flex-1 brutalist-btn-primary py-3.5 px-6 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 text-center cursor-pointer"
+                    >
+                      <span>Register Now</span>
+                      <ExternalLink className="w-4 h-4" />
+                    </button>
+                  );
+                })()}
 
                 <button
                   onClick={() => setAiDrawerOpen(true)}
