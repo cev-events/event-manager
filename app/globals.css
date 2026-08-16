@@ -156,3 +156,8 @@ body {
     scrollbar-width: none;
   }
 }
+
+body.hide-nav-footer header,
+body.hide-nav-footer footer {
+  display: none !important;
+}

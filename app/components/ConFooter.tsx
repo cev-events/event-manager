@@ -2,15 +2,25 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import Footer from "./Footer";
 
 export default function ConditionalFooter() {
   const pathname = usePathname();
-  
-  const isHidePage = pathname.startsWith("/admin") || pathname.startsWith("/login");
+  const [shouldHide, setShouldHide] = useState(false);
 
-  if (isHidePage) {
-    return null; 
+  useEffect(() => {
+    const isHideRoute =
+      pathname.startsWith("/admin") ||
+      pathname.startsWith("/login");
+
+    const isNotFound = typeof document !== 'undefined' && !!document.getElementById("not-found-page");
+
+    setShouldHide(isHideRoute || isNotFound);
+  }, [pathname]);
+
+  if (shouldHide) {
+    return null;
   }
 
   return <Footer />;

@@ -1,5 +1,21 @@
 # Changelogs & Version History
 
+## [2.7.1] - 2026-08-16
+
+### 🛡️ Navbar & Footer Suppression on 404 & Offline Pages
+- **Conditional Layout Controls ([app/components/ConNav.tsx](./app/components/ConNav.tsx), [app/components/ConFooter.tsx](./app/components/ConFooter.tsx)):**
+  - Updated `ConditionalNavbar` and `ConditionalFooter` to suppress `<Navbar>` and `<Footer>` when `not-found-page` or `offline-page` mounts.
+- **Body Class Isolation ([app/globals.css](./app/globals.css), [app/not-found.tsx](./app/not-found.tsx), [app/offline/page.tsx](./app/offline/page.tsx)):**
+  - Added `.hide-nav-footer` body classing on 404 and offline pages to ensure clean standalone page presentations without layout header overlaps.
+
+## [2.7.0] - 2026-08-16
+
+### 🎨 Custom 404 Not Found & Offline Network Fallback Pages
+- **Custom 404 Page ([app/not-found.tsx](./app/not-found.tsx)):**
+  - Created custom 404 page featuring Swiss editorial display typography (`004 / Error Page`), `404` oversized hero title, and quick-action pill buttons (`Return Home`, `Browse Events`, `View Calendar`).
+- **Offline Network Page ([app/offline/page.tsx](./app/offline/page.tsx)):**
+  - Created network loss fallback page (`005 / Offline Mode`) with animated pulsing status badge, network reconnect button (`window.location.reload()`), and home navigation.
+
 ## [2.6.1] - 2026-08-16
 
 ### 🛠️ Vercel Build `ERR_INVALID_URL` Metadata Fix
