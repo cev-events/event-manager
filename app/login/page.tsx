@@ -134,11 +134,10 @@ function LoginForm() {
             type="button"
             suppressHydrationWarning
             onClick={() => { setAuthMode('password'); setError(''); setSuccessMsg(''); }}
-            className={`py-2 text-xs font-bold rounded-lg transition-all ${
-              authMode === 'password'
+            className={`py-2 text-xs font-bold rounded-lg transition-all ${authMode === 'password'
                 ? 'bg-white text-black shadow-sm font-bold'
                 : 'text-neutral-400 hover:text-white'
-            }`}
+              }`}
           >
             Password Auth
           </button>
@@ -147,11 +146,10 @@ function LoginForm() {
             type="button"
             suppressHydrationWarning
             onClick={() => { setAuthMode('otp'); setError(''); setSuccessMsg(''); }}
-            className={`py-2 text-xs font-bold rounded-lg transition-all ${
-              authMode === 'otp'
+            className={`py-2 text-xs font-bold rounded-lg transition-all ${authMode === 'otp'
                 ? 'bg-white text-black shadow-sm font-bold'
                 : 'text-neutral-400 hover:text-white'
-            }`}
+              }`}
           >
             6-Digit Email OTP
           </button>
@@ -298,7 +296,7 @@ function LoginForm() {
 
         <div className="text-center pt-4 border-t border-neutral-800">
           <Link href="/" className="text-xs text-neutral-400 hover:text-white transition-colors">
-            &larr; Back to Public Portal
+            &larr; Back to Home
           </Link>
         </div>
       </div>

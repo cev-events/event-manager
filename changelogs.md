@@ -1,5 +1,20 @@
 # Changelogs & Version History
 
+## [2.4.3] - 2026-08-16
+
+### 🚫 Disabled Registration Button State
+- **Public Event Slug Registration ([app/events/[id]/page.tsx](./app/events/[id]/page.tsx)):**
+  - Configured the "Register Now" button to be explicitly disabled (`disabled`, `aria-disabled="true"`, `cursor-not-allowed`, muted opacity) whenever an event does not have a registration URL provided.
+
+## [2.4.2] - 2026-08-16
+
+### 🎨 Theme-Responsive Favicons & Browser Title Icons
+- **Dynamic Theme Favicons ([app/layout.tsx](./app/layout.tsx)):**
+  - Updated Next.js `metadata.icons` to use media queries matching browser color scheme:
+    - Light Theme (`prefers-color-scheme: light`): uses `/icon_w.svg`.
+    - Dark Theme (`prefers-color-scheme: dark`): uses `/icon_b.svg`.
+  - Configured both standard `icon` and `apple` touch icons.
+
 ## [2.4.1] - 2026-08-16
 
 ### 🧹 Streamlined Mobile Navbar Drawer

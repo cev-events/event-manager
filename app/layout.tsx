@@ -30,8 +30,26 @@ export const metadata: Metadata = {
   title: "CEV EVENTS | Multi-Community Event Manager",
   description: "Unified campus event discovery, slot booking, and community management.",
   icons: {
-    icon: "/cev_logo.svg",
-    apple: "/cev_logo.svg",
+    icon: [
+      {
+        url: "/icon_w.svg",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icon_b.svg",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
+    apple: [
+      {
+        url: "/icon_w.svg",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icon_b.svg",
+        media: "(prefers-color-scheme: dark)",
+      },
+    ],
   },
 };
 

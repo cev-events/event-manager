@@ -307,8 +307,9 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
                   }
                   return (
                     <button
-                      onClick={() => setAiDrawerOpen(true)}
-                      className="flex-1 brutalist-btn-primary py-4 px-8 rounded-full font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 text-center cursor-pointer"
+                      disabled
+                      aria-disabled="true"
+                      className="flex-1 py-4 px-8 rounded-full bg-neutral-200 text-neutral-400 border border-neutral-300 font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 text-center cursor-not-allowed opacity-70"
                     >
                       <span>Register Now</span>
                       <ExternalLink className="w-4 h-4" />
