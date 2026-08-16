@@ -1,5 +1,15 @@
 # Changelogs & Version History
 
+## [2.2.1] - 2026-08-16
+
+### 🔧 Event AI Drawer Top-0 Layout Fix & Streamlined Footer Credits
+- **AI Drawer Top-0 Layout Fix ([app/components/EventAiDrawer.tsx](./app/components/EventAiDrawer.tsx)):**
+  - Updated outer panel positioning to `fixed top-0 right-0 bottom-0` and added `min-h-0` to the flex message container.
+  - Guarantees the AI Assistant drawer header remains pinned at `top: 0` without overflowing or pushing off-screen on any viewport height.
+- **Streamlined Site Footer & Developer Credits ([app/components/Footer.tsx](./app/components/Footer.tsx)):**
+  - Removed the bulky "Developed & Maintained By" side card.
+  - Replaced footer credit line with "Developed by **Shibili Aman TK**" alongside direct links for **Website** (`shibili.tech`), **GitHub** (`LordSA`), and **LinkedIn** (`shibili-aman-tk`).
+
 ## [2.2.0] - 2026-08-16
 
 ### 🤖 AI Agent UI Modernization, Public Event Mobile Poster Ordering & Mobile Lenis Scroll Bypass
