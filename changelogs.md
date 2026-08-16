@@ -1,5 +1,12 @@
 # Changelogs & Version History
 
+## [2.6.1] - 2026-08-16
+
+### 🛠️ Vercel Build `ERR_INVALID_URL` Metadata Fix
+- **URL Protocol Sanitizer ([lib/siteUrl.ts](./lib/siteUrl.ts)):**
+  - Created `getValidSiteUrl()` helper to automatically validate and format `NEXT_PUBLIC_SITE_URL` (adding `https://` prefix if missing in Vercel environment variables).
+  - Fixed `TypeError [ERR_INVALID_URL]: Invalid URL input: 'whatsatcev.shibili.tech'` during `next build` page configuration collection on Vercel.
+
 ## [2.6.0] - 2026-08-16
 
 ### 🔍 Complete Search Engine SEO Suite, Robots.txt & Dynamic XML Sitemap

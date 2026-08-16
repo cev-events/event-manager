@@ -71,7 +71,7 @@ export function useRealtimeEvents() {
             status: item.status as 'closed' | 'live',
             image: item.poster_url || '/images/poster.webp',
             poster_url: item.poster_url || '/images/poster.webp',
-            venue: item.venue || 'Campus Setup / CEV',
+            venue: item.venue || 'CEV',
             redirect_url: item.redirect_url || null,
             perks: item.perks || null,
             start_date: item.start_date || null,

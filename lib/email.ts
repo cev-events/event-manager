@@ -17,7 +17,7 @@ export async function sendSupportTicketEmail(
 ) {
   const host = process.env.SMTP_HOST || 'smtp.gmail.com';
   const port = parseInt(process.env.SMTP_PORT || '465', 10);
-  const user = process.env.SMTP_USER || 'room2homies@gmail.com';
+  const user = process.env.SMTP_USER || 'events@cev.ac.in';
   const pass = process.env.SMTP_PASS || '';
   const from = process.env.SMTP_FROM_EMAIL || `"CEV EVENTS Support" <${user}>`;
 

@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { ArrowLeft, Calendar, Clock, MapPin, Award, ExternalLink, MessageSquare, Sparkles, Users, Globe, Zap, Lock } from 'lucide-react';
 import EventAiDrawer from '@/app/components/EventAiDrawer';
 import { createClient } from '@/lib/supabase/client';
+import { getValidSiteUrl } from '@/lib/siteUrl';
 
 function formatSingleTime12(t: string): string {
   if (!t) return '';
@@ -188,7 +189,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
     ? eventData.poster_url
     : ((eventData.image && eventData.image.trim() !== '') ? eventData.image : '/images/poster.webp');
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://event.cev.ac.in';
+  const siteUrl = getValidSiteUrl();
   const eventJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Event',

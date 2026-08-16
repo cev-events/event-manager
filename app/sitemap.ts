@@ -1,9 +1,10 @@
 // Created by Shibili Aman TK | GitHub: https://github.com/LordSA
 import { MetadataRoute } from 'next';
 import { createClient } from '@/lib/supabase/client';
+import { getValidSiteUrl } from '@/lib/siteUrl';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://event.cev.ac.in';
+  const baseUrl = getValidSiteUrl();
   const supabase = createClient();
 
   const routes: MetadataRoute.Sitemap = [

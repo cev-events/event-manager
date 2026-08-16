@@ -9,6 +9,7 @@ import ConditionalNavbar from "./components/ConNav";
 import ConditionalFooter from "./components/ConFooter";
 
 import LoadingScreen from "./components/LoadingScreen";
+import { getValidSiteUrl } from "@/lib/siteUrl";
 
 const quera = localFont({
   src: "../fonts/quera.otf",
@@ -28,7 +29,7 @@ const roundered = localFont({
   display: "swap",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://event.cev.ac.in';
+const siteUrl = getValidSiteUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
