@@ -1,5 +1,12 @@
 # Changelogs & Version History
 
+## [2.4.1] - 2026-08-16
+
+### 🧹 Streamlined Mobile Navbar Drawer
+- **Navbar Drawer Refinement ([app/components/Navbar.tsx](./app/components/Navbar.tsx)):**
+  - Removed the extra "Go to Dashboard / Login" button from inside the mobile overlay drawer to keep the drawer layout clean and focused.
+  - Dashboard / Login button remains accessible on the top mobile navbar header bar.
+
 ## [2.4.0] - 2026-08-16
 
 ### 📱 Mobile Navbar Navigation & Dashboard/Login Integration

@@ -361,7 +361,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        <div className="flex flex-col space-y-5 my-auto">
+        <div className="flex flex-col space-y-6 my-auto">
           {mobileNavLinks.map((link, index) => (
             <Link
               key={link.name}
@@ -376,19 +376,6 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-
-          {!loading && (
-            <div className="pt-4">
-              <Link
-                href={session ? "/admin" : "/login"}
-                onClick={() => setIsOpen(false)}
-                className="w-full py-4 px-6 rounded-full bg-white hover:bg-neutral-200 text-[#0a0a0a] font-extrabold text-sm uppercase tracking-wider flex items-center justify-between shadow-xl transition-all"
-              >
-                <span>{session ? "Go to Dashboard" : "Login / Account"}</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          )}
         </div>
 
         <div className="pt-6 border-t border-neutral-800 flex items-center justify-between text-[10px] text-neutral-500 font-mono uppercase tracking-wider">
