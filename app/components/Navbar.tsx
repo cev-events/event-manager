@@ -11,48 +11,52 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
-  const [scrollY, setScrollY] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
   const [isOverDark, setIsOverDark] = useState(false);
 
   const pathname = usePathname();
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const y = window.scrollY;
-      setScrollY(y);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const y = window.scrollY;
+          const isNowScrolled = y >= 40;
 
-      if (pathname === "/calendar") {
-        setIsOverDark(true);
-        return;
+          setScrolled((prev) => (prev !== isNowScrolled ? isNowScrolled : prev));
+
+          if (pathname === "/calendar") {
+            setIsOverDark(true);
+          } else if (pathname === "/") {
+            const hero = document.getElementById("hero-section");
+
+            if (hero) {
+              const rect = hero.getBoundingClientRect();
+              const navbarPoint = 70;
+
+              setIsOverDark(
+                rect.top <= navbarPoint && rect.bottom > navbarPoint
+              );
+            } else {
+              setIsOverDark(false);
+            }
+          } else {
+            setIsOverDark(false);
+          }
+
+          ticking = false;
+        });
+
+        ticking = true;
       }
-
-      if (pathname === "/") {
-        const hero = document.getElementById("hero-section");
-
-        if (hero) {
-          const rect = hero.getBoundingClientRect();
-          const navbarPoint = 70;
-
-          setIsOverDark(
-            rect.top <= navbarPoint && rect.bottom > navbarPoint
-          );
-        } else {
-          setIsOverDark(false);
-        }
-
-        return;
-      }
-
-      setIsOverDark(false);
     };
 
     handleScroll();
 
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
-
-    window.addEventListener("resize", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -123,7 +127,7 @@ export default function Navbar() {
     { name: "Support", href: "/support" },
   ];
 
-  const isInitial = scrollY < 40;
+  const isInitial = !scrolled;
   const darkMode = isOverDark;
 
   const logoSrc = darkMode
@@ -135,8 +139,9 @@ export default function Navbar() {
       className={`
         fixed top-0 inset-x-0 z-[100]
         pointer-events-none
-        transition-all duration-[900ms]
+        transition-all duration-300 md:duration-[900ms]
         ease-[cubic-bezier(0.16,1,0.3,1)]
+        will-change-[padding,background-color]
         ${isInitial
           ? "px-5 sm:px-14 lg:px-16 py-5 sm:py-9"
           : "px-4 sm:px-10 lg:px-14 py-3 sm:py-5"
@@ -149,14 +154,14 @@ export default function Navbar() {
           <Link
             href="/"
             aria-label="CEV EVENTS Home"
-            className="flex items-center transition-transform duration-500 hover:scale-105"
+            className="flex items-center transition-transform duration-300 md:duration-500 hover:scale-105"
           >
             <img
               src={logoSrc}
               alt="CEV Logo"
               className={`
                 w-auto object-contain
-                transition-all duration-[900ms]
+                transition-all duration-300 md:duration-[900ms]
                 ease-[cubic-bezier(0.16,1,0.3,1)]
                 ${isInitial
                   ? "h-8 sm:h-10 lg:h-11"

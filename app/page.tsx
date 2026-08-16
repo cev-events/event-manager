@@ -65,11 +65,22 @@ export default function LandingHomePage() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const isNowScrolled = window.scrollY > 40;
+          setScrolled((prev) => (prev !== isNowScrolled ? isNowScrolled : prev));
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -84,10 +95,10 @@ export default function LandingHomePage() {
       <main className="flex-1 w-full pb-24 space-y-5">
 
         {/* Full-Screen Nixtio-Style Hero Header Card Container (All 4 Corners Rounded in State 1) */}
-        <div className={`mx-auto pt-1 transition-all duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${scrolled ? "w-[92%] sm:w-[94%] lg:w-[95%]" : "w-[99%]"}`}>
+        <div className={`mx-auto pt-1 transition-all duration-300 md:duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${scrolled ? "w-[92%] sm:w-[94%] lg:w-[95%]" : "w-[99%]"}`}>
           <section
             id="hero-section"
-            className={`relative w-full overflow-hidden bg-[#0a0a0a] text-white flex flex-col justify-between shadow-2xl border border-neutral-800/80 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${scrolled
+            className={`relative w-full overflow-hidden bg-[#0a0a0a] text-white flex flex-col justify-between shadow-2xl border border-neutral-800/80 transition-all duration-300 md:duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${scrolled
               ? `min-h-[70vh] sm:min-h-[72vh] lg:min-h-[75vh] rounded-[0.8rem] sm:rounded-[0.9rem] lg:rounded-[1rem] p-4 sm:p-7 lg:p-9` : `min-h-[92vh] sm:min-h-[95vh] lg:min-h-[99vh] rounded-[0.9rem] sm:rounded-[1.1rem] lg:rounded-[1.3rem] p-6 sm:p-12 lg:p-16`}`}
           >
             {/* Animated Header GIF Background */}

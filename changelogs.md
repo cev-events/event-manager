@@ -1,5 +1,15 @@
 # Changelogs & Version History
 
+## [2.5.0] - 2026-08-16
+
+### ⚡ Mobile Header Scroll Performance Optimization
+- **Scroll Listener Throttling ([app/components/Navbar.tsx](./app/components/Navbar.tsx), [app/page.tsx](./app/page.tsx)):**
+  - Implemented `requestAnimationFrame` RAF throttling on scroll events with `{ passive: true }` listeners.
+  - Replaced continuous pixel numeric state updates with boolean state diffing (`prev !== isNowScrolled`), preventing redundant re-renders on pixel-by-pixel scrolling.
+- **Hardware-Accelerated Mobile Transitions ([app/components/Navbar.tsx](./app/components/Navbar.tsx), [app/page.tsx](./app/page.tsx)):**
+  - Added `will-change-[padding,background-color]` and responsive transition durations (`duration-300 md:duration-[900ms]`).
+  - Completely eliminated mobile touch-scroll frame drops while preserving full desktop smooth animations.
+
 ## [2.4.3] - 2026-08-16
 
 ### 🚫 Disabled Registration Button State
