@@ -1,5 +1,16 @@
 # Changelogs & Version History
 
+## [2.2.2] - 2026-08-16
+
+### 🚀 Event AI Drawer React Portal Mounting & Gemini Mobile UI Engine
+- **React Portal Body Mounting ([app/components/EventAiDrawer.tsx](./app/components/EventAiDrawer.tsx)):**
+  - Wrapped `EventAiDrawer` in React `createPortal(..., document.body)` with ultra-high z-index (`z-[999999]`).
+  - Completely detaches drawer from parent DOM hierarchy and CSS transform contexts (`transform`, `perspective`, `filter`), guaranteeing it stays 100% fixed above all page elements, navbars, footers, and scroll containers.
+- **Gemini Mobile AI Interface & Animations ([app/components/EventAiDrawer.tsx](./app/components/EventAiDrawer.tsx)):**
+  - **Mobile Bottom Sheet (`< sm`)**: Opens as a sleek 92dvh mobile sheet (`rounded-t-3xl border-t border-white/10`) with top grab indicator bar and smooth spring slide-up animations.
+  - **Desktop Right Drawer (`>= sm`)**: Slides in as a 480px right drawer.
+  - **Gemini Styling & Branding**: Features Gemini Sparkles branding icon, model tag ("Gemini 1.5 Flash"), floating rounded input pill bar (`rounded-2xl bg-[#141724] border-white/15 shadow-xl`), and typing state ("Gemini is thinking...").
+
 ## [2.2.1] - 2026-08-16
 
 ### 🔧 Event AI Drawer Top-0 Layout Fix & Streamlined Footer Credits

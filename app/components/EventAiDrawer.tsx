@@ -2,8 +2,9 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Send, X, Clock, MapPin, CheckCircle, FileText, RotateCcw, Bot, User } from 'lucide-react';
+import { MessageSquare, Send, X, Clock, MapPin, CheckCircle, FileText, RotateCcw, Bot, User, Sparkles } from 'lucide-react';
 
 interface EventAiDrawerProps {
   isOpen: boolean;
@@ -106,10 +107,15 @@ export default function EventAiDrawer({
 }: EventAiDrawerProps) {
   const cleanTitle = eventTitle ? eventTitle.replace(/\*\*/g, '').trim() : 'this event';
 
+  const [mounted, setMounted] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -128,7 +134,7 @@ export default function EventAiDrawer({
         {
           id: '1',
           sender: 'ai',
-          text: `Welcome to the official event desk for **${cleanTitle}**. I'm your AI assistant for this session. Feel free to ask about the schedule, venue, prerequisites, or registration guidance!`,
+          text: `Hi! I'm your Gemini AI Assistant for **${cleanTitle}**. Ask me anything about the schedule, venue details, prerequisites, or registration guidance!`,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
       ]);
@@ -200,7 +206,7 @@ export default function EventAiDrawer({
       {
         id: Date.now().toString(),
         sender: 'ai',
-        text: `Conversation reset. I'm ready to answer any questions about **${cleanTitle}**!`,
+        text: `Conversation reset. Ready to assist you with **${cleanTitle}**!`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       },
     ]);
@@ -213,7 +219,9 @@ export default function EventAiDrawer({
     { label: 'How do I register?', icon: FileText },
   ];
 
-  return (
+  if (!mounted) return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <>
@@ -222,29 +230,31 @@ export default function EventAiDrawer({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md z-[200]"
+            className="fixed inset-0 bg-black/80 backdrop-blur-md z-[999999]"
           />
 
           <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 26, stiffness: 280 }}
-            className="fixed top-0 right-0 bottom-0 w-full sm:w-[460px] bg-[#0c0d12] border-l border-white/10 z-[200] flex flex-col shadow-2xl text-white font-sans overflow-hidden"
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: '100%', opacity: 0 }}
+            transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+            className="fixed inset-x-0 bottom-0 sm:inset-y-0 sm:left-auto sm:right-0 w-full sm:w-[480px] h-[92dvh] sm:h-full bg-[#090a0f] border-t sm:border-t-0 sm:border-l border-white/10 z-[999999] flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.8)] sm:shadow-2xl text-white font-sans rounded-t-3xl sm:rounded-none overflow-hidden"
           >
-            <div className="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-[#12141d] shrink-0">
+            <div className="w-12 h-1 bg-white/20 rounded-full mx-auto my-2.5 sm:hidden shrink-0" />
+
+            <div className="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-[#11131c] shrink-0">
               <div className="flex items-center gap-3 min-w-0">
-                <div className="w-10 h-10 rounded-xl bg-[#6366f1]/15 border border-[#6366f1]/30 text-[#818cf8] flex items-center justify-center shrink-0 relative">
-                  <MessageSquare className="w-5 h-5" />
-                  <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-500 border-2 border-[#0c0d12] animate-pulse" />
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500/20 via-purple-500/20 to-cyan-500/20 border border-indigo-500/30 text-indigo-400 flex items-center justify-center shrink-0 relative shadow-inner">
+                  <Sparkles className="w-5 h-5 text-indigo-300 animate-pulse" />
+                  <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-500 border-2 border-[#090a0f] animate-pulse" />
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <h3 className="text-sm sm:text-base font-extrabold text-white font-display tracking-tight truncate">
-                      Event Assistant
+                      Gemini Assistant
                     </h3>
-                    <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 shrink-0">
-                      Live
+                    <span className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 shrink-0">
+                      Gemini 1.5 Flash
                     </span>
                   </div>
                   <p className="text-xs text-slate-400 truncate max-w-[210px] sm:max-w-[260px]">
@@ -283,16 +293,16 @@ export default function EventAiDrawer({
                   }`}
                 >
                   {msg.sender === 'ai' && (
-                    <div className="w-7 h-7 rounded-lg bg-[#6366f1]/20 border border-[#6366f1]/40 flex items-center justify-center text-[#818cf8] shrink-0 mt-1 shadow-sm">
-                      <Bot className="w-4 h-4" />
+                    <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-600/30 to-purple-600/30 border border-indigo-500/40 flex items-center justify-center text-indigo-300 shrink-0 mt-1 shadow-sm">
+                      <Sparkles className="w-4 h-4" />
                     </div>
                   )}
 
                   <div
-                    className={`max-w-[85%] sm:max-w-[82%] rounded-2xl p-4 shadow-md ${
+                    className={`max-w-[86%] sm:max-w-[82%] rounded-2xl p-4 shadow-md ${
                       msg.sender === 'user'
                         ? 'bg-white text-[#0a0a0a] font-medium rounded-tr-sm'
-                        : 'bg-[#161a29] text-slate-200 border border-white/10 rounded-tl-sm'
+                        : 'bg-[#141724] text-slate-200 border border-white/10 rounded-tl-sm'
                     }`}
                   >
                     <div>{renderFormattedMessage(msg.text)}</div>
@@ -306,7 +316,7 @@ export default function EventAiDrawer({
                   </div>
 
                   {msg.sender === 'user' && (
-                    <div className="w-7 h-7 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-white shrink-0 mt-1 shadow-sm">
+                    <div className="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-white shrink-0 mt-1 shadow-sm">
                       <User className="w-4 h-4" />
                     </div>
                   )}
@@ -325,9 +335,9 @@ export default function EventAiDrawer({
                         <button
                           key={pill.label}
                           onClick={() => sendQueryText(pill.label)}
-                          className="flex items-center gap-2.5 p-3 rounded-xl bg-[#141722] hover:bg-[#1c2132] border border-white/10 hover:border-[#6366f1]/50 text-left text-xs text-slate-300 hover:text-white transition-all shadow-sm group"
+                          className="flex items-center gap-2.5 p-3 rounded-xl bg-[#141724] hover:bg-[#1d2235] border border-white/10 hover:border-indigo-500/50 text-left text-xs text-slate-300 hover:text-white transition-all shadow-sm group"
                         >
-                          <Icon className="w-4 h-4 text-[#6366f1] group-hover:scale-110 transition-transform shrink-0" />
+                          <Icon className="w-4 h-4 text-indigo-400 group-hover:scale-110 transition-transform shrink-0" />
                           <span className="truncate">{pill.label}</span>
                         </button>
                       );
@@ -337,9 +347,9 @@ export default function EventAiDrawer({
               )}
 
               {loading && (
-                <div className="flex items-center gap-3 text-slate-300 text-xs bg-[#161a29] p-3.5 rounded-xl border border-white/10 w-fit shadow-md">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#6366f1] animate-ping" />
-                  <span className="font-medium">Checking event records...</span>
+                <div className="flex items-center gap-3 text-slate-300 text-xs bg-[#141724] p-3.5 rounded-xl border border-white/10 w-fit shadow-md">
+                  <div className="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-ping" />
+                  <span className="font-medium">Gemini is thinking...</span>
                 </div>
               )}
 
@@ -348,20 +358,20 @@ export default function EventAiDrawer({
 
             <form
               onSubmit={handleSendMessage}
-              className="p-3 sm:p-4 border-t border-white/10 bg-[#0e1018] shrink-0 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+              className="p-3.5 sm:p-4 border-t border-white/10 bg-[#0d0e15] shrink-0 pb-[max(0.85rem,env(safe-area-inset-bottom))]"
             >
-              <div className="relative flex items-center">
+              <div className="relative flex items-center bg-[#141724] rounded-2xl border border-white/15 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all p-1.5 pl-4 shadow-xl">
                 <input
                   type="text"
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
-                  placeholder="Ask about schedule, venue, prerequisites..."
-                  className="w-full bg-[#161a29] text-white placeholder-slate-400 rounded-xl px-4 py-3.5 text-xs sm:text-sm border border-white/10 focus:outline-none focus:border-[#6366f1] focus:ring-1 focus:ring-[#6366f1] transition-all pr-12"
+                  placeholder="Ask Gemini about schedule, venue, prerequisites..."
+                  className="w-full bg-transparent text-white placeholder-slate-400 py-2 text-xs sm:text-sm focus:outline-none pr-3"
                 />
                 <button
                   type="submit"
                   disabled={!inputMessage.trim() || loading}
-                  className="absolute right-2 w-9 h-9 bg-[#6366f1] hover:bg-[#4f46e5] text-white rounded-lg disabled:opacity-40 transition-colors flex items-center justify-center shadow-md"
+                  className="w-9 h-9 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl disabled:opacity-30 transition-all flex items-center justify-center shrink-0 shadow-md active:scale-95"
                   aria-label="Send message"
                 >
                   <Send className="w-4 h-4" />
@@ -371,6 +381,7 @@ export default function EventAiDrawer({
           </motion.div>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }
