@@ -188,8 +188,40 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
     ? eventData.poster_url
     : ((eventData.image && eventData.image.trim() !== '') ? eventData.image : '/images/poster.webp');
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://event.cev.ac.in';
+  const eventJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    'name': cleanTitle,
+    'description': publicDescription,
+    'startDate': eventData.event_date || eventData.date,
+    'eventStatus': 'https://schema.org/EventScheduled',
+    'eventAttendanceMode': (eventData.venue || '').toLowerCase().includes('online')
+      ? 'https://schema.org/OnlineEventAttendanceMode'
+      : 'https://schema.org/OfflineEventAttendanceMode',
+    'location': {
+      '@type': 'Place',
+      'name': eventData.venue || 'College of Engineering Vadakara',
+      'address': {
+        '@type': 'PostalAddress',
+        'addressLocality': 'Vadakara',
+        'addressRegion': 'Kerala',
+        'addressCountry': 'IN',
+      },
+    },
+    'image': [posterSrc],
+    'organizer': {
+      '@type': 'Organization',
+      'name': communityName,
+    },
+  };
+
   return (
     <div className="min-h-screen bg-[#f5f5f5] text-[#0a0a0a] pt-28 md:pt-32 pb-20 px-4 sm:px-6 lg:px-8 font-sans relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
+      />
       <div className="max-w-6xl mx-auto space-y-6">
         <button
           onClick={handleBackClick}

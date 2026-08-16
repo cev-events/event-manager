@@ -1,5 +1,20 @@
 # Changelogs & Version History
 
+## [2.6.0] - 2026-08-16
+
+### 🔍 Complete Search Engine SEO Suite, Robots.txt & Dynamic XML Sitemap
+- **Robots Crawling Policy ([app/robots.ts](./app/robots.ts)):**
+  - Configured rules allowing all search crawlers to index public pages while restricting private admin/api endpoints.
+  - Linked to dynamic XML sitemap endpoint.
+- **Dynamic XML Sitemap ([app/sitemap.ts](./app/sitemap.ts)):**
+  - Generates automatic sitemap entries for all static pages (`/`, `/events`, `/calendar`, `/community`, `/support`).
+  - Queries Supabase in real-time to index published live events (`/events/[slug]`) and community profile pages (`/community/[slug]`).
+- **OpenGraph & Twitter Cards ([app/layout.tsx](./app/layout.tsx)):**
+  - Added `metadataBase`, `openGraph`, `twitter`, `keywords`, and `googleBot` crawling specifications.
+- **JSON-LD Rich Snippets Schema ([app/layout.tsx](./app/layout.tsx), [app/events/[id]/page.tsx](./app/events/[id]/page.tsx)):**
+  - Injected `schema.org/EducationalOrganization` & `schema.org/WebSite` schema on root layout.
+  - Injected `schema.org/Event` structured data schema on event detail pages for Google Rich Snippets search results.
+
 ## [2.5.1] - 2026-08-16
 
 ### 🧹 Clean Footer Refinement
