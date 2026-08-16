@@ -298,7 +298,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
                         href={validRegUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 brutalist-btn-primary py-3.5 px-6 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 text-center"
+                        className="flex-1 brutalist-btn-primary py-4 px-8 rounded-full font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 text-center"
                       >
                         <span>Register Now</span>
                         <ExternalLink className="w-4 h-4" />
@@ -308,7 +308,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
                   return (
                     <button
                       onClick={() => setAiDrawerOpen(true)}
-                      className="flex-1 brutalist-btn-primary py-3.5 px-6 rounded-xl font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 text-center cursor-pointer"
+                      className="flex-1 brutalist-btn-primary py-4 px-8 rounded-full font-bold text-xs uppercase tracking-wider flex items-center justify-center space-x-2 text-center cursor-pointer"
                     >
                       <span>Register Now</span>
                       <ExternalLink className="w-4 h-4" />
@@ -318,7 +318,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
 
                 <button
                   onClick={() => setAiDrawerOpen(true)}
-                  className="flex-1 py-3.5 px-6 rounded-xl bg-[#0a0a0a] hover:bg-neutral-800 text-white font-bold text-xs border border-black flex items-center justify-center space-x-2 transition-colors uppercase tracking-wider"
+                  className="flex-1 py-4 px-8 rounded-full bg-[#0a0a0a] hover:bg-neutral-800 text-white font-bold text-xs border border-black flex items-center justify-center space-x-2 transition-all uppercase tracking-wider shadow-md hover:shadow-lg"
                 >
                   <MessageSquare className="w-4 h-4 text-[#6366f1]" />
                   <span>Ask Assistant</span>

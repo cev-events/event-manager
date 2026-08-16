@@ -1,5 +1,14 @@
 # Changelogs & Version History
 
+## [2.3.1] - 2026-08-16
+
+### 🎨 Global Pill Button Styling & Brutalist Button Component Fix
+- **Brutalist Button Utility ([app/globals.css](./app/globals.css)):**
+  - Added `.brutalist-btn-primary` class with `#0a0a0a` background, white bold text, subtle shadow, and pill geometry (`border-radius: 9999px`).
+  - Fixed unstyled plain text rendering on public event detail pages.
+- **Global Pill Button Design ([app/events/[id]/page.tsx](./app/events/[id]/page.tsx)):**
+  - Standardized all CTA buttons ("Register Now", "Ask Assistant", and return CTAs) to use full pill geometry (`rounded-full`).
+
 ## [2.3.0] - 2026-08-16
 
 ### 📅 Smart Main Page Schedules Ordering & Public Event Registration Link Sanitization

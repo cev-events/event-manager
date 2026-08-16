@@ -128,6 +128,24 @@ body {
   transform: translateY(-1px);
 }
 
+.brutalist-btn-primary {
+  background-color: #0a0a0a;
+  color: #ffffff;
+  font-weight: 700;
+  border: 1px solid #0a0a0a;
+  border-radius: 9999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.brutalist-btn-primary:hover {
+  background-color: #262626;
+  border-color: #262626;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
 @layer utilities {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
