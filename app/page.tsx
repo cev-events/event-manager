@@ -135,7 +135,7 @@ export default function LandingHomePage() {
                 </div>
 
                 <p className="text-sm sm:text-base md:text-lg text-neutral-300 max-w-2xl leading-relaxed font-sans">
-                  We create digital event experiences that stand out. Unified multi-community event management, conflict-free slot reservation, WebP poster management, and discovery for College of Engineering Vadakara.
+                  The official multi-community event management, publishing, slot booking, and public discovery platform for College of Engineering Vadakara (CE Vadakara).
                 </p>
               </div>
 

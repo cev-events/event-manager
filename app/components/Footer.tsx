@@ -1,22 +1,10 @@
 // Created by Shibili Aman TK | GitHub: https://github.com/LordSA
 'use client';
 
-import React, { useState } from 'react';
-import { Globe, Coffee, Check, Copy, ExternalLink } from 'lucide-react';
+import React from 'react';
+import { Globe } from 'lucide-react';
 
 export default function Footer() {
-  const [copied, setCopied] = useState(false);
-  const [showQrModal, setShowQrModal] = useState(false);
-
-  const upiId = "shibiliamantk@oksbi";
-  const upiUrl = "upi://pay?pa=shibiliamantk@oksbi&pn=Shibili%20Aman&tn=Buy%20Me%20a%20Coffee&cu=INR";
-
-  const copyUpiId = () => {
-    navigator.clipboard.writeText(upiId);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
     <footer className="border-t border-neutral-800 bg-[#0a0a0a] text-neutral-400 pt-10 pb-8 px-4 sm:px-6 relative overflow-hidden">
       <div className="max-w-7xl mx-auto space-y-8">
@@ -32,51 +20,7 @@ export default function Footer() {
               The official multi-community event management, publishing, slot booking, and public discovery platform for College of Engineering Vadakara (CE Vadakara).
             </p>
           </div>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <a
-              href={upiUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 hover:border-amber-400 text-xs font-bold transition-all shadow-sm active:scale-95 group"
-            >
-              <Coffee className="w-4 h-4 text-amber-400 group-hover:rotate-12 transition-transform" />
-              <span>Buy Me a Coffee</span>
-            </a>
-
-            <button
-              onClick={() => setShowQrModal(!showQrModal)}
-              className="px-3.5 py-2.5 rounded-xl bg-[#161a29] hover:bg-[#1e2436] text-xs text-[#94a3b8] hover:text-white border border-[#1e2436] transition-colors"
-            >
-              UPI Info
-            </button>
-          </div>
         </div>
-
-        {showQrModal && (
-          <div className="p-4 bg-[#161a29] border border-[#1e2436] rounded-xl text-xs space-y-2 max-w-md animate-in fade-in slide-in-from-top-2 duration-200">
-            <div className="flex items-center justify-between">
-              <span className="text-white font-semibold">Support via UPI:</span>
-              <span className="font-mono text-[#6366f1] select-all">{upiId}</span>
-            </div>
-            <div className="flex items-center gap-2 pt-1">
-              <button
-                onClick={copyUpiId}
-                className="flex-1 py-1.5 px-3 rounded-lg bg-[#1e2436] hover:bg-[#2a334c] text-white font-medium flex items-center justify-center gap-1.5 transition-colors"
-              >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copied ? 'UPI ID Copied!' : 'Copy UPI ID'}</span>
-              </button>
-              <a
-                href={upiUrl}
-                className="py-1.5 px-3 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-medium flex items-center gap-1 transition-colors"
-              >
-                <span>Open Pay App</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
-          </div>
-        )}
 
         <div className="pt-6 border-t border-[#1e2436] flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
           <div className="flex flex-wrap items-center gap-3 text-[#94a3b8]">

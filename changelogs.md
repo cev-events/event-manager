@@ -1,5 +1,12 @@
 # Changelogs & Version History
 
+## [2.5.1] - 2026-08-16
+
+### 🧹 Clean Footer Refinement
+- **Site Footer Cleanup ([app/components/Footer.tsx](./app/components/Footer.tsx)):**
+  - Removed "Buy Me a Coffee" CTA button, "UPI Info" button, and UPI QR modal popover.
+  - Kept clean branding and developer credits section with direct Website, GitHub, and LinkedIn links.
+
 ## [2.5.0] - 2026-08-16
 
 ### ⚡ Mobile Header Scroll Performance Optimization
