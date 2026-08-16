@@ -1,5 +1,13 @@
 # Changelogs & Version History
 
+## [2.4.0] - 2026-08-16
+
+### 📱 Mobile Navbar Navigation & Dashboard/Login Integration
+- **Mobile Menu Navigation ([app/components/Navbar.tsx](./app/components/Navbar.tsx)):**
+  - Added **Home** (`/`) to `mobileNavLinks` in the mobile overlay menu (`01 Home`, `02 Events`, `03 Calendar`, `04 Communities`, `05 Support`).
+  - Added **Dashboard / Login** action button on the top mobile navbar header bar.
+  - Added full-width **Go to Dashboard / Login** action pill CTA inside the mobile menu drawer.
+
 ## [2.3.1] - 2026-08-16
 
 ### 🎨 Global Pill Button Styling & Brutalist Button Component Fix

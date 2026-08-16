@@ -115,6 +115,14 @@ export default function Navbar() {
     { name: "Support", href: "/support" },
   ];
 
+  const mobileNavLinks = [
+    { name: "Home", href: "/" },
+    { name: "Events", href: "/events" },
+    { name: "Calendar", href: "/calendar" },
+    { name: "Communities", href: "/community" },
+    { name: "Support", href: "/support" },
+  ];
+
   const isInitial = scrollY < 40;
   const darkMode = isOverDark;
 
@@ -130,8 +138,8 @@ export default function Navbar() {
         transition-all duration-[900ms]
         ease-[cubic-bezier(0.16,1,0.3,1)]
         ${isInitial
-          ? "px-8 sm:px-14 lg:px-16 py-7 sm:py-9"
-          : "px-6 sm:px-10 lg:px-14 py-4 sm:py-5"
+          ? "px-5 sm:px-14 lg:px-16 py-5 sm:py-9"
+          : "px-4 sm:px-10 lg:px-14 py-3 sm:py-5"
         }
       `}
     >
@@ -151,7 +159,7 @@ export default function Navbar() {
                 transition-all duration-[900ms]
                 ease-[cubic-bezier(0.16,1,0.3,1)]
                 ${isInitial
-                  ? "h-9 sm:h-10 lg:h-11"
+                  ? "h-8 sm:h-10 lg:h-11"
                   : "h-7 sm:h-8"
                 }
               `}
@@ -233,12 +241,12 @@ export default function Navbar() {
           })}
         </nav>
 
-        <div className="flex-1 flex justify-end items-center gap-3">
+        <div className="flex-1 flex justify-end items-center gap-2 sm:gap-3">
           {!loading && (
             <Link
               href={session ? "/admin" : "/login"}
               className={`
-                hidden sm:flex
+                flex
                 items-center gap-1.5
                 rounded-full
                 font-extrabold
@@ -246,18 +254,18 @@ export default function Navbar() {
                 ease-[cubic-bezier(0.16,1,0.3,1)]
                 ${isInitial
                   ? `
-                      px-6 lg:px-7
-                      py-3
-                      text-xs
+                      px-4 sm:px-6 lg:px-7
+                      py-2 sm:py-3
+                      text-[11px] sm:text-xs
                       ${darkMode
                     ? "bg-white text-black hover:bg-neutral-200"
                     : "bg-black text-white hover:bg-neutral-800"
                   }
                     `
                   : `
-                      px-5
-                      py-2.5
-                      text-xs
+                      px-3.5 sm:px-5
+                      py-1.5 sm:py-2.5
+                      text-[11px] sm:text-xs
                       ${darkMode
                     ? "bg-white text-black hover:bg-neutral-200"
                     : "bg-black text-white hover:bg-neutral-800"
@@ -353,8 +361,8 @@ export default function Navbar() {
           </button>
         </div>
 
-        <div className="flex flex-col space-y-6 my-auto">
-          {navLinks.map((link, index) => (
+        <div className="flex flex-col space-y-5 my-auto">
+          {mobileNavLinks.map((link, index) => (
             <Link
               key={link.name}
               href={link.href}
@@ -368,6 +376,19 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
+
+          {!loading && (
+            <div className="pt-4">
+              <Link
+                href={session ? "/admin" : "/login"}
+                onClick={() => setIsOpen(false)}
+                className="w-full py-4 px-6 rounded-full bg-white hover:bg-neutral-200 text-[#0a0a0a] font-extrabold text-sm uppercase tracking-wider flex items-center justify-between shadow-xl transition-all"
+              >
+                <span>{session ? "Go to Dashboard" : "Login / Account"}</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          )}
         </div>
 
         <div className="pt-6 border-t border-neutral-800 flex items-center justify-between text-[10px] text-neutral-500 font-mono uppercase tracking-wider">
