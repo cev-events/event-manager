@@ -192,54 +192,54 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
 
         <div className="p-6 sm:p-10 rounded-2xl space-y-8 relative overflow-hidden bg-white border border-neutral-200 shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <div className="lg:col-span-7 space-y-6">
+            <div className="order-2 lg:order-1 lg:col-span-7 space-y-6">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-[#6366f1] text-white border border-[#4f46e5]">
                   {eventData.category || 'Workshop'}
                 </span>
-                <span className="text-xs font-semibold px-2.5 py-1 rounded bg-[#161a29] border border-[#1e2436] text-[#94a3b8] flex items-center gap-1.5">
+                <span className="text-xs font-semibold px-2.5 py-1 rounded bg-neutral-100 border border-neutral-200 text-neutral-800 flex items-center gap-1.5">
                   <Users className="w-3.5 h-3.5 text-[#6366f1]" />
                   {communityName}
                 </span>
               </div>
 
-              <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-white font-display leading-tight">
+              <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-[#0a0a0a] font-display leading-tight">
                 {cleanTitle}
               </h1>
 
-              <div className="space-y-4 border-t border-b border-[#1e2436] py-5">
-                <p className="text-sm text-[#94a3b8] leading-relaxed line-clamp-3">
+              <div className="space-y-4 border-t border-b border-neutral-200 py-5">
+                <p className="text-sm text-neutral-600 leading-relaxed line-clamp-3">
                   {publicDescription}
                 </p>
 
-                <div className="p-3.5 rounded-xl bg-[#161a29] border border-[#1e2436] flex items-center justify-between gap-3 text-xs text-[#94a3b8]">
+                <div className="p-3.5 rounded-xl bg-indigo-50/80 border border-indigo-100 flex items-center justify-between gap-3 text-xs text-indigo-950">
                   <div className="flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-[#6366f1] shrink-0" />
-                    <span>Need full guidelines, timeline, or FAQs?</span>
+                    <span className="font-medium">Need full guidelines, timeline, or FAQs?</span>
                   </div>
                   <button
                     onClick={() => setAiDrawerOpen(true)}
-                    className="text-[#6366f1] hover:text-white font-bold uppercase tracking-wider text-[11px] underline shrink-0"
+                    className="text-[#6366f1] hover:text-indigo-800 font-bold uppercase tracking-wider text-[11px] underline shrink-0"
                   >
                     Ask Assistant &rarr;
                   </button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-[#94a3b8]">
-                <div className="p-4 rounded-xl bg-[#161a29] border border-[#1e2436] flex items-center space-x-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-neutral-600">
+                <div className="p-4 rounded-xl bg-neutral-50 border border-neutral-200 flex items-center space-x-3">
                   <Calendar className="w-5 h-5 text-[#6366f1]" />
                   <div>
-                    <div className="text-[10px] text-[#94a3b8] font-bold uppercase">Date</div>
-                    <div className="font-bold text-white text-sm">{eventData.event_date || eventData.date}</div>
+                    <div className="text-[10px] text-neutral-500 font-bold uppercase">Date</div>
+                    <div className="font-bold text-[#0a0a0a] text-sm">{eventData.event_date || eventData.date}</div>
                   </div>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#161a29] border border-[#1e2436] flex items-center space-x-3">
-                  <Clock className="w-5 h-5 text-purple-400" />
+                <div className="p-4 rounded-xl bg-neutral-50 border border-neutral-200 flex items-center space-x-3">
+                  <Clock className="w-5 h-5 text-purple-600" />
                   <div>
-                    <div className="text-[10px] text-[#94a3b8] font-bold uppercase">Time Slot</div>
-                    <div className="font-bold text-white text-sm">{formatTimeSlotTo12Hr(eventData.time_slot)}</div>
+                    <div className="text-[10px] text-neutral-500 font-bold uppercase">Time Slot</div>
+                    <div className="font-bold text-[#0a0a0a] text-sm">{formatTimeSlotTo12Hr(eventData.time_slot)}</div>
                   </div>
                 </div>
 
@@ -247,34 +247,34 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
                   const rawVenue = eventData.venue || 'Campus Setup / CEV';
                   const isOnline = rawVenue.toLowerCase().startsWith('online') || rawVenue.toLowerCase().includes('online');
                   const IconComp = isOnline ? Globe : MapPin;
-                  const iconColor = isOnline ? 'text-cyan-400' : 'text-indigo-400';
+                  const iconColor = isOnline ? 'text-cyan-600' : 'text-indigo-600';
                   const formatTag = isOnline ? 'Online' : 'Offline';
                   const cleanLoc = rawVenue.replace(/^(offline|online|hybrid)\s*•\s*/i, '').trim() || rawVenue;
 
                   return (
-                    <div className="p-4 rounded-xl bg-[#161a29] border border-[#1e2436] flex items-center space-x-3">
+                    <div className="p-4 rounded-xl bg-neutral-50 border border-neutral-200 flex items-center space-x-3">
                       <IconComp className={`w-5 h-5 ${iconColor}`} />
                       <div>
-                        <div className="text-[10px] text-[#94a3b8] font-bold uppercase flex items-center gap-1.5">
+                        <div className="text-[10px] text-neutral-500 font-bold uppercase flex items-center gap-1.5">
                           <span>Venue / Location</span>
                           <span className={`text-[9px] px-1.5 py-0.2 rounded font-extrabold uppercase ${
-                            isOnline ? 'bg-cyan-950 text-cyan-300 border border-cyan-800' : 'bg-indigo-950 text-indigo-300 border border-indigo-800'
+                            isOnline ? 'bg-cyan-100 text-cyan-800 border border-cyan-200' : 'bg-indigo-100 text-indigo-800 border border-indigo-200'
                           }`}>
                             {formatTag}
                           </span>
                         </div>
-                        <div className="font-bold text-white text-sm">{cleanLoc}</div>
+                        <div className="font-bold text-[#0a0a0a] text-sm">{cleanLoc}</div>
                       </div>
                     </div>
                   );
                 })()}
 
                 {eventData.perks && eventData.perks.trim() !== '' && (
-                  <div className="p-4 rounded-xl bg-[#161a29] border border-[#1e2436] flex items-center space-x-3">
-                    <Award className="w-5 h-5 text-amber-400" />
+                  <div className="p-4 rounded-xl bg-neutral-50 border border-neutral-200 flex items-center space-x-3">
+                    <Award className="w-5 h-5 text-amber-600" />
                     <div>
-                      <div className="text-[10px] text-[#94a3b8] font-bold uppercase">Highlights / Perks</div>
-                      <div className="font-bold text-white text-sm">{eventData.perks}</div>
+                      <div className="text-[10px] text-neutral-500 font-bold uppercase">Highlights / Perks</div>
+                      <div className="font-bold text-[#0a0a0a] text-sm">{eventData.perks}</div>
                     </div>
                   </div>
                 )}
@@ -295,7 +295,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
 
                 <button
                   onClick={() => setAiDrawerOpen(true)}
-                  className="flex-1 py-3.5 px-6 rounded-xl bg-[#161a29] hover:bg-[#1e2436] text-white font-bold text-xs border border-[#1e2436] flex items-center justify-center space-x-2 transition-colors uppercase tracking-wider"
+                  className="flex-1 py-3.5 px-6 rounded-xl bg-[#0a0a0a] hover:bg-neutral-800 text-white font-bold text-xs border border-black flex items-center justify-center space-x-2 transition-colors uppercase tracking-wider"
                 >
                   <MessageSquare className="w-4 h-4 text-[#6366f1]" />
                   <span>Ask Assistant</span>
@@ -304,7 +304,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
             </div>
 
             {/* Event Poster Image Container - 3:4 Aspect Ratio (1080:1440 portrait) */}
-            <div className="lg:col-span-5 relative w-full aspect-[3/4] rounded-xl overflow-hidden border-2 border-[#1e2436] bg-[#161a29] shadow-2xl">
+            <div className="order-1 lg:order-2 lg:col-span-5 relative w-full aspect-[3/4] rounded-xl overflow-hidden border border-neutral-200 bg-neutral-900 shadow-2xl">
               <img
                 src={posterSrc}
                 alt={cleanTitle}

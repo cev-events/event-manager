@@ -1,5 +1,22 @@
 # Changelogs & Version History
 
+## [2.2.0] - 2026-08-16
+
+### 🤖 AI Agent UI Modernization, Public Event Mobile Poster Ordering & Mobile Lenis Scroll Bypass
+- **Modern AI Drawer Agent UI ([app/components/EventAiDrawer.tsx](./app/components/EventAiDrawer.tsx)):**
+  - Upgraded drawer interface with modern dark glassmorphic panel styling (`bg-[#0c0d12]`, `#141722` message cards, subtle radial glow, `border-white/10`).
+  - Added dynamic mobile viewport height (`h-[100dvh] max-h-[100dvh]`) to eliminate mobile browser address bar height bugs.
+  - Added safe-area bottom inset padding (`pb-safe`) for iOS dynamic navigation bars and mobile virtual keyboards.
+  - Added live status pulse dot ("Live Assistant"), model context tag ("Online • Gemini Engine"), conversation reset button (`RotateCcw`), and 44px touch target close button.
+  - Built full Markdown renderer (`renderFormattedMessage`) supporting headers (`###`), bold text (`**text**`), inline code (`` `code` ``), bullet lists (`- ` / `* `), and numbered lists (`1. `).
+- **Public Event Slug Page Mobile Poster Reordering ([app/events/[id]/page.tsx](./app/events/[id]/page.tsx)):**
+  - Updated responsive CSS grid layout: poster image container is ordered FIRST (`order-1 lg:order-2 lg:col-span-5`) on mobile screens (`< lg`), placing the 3:4 aspect poster above event details, and content SECOND (`order-2 lg:order-1 lg:col-span-7`).
+  - Preserved 7-column content (left) and 5-column poster (right) layout on desktop viewports (`>= lg`).
+  - Enhanced contrast and typography across event detail cards.
+- **Mobile Lenis Scroll Bypass ([app/components/SmoothScroll.tsx](./app/components/SmoothScroll.tsx)):**
+  - Added mobile device detection (`window.innerWidth < 768` or `(max-width: 767px)` media query).
+  - Bypasses Lenis scroll loop exclusively on mobile screens to guarantee 100% smooth, native touch scrolling.
+
 ## [2.1.0] - 2026-08-12
 
 ### ⚡ Bearer Session Authorization & Manager Community User Resolution Fix

@@ -76,6 +76,14 @@ The design language of **CEV EVENTS** is governed by the **Nixtio-Inspired Edito
 * **Middle Days:** `mx-0 rounded-none border-x-0`
 * **End Day:** `mr-1 ml-0 rounded-r-md rounded-l-none border-l-0`
 
+### Modern Web AI Drawer UI & Mobile Scroll Optimization ([app/components/EventAiDrawer.tsx](./app/components/EventAiDrawer.tsx), [app/components/SmoothScroll.tsx](./app/components/SmoothScroll.tsx))
+* **Dynamic Mobile Viewport Height (`100dvh`):** Panel uses `h-[100dvh] max-h-[100dvh]` to eliminate mobile browser dynamic address bar overflow bugs.
+* **Mobile Safe-Area Bottom Insets (`pb-safe`):** Form input uses `pb-[max(0.75rem,env(safe-area-inset-bottom))]` for iOS gesture bars and mobile virtual keyboards.
+* **Live Status Badge & Chat Controls:** Features animated green pulse badge ("Live Assistant"), model context indicator ("Online • Gemini Engine"), conversation reset button (`RotateCcw`), and 44px touch target close button.
+* **Full Markdown Parser (`renderFormattedMessage`):** Supports headers (`###`), bold text (`**text**`), inline code (`` `code` ``), bullet lists (`- ` / `* `), and numbered lists.
+* **Mobile Lenis Scroll Bypass:** Bypasses Lenis scroll loop on mobile viewports (`window.innerWidth < 768`) to guarantee 100% smooth, native touch scrolling.
+* **Mobile Event Slug Poster Order:** In `app/events/[id]/page.tsx`, poster image container is ordered first (`order-1 lg:order-2 lg:col-span-5`) on mobile viewports (`< lg`), placing the 3:4 poster at the top above event details (`order-2 lg:order-1 lg:col-span-7`).
+
 ---
 
 ## 5. Modal Window Sizing, Production Code & Clean Standards
